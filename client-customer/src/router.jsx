@@ -1,11 +1,12 @@
 import { createBrowserRouter, redirect } from "react-router-dom";
 import App from "./App";
-import MenuView from "./views/MenuView";
+import HomeView from "./views/HomeView";
 import MenuFormView from "./views/MenuFormView";
 import CategoryView from "./views/CategoryView";
 import LoginView from "./views/loginView";
 import CategoryFormView from "./views/CategoryFormView";
-import RegisterAdminView from "./views/RegisterAdminView";
+import RegisterCustomerView from "./views/RegisterCustomerView";
+import LandingPage from "./views/LandingPage";
 
 const router = createBrowserRouter([
   {
@@ -19,8 +20,8 @@ const router = createBrowserRouter([
     // },
     children: [
       {
-        path: "/menu",
-        element: <MenuView />,
+        path: "/home",
+        element: <HomeView />,
       },
       {
         path: "/menu/form",
@@ -42,10 +43,6 @@ const router = createBrowserRouter([
         path: "/category/form/:id",
         element: <CategoryFormView />,
       },
-      {
-        path: "/register",
-        element: <RegisterAdminView />,
-      },
     ],
   },
   {
@@ -60,17 +57,30 @@ const router = createBrowserRouter([
     },
   },
   {
-    path: "/",
-    loader: () => {
-      let token = localStorage.userId;
-      if (token) {
-        return redirect("/menu");
-      } else {
-        return redirect("/login");
-      }
-      return null;
-    },
+    path: "/register",
+    element: <RegisterCustomerView />,
   },
+  {
+    path: "/",
+    element: <LandingPage />,
+  },
+
+
+
+
+  
+  // {
+  //   path: "/",
+  //   loader: () => {
+  //     let token = localStorage.userId;
+  //     if (token) {
+  //       return redirect("/menu");
+  //     } else {
+  //       return redirect("/login");
+  //     }
+  //     return null;
+  //   },
+  // },
 ]);
 
 export default router;
