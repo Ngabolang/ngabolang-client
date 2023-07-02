@@ -1,11 +1,9 @@
 import { combineReducers } from 'redux'
-import menusReducer from './menusReducer'
-import categoriesReducer from './categoriesReducer'
+import tripReducer from './tripReducer'
 import userReducer from './userReducer'
 
 const rootReducer = combineReducers({
-    menus: menusReducer,
-    categories: categoriesReducer,
+    trip: tripReducer,
     user: userReducer
 })
 

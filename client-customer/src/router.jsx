@@ -1,12 +1,12 @@
 import { createBrowserRouter, redirect } from "react-router-dom";
 import App from "./App";
 import HomeView from "./views/HomeView";
-import MenuFormView from "./views/MenuFormView";
-import CategoryView from "./views/CategoryView";
 import LoginView from "./views/loginView";
-import CategoryFormView from "./views/CategoryFormView";
 import RegisterCustomerView from "./views/RegisterCustomerView";
 import LandingPage from "./views/LandingPage";
+import MyTrip from "./views/MyTripMyAdventure";
+import TalkChat from "./views/TalkChat";
+import ImageUploader from "./views/example";
 
 const router = createBrowserRouter([
   {
@@ -20,28 +20,20 @@ const router = createBrowserRouter([
     // },
     children: [
       {
+        path: "/",
+        element: <LandingPage />,
+      },
+      {
         path: "/home",
         element: <HomeView />,
       },
       {
-        path: "/menu/form",
-        element: <MenuFormView />,
+        path: "/mytrip",
+        element: <MyTrip />,
       },
       {
-        path: "/menu/form/:id",
-        element: <MenuFormView />,
-      },
-      {
-        path: "/category",
-        element: <CategoryView />,
-      },
-      {
-        path: "/category/form",
-        element: <CategoryFormView />,
-      },
-      {
-        path: "/category/form/:id",
-        element: <CategoryFormView />,
+        path: "/chat",
+        element: <TalkChat />,
       },
     ],
   },
@@ -61,9 +53,10 @@ const router = createBrowserRouter([
     element: <RegisterCustomerView />,
   },
   {
-    path: "/",
-    element: <LandingPage />,
+    path: "/test",
+    element: <ImageUploader />,
   },
+
 
 
 

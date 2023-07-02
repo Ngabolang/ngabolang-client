@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../store/actions/actionCreator";
 import logo from "../assets/ngabolang.svg";
 
 function LoginView() {
@@ -16,9 +15,6 @@ function LoginView() {
   const navigate = useNavigate();
   const token = localStorage.access_token;
   // global state
-  const { user } = useSelector((state) => {
-    return state.user;
-  });
 
   // function
   function handleForm(event) {
@@ -31,8 +27,13 @@ function LoginView() {
   async function handleLogin(e) {
     setIsLoading(true);
     e.preventDefault();
-    dispatch(loginUser(formData));
+    // dispatch(loginUser(formData));
     setIsLoading(false);
+  }
+
+  async function handleAbout(e) {
+    e.preventDefault();
+    navigate("/");
   }
 
   async function handleRegister(e) {
@@ -47,7 +48,7 @@ function LoginView() {
     if (token) {
       navigate("/menu");
     }
-  }, [user]);
+  }, []);
 
   if (isLoading) {
     return (
@@ -73,13 +74,13 @@ function LoginView() {
           <img className="z-10 w-80" src={logo} alt="Logo" />
           <div className="z-10 bg-white shadow rounded lg:w-1/3  md:w-1/2 w-full p-10 mt-10 ">
             <p
-              tabindex="0"
+              tabIndex="0"
               className="focus:outline-none text-2xl font-extrabold leading-6 text-gray-800"
             >
               Login dengan akun anda
             </p>
             <p
-              tabindex="0"
+              tabIndex="0"
               className="focus:outline-none text-sm mt-4 font-medium leading-none text-gray-500"
             >
               Belum punya akun?{' '}
@@ -101,12 +102,12 @@ function LoginView() {
               <input
                 aria-labelledby="email"
                 type="email"
-                class="bg-gray-100 border rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
+                className="bg-gray-100 border rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
               />
             </div>
             <div className="mt-6  w-full">
               <label
-                for="pass"
+                htmlFor="pass"
                 className="text-sm font-medium leading-none text-gray-800"
               >
                 Password
@@ -115,7 +116,7 @@ function LoginView() {
                 <input
                   id="pass"
                   type="password"
-                  class="bg-gray-100 border rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
+                  className="bg-gray-100 border rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
                 />
                 <div className="absolute right-0 mt-2 mr-3 cursor-pointer">
                   <svg
@@ -135,10 +136,18 @@ function LoginView() {
             </div>
             <div className="mt-8">
               <button
+                onClick={handleAbout}
                 role="button"
-                class="focus:ring-2 focus:ring-offset-2 focus:ring-[#20c4ba] text-sm font-semibold leading-none text-white focus:outline-none bg-[#20c4ba] border rounded hover:bg-[#199d94] py-4 w-full"
+                className="focus:ring-2 focus:ring-offset-2 focus:ring-[#20c4ba] text-sm font-semibold leading-none text-white focus:outline-none bg-[#20c4ba] border rounded hover:bg-[#199d94] py-4 w-full"
               >
                 Masuk
+              </button>
+              <button
+                onClick={handleAbout}
+                role="button"
+                className="focus:ring-2 focus:ring-offset-2 focus:ring-[#20c4ba] text-sm font-semibold leading-none text-white focus:outline-none bg-[#ca3333] border rounded hover:bg-[#199d94] py-4 w-full"
+              >
+                Kembali
               </button>
             </div>
             <div className="w-full flex items-center justify-between py-5">
@@ -151,7 +160,7 @@ function LoginView() {
             <button
               aria-label="Continue with google"
               role="button"
-              class="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full mt-10"
+              className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full mt-10"
             >
               <svg
                 width="19"
@@ -205,7 +214,7 @@ function LoginView() {
             <button
               aria-label="Continue with twitter"
               role="button"
-              class="focus:outline-none  focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full mt-4"
+              className="focus:outline-none  focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full mt-4"
             >
               <svg
                 width="24"

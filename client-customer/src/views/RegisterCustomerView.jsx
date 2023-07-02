@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../store/actions/actionCreator";
 import { useNavigate, Link } from "react-router-dom";
+import { registerUser } from "../store/actions/actionCreator";
 
 function RegisterCustomerView() {
   // local state
   const [form, setForm] = useState({
+    username: "",
     email: "",
     password: "",
     phoneNumber: "",
+    photoProfile: "",
     address: "",
+    // role:'customer'
   });
 
   // global state
@@ -27,11 +30,30 @@ function RegisterCustomerView() {
     });
   }
 
-  function handleRegister(e) {
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const imageData = reader.result;
+      setForm({
+        ...form,
+        photoProfile: imageData,
+      });
+      // console.log(imageData);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  function handleAbout(e) {
     e.preventDefault();
-    dispatch(registerUser(form));
-    console.log(form);
-    navigate("/menu");
+    navigate("/");
+  }
+
+  async function handleRegister(e) {
+    e.preventDefault();
+    await dispatch(registerUser(form));
+    // navigate("/login");
   }
   // lifecycle
   useEffect(() => {
@@ -63,20 +85,30 @@ function RegisterCustomerView() {
               <form>
                 <div className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
                   <div>
-                    <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
+                    <label
+                      htmlFor="username"
+                      className="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+                    >
                       Username
                     </label>
                     <input
+                    onChange={handleForm}
+                      name="username"
                       type="text"
                       placeholder="John"
                       className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
                   </div>
                   <div>
-                    <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
+                    <label
+                      htmlFor="password"
+                      className="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+                    >
                       Password
                     </label>
                     <input
+                    onChange={handleForm}
+                      name="password"
                       type="password"
                       placeholder="Enter your password"
                       className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -84,10 +116,15 @@ function RegisterCustomerView() {
                   </div>
 
                   <div>
-                    <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
+                    <label
+                      htmlFor="phoneNumber"
+                      className="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+                    >
                       Phone number
                     </label>
                     <input
+                    onChange={handleForm}
+                      name="phoneNumber"
                       type="text"
                       placeholder="XXX-XX-XXXX-XXX"
                       className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -95,10 +132,15 @@ function RegisterCustomerView() {
                   </div>
 
                   <div>
-                    <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
+                    <label
+                      htmlFor="email"
+                      className="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+                    >
                       Email address
                     </label>
                     <input
+                      onChange={handleForm}
+                      name="email"
                       type="email"
                       placeholder="johnsnow@example.com"
                       className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -108,33 +150,73 @@ function RegisterCustomerView() {
                 <div className="my-4">
                   <label
                     className="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-                    htmlFor="description"
+                    htmlFor="address"
                   >
                     Address
                   </label>
                   <textarea
+                  onChange={handleForm}
                     className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     placeholder="Insert menu description here"
                     rows="4"
-                    name="description"
+                    name="address"
                   ></textarea>
                 </div>
-                <button className="flex items-center justify-between w-40 px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#20c4ba] rounded-md hover:bg-[#1ba89f] focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-                  <span>Sign Up </span>
-
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 h-5 rtl:-scale-x-100"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
+                <div className="my-4">
+                  <label
+                    className="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+                    htmlFor="photoProfile"
                   >
-                    <path
-                      fill-rule="evenodd"
-                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </button>
+                    Photo Profile
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                  />
+                  {form.photoProfile && <img className="w-40 mt-3" src={form.photoProfile} alt="Uploaded" />}
+                </div>
+                <div className="flex justify-between">
+                  <button
+                    onClick={handleRegister}
+                    className="flex items-center justify-between w-60 px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#20c4ba] rounded-md hover:bg-[#1ba89f] focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                  >
+                    <span>Daftar</span>
+
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-5 h-5 rtl:-scale-x-100"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </button>
+
+                  <button
+                    onClick={handleAbout}
+                    className="flex items-center justify-between w-60 px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#ca4545] rounded-md hover:bg-[#1ba89f] focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                  >
+                    <span>Kembali</span>
+
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-5 h-5 rtl:-scale-x-100"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                </div>
               </form>
             </div>
           </div>

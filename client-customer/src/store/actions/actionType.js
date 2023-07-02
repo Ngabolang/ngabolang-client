@@ -1,6 +1,6 @@
-export const FETCH_MENU = 'menu/fetchDetail'
-export const FETCH_MENUS = 'menus/fetchAll'
-export const FETCH_CATEGORIES = 'categories/fetchAll'
-export const FETCH_CATEGORY = 'categories/findId'
+
+export const FETCH_TRIPS = 'trip/fetchAll'
+export const FETCH_TRIP_DETAIL = 'trip/fetchDetail'
 export const USER_LOGIN = 'user/login'
-export const MENU_CREATED = 'menu/create'
+export const FETCH_USER_TRIP = 'user/trip'
+export const FETCH_CATEGORIES = 'trip/fetchCategories'

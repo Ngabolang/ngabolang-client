@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchMenus } from "../store/actions/actionCreator";
 import Carousel from "../components/carousel";
 import TripCard from "../components/TripCard";
 
@@ -9,21 +8,18 @@ function HomeView() {
   // local state
   const [isLoading, setIsLoading] = useState(true);
   // global State
-  const { menus } = useSelector((state) => {
-    return state.menus;
-  });
   // requirement
   const dispatch = useDispatch();
   // lifecycle
   useEffect(() => {
     if (isLoading) {
-      dispatch(fetchMenus())
-        .then((res) => {
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      // dispatch(fetchMenus())
+      //   .then((res) => {
+      //     setIsLoading(false);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
     }
   }, []);
 
@@ -44,7 +40,7 @@ function HomeView() {
 
   return (
     <>
-      <div className="container mx-auto mt-8">
+      <div className="container mx-auto mt-[13vh]">
         <Carousel images={images} width="100%" />
       </div>
       <div className="m-10">

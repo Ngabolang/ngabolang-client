@@ -1,30 +1,74 @@
-function NavBar() {
-  return (
-    <header className="fixed w-screen top-0 z-50 flex items-center justify-between bg-red-600 shadow-md">
-      {/* <!-- logo --> */}
-      <div className="flex items-center space-x-2 mx-10 p-3">
-        <div>
-          <svg
-            className="w-10"
-            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-            xmlns="http://www.w3.org/2000/svg"
-            version="1.1"
-            xmlns:cc="http://creativecommons.org/ns#"
-            xmlns:dc="http://purl.org/dc/elements/1.1/"
-            viewBox="0 0 272.70001 238.5"
-          >
-            <path
-              fill="#fc0"
-              d="m195.8 17.933c23.3 0 42.2 98.3 42.2 219.7h34c0-130.7-34.3-236.5-76.3-236.5-24 0-45.2 31.7-59.2 81.5-14-49.8-35.2-81.5-59-81.5-42 0-76.2 105.7-76.2 236.4h34c0-121.4 18.7-219.6 42-219.6s42.2 90.8 42.2 202.8h33.8c0-112 19-202.8 42.3-202.8"
-            />
-          </svg>
-        </div>
+import { useNavigate } from "react-router-dom";
+import logo from "../assets/ngabolang.png";
 
-        <div className="font-bold text-white p-3 text-2xl">
-          McDonald's Admin Panel
+function NavBar() {
+  const navigate = useNavigate();
+
+  async function handleHome(e) {
+    e.preventDefault();
+    navigate("/home");
+  }
+  async function handleAbout(e) {
+    e.preventDefault();
+    navigate("/");
+  }
+  async function handleTrip(e) {
+    e.preventDefault();
+    navigate("/mytrip");
+  }
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    navigate("/login");
+  }
+
+  async function handleRegister(e) {
+    e.preventDefault();
+    navigate("/register");
+  }
+
+  return (
+    <nav className="fixed top-0 z-50 flex items-center justify-between px-40 bg-white text-black w-screen">
+      <div className="flex items-center my-3">
+        <div className="mr-10 cursor-pointer" onClick={handleAbout}>
+          <img src={logo} alt="Logo" className="w-[14vh]" />
+        </div>
+        <div className="flex items-center">
+          <a
+            onClick={handleAbout}
+            className="mx-3 hover:text-gray-400 cursor-pointer"
+          >
+            Tentang Kami
+          </a>
+          <a
+            onClick={handleHome}
+            className="mx-3 hover:text-gray-400 cursor-pointer"
+          >
+            Beranda
+          </a>
+          <a
+            onClick={handleTrip}
+            className="mx-3 hover:text-gray-400 cursor-pointer"
+          >
+            Trip
+          </a>
         </div>
       </div>
-    </header>
+      <div>
+        <button
+          onClick={handleLogin}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+        >
+          Login
+        </button>
+        <button
+          onClick={handleRegister}
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Register
+        </button>
+      </div>
+    </nav>
   );
 }
 
