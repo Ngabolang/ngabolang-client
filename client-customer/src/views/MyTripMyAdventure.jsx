@@ -19,9 +19,9 @@ function MyTrip() {
 
     if (talkLoaded) {
       const customer = new Talk.User({
-        id: "2",
-        name: "jess",
-        email: "jessicawells@example.com",
+        id: "10",
+        name: "wira",
+        email: "asdasada@example.com",
         photoUrl: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=738&q=80',
         welcomeMessage: "Hello!",
         role: "default",

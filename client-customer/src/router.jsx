@@ -7,6 +7,7 @@ import LandingPage from "./views/LandingPage";
 import MyTrip from "./views/MyTripMyAdventure";
 import TalkChat from "./views/TalkChat";
 import ImageUploader from "./views/example";
+import TripDetail from "./views/TripDetail";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "/chat",
         element: <TalkChat />,
+      },
+      {
+        path: "/trip/:id",
+        element: <TripDetail />,
       },
     ],
   },
