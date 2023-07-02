@@ -41,9 +41,11 @@
   color: #888;
 }
 .sidebar {
-  color: black;
   padding-top: 20px;
   height: 100vh;
+}
+.bg-sidebar {
+  background-color: #D9D9D9;
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
 }
 .sidebar-item {
@@ -91,7 +93,16 @@ a:hover{
 .card-image-cat{
   height: 200px;
   width: 200px; 
+  border: 1px solid #adadad;
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: contain;
 }
+
+.profile-picture {
+  width: 75px;
+  height: 75px;
+  border-radius: 5%;
+  object-fit: cover;
+}
+

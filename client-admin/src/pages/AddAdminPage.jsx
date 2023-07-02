@@ -12,6 +12,7 @@ export default function AddAdminPage() {
     address: "",
     photoProfile: "",
   });
+  const [error, setError] = useState("");
 
   function handleChange(event) {
     setForm({
@@ -23,26 +24,30 @@ export default function AddAdminPage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    try {
-      let payload = {
-        username: form.username,
-        email: form.email,
-        password: form.password,
-        role: "admin",
-        phoneNumber: form.phoneNumber,
-        address: form.address,
-        photoProfile: form.photoProfile,
-      };
-      // await dispatch(addAdmin(payload));
-      await Swal.fire({
-        title: "sucess",
-        text: "new Admin added",
-        icon: "success",
-        confirmButtonText: "Okay",
-      });
-      navigate("/");
-    } catch (error) {
-      console.log(error);
+    if (!form.username || !form.email || !form.password || !form.photoProfile) {
+      setError("Please fill all the field");
+    } else {
+      try {
+        let payload = {
+          username: form.username,
+          email: form.email,
+          password: form.password,
+          role: "admin",
+          phoneNumber: form.phoneNumber,
+          address: form.address,
+          photoProfile: form.photoProfile,
+        };
+        // await dispatch(addAdmin(payload));
+        await Swal.fire({
+          title: "sucess",
+          text: "new Admin added",
+          icon: "success",
+          confirmButtonText: "Okay",
+        });
+        navigate("/");
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 
@@ -53,7 +58,8 @@ export default function AddAdminPage() {
           <h1 className="h3 mb-0">Add new Admin</h1>
         </div>
 
-        <div className="col-md-6 pl-3">
+        <div className="pl-3">
+          {error && <div className="alert alert-danger">{error}</div>}
           <form onSubmit={handleSubmit}>
             <div className="form-group mb-3">
               <label>Username</label>

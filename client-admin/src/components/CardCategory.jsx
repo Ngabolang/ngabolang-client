@@ -2,7 +2,7 @@ export default function CardCategory() {
   return (
     <div className="card text-white m-3 p-0 shadow">
       <img
-        src="https://images.unsplash.com/photo-1604999333679-b86d54738315?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1925&q=80"
+        src="https://www.kintamani.id/wp-content/uploads/Keindahan-Pantai-Kuta-Bali-yang-sanggup-menarik-ribuan-wisatawan-setiap-tahunnya-768x971.jpg"
         className="card-image-cat"
         alt="Background"
       />

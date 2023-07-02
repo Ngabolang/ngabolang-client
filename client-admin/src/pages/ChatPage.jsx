@@ -12,7 +12,7 @@ export default function ChatPage() {
         id: "1",
         name: "Syamsul",
         email: "henrymill@example.com",
-        photoUrl: "henry.jpeg",
+        photoUrl: "https://avatars.githubusercontent.com/u/50189632?v=4",
         welcomeMessage: `hello`,
         role: "admin",
       }); //ambil data dari current user
