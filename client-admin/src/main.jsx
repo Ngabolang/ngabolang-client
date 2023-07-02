@@ -18,6 +18,7 @@ import CategoriesPage from "./pages/CategoriesPage";
 import ClosedTripsPage from "./pages/ClosedTripsPage";
 import ChatPage from "./pages/ChatPage";
 import GroupChat from "./pages/GroupChat";
+import AddCategory from "./pages/AddCategory";
 export const router = createBrowserRouter([
   {
     path: "/login",
@@ -61,6 +62,10 @@ export const router = createBrowserRouter([
       {
         path: "/groupChats/:tripId",
         element: <GroupChat />,
+      },
+      {
+        path: "/newCategory",
+        element: <AddCategory />,
       },
     ],
   },
