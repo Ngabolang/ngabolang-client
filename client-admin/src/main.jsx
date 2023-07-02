@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-// import './index.css'
+import "./App.css";
 
 import { Provider } from "react-redux";
 import store from "./stores";
@@ -13,6 +13,9 @@ import {
 import App from "./App";
 import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
+import AddAdminPage from "./pages/AddAdminPage";
+import CategoriesPage from "./pages/CategoriesPage";
+import ClosedTripsPage from "./pages/ClosedTripsPage";
 export const router = createBrowserRouter([
   {
     path: "/login",
@@ -36,6 +39,18 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <DashboardPage />,
+      },
+      {
+        path: "/newAdmin",
+        element: <AddAdminPage />,
+      },
+      {
+        path: "/categories",
+        element: <CategoriesPage />,
+      },
+      {
+        path: "/tripClose",
+        element: <ClosedTripsPage />,
       },
     ],
   },

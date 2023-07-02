@@ -1,5 +1,7 @@
 #root {
   max-width: auto;
+  height: 100%;
+  margin: 0;
 }
 .logo-login {
   height: 8em;
@@ -10,10 +12,10 @@
   width: 12.5em;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #20c4ba);
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em #20c4ba);
 }
 
 @keyframes logo-spin {
@@ -40,7 +42,6 @@
 }
 .sidebar {
   color: black;
-  height: 100%;
   padding-top: 20px;
   height: 100vh;
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
@@ -52,7 +53,7 @@
 }
 
 .active{
-  color: #000dffaa;
+  color: #20c4ba;
 }
 a{
   color: black;
@@ -66,7 +67,31 @@ a:hover{
   background-color: #D9D9D9;
 }
 
-.btn-ngab{
+.btn-primary{
   background-color: #20c4ba;
   color: white;
+  border-color: #20c4ba;
+}
+.bg-login{
+  /* The image used */
+  background-image: url("https://images.unsplash.com/photo-1540776398900-46755652c969?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1157&q=80");
+
+  /* Full height */
+  height: 100vh;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.shadow-text{
+  text-shadow: rgb(0, 0, 0) 1px 0 10px;
+}
+
+.card-image-cat{
+  height: 200px;
+  width: 200px; 
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: contain;
 }
