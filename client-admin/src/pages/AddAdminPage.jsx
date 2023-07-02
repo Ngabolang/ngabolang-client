@@ -10,6 +10,7 @@ export default function AddAdminPage() {
     password: "",
     phoneNumber: "",
     address: "",
+    photoProfile: "",
   });
 
   function handleChange(event) {
@@ -30,6 +31,7 @@ export default function AddAdminPage() {
         role: "admin",
         phoneNumber: form.phoneNumber,
         address: form.address,
+        photoProfile: form.photoProfile,
       };
       // await dispatch(addAdmin(payload));
       await Swal.fire({
@@ -107,6 +109,16 @@ export default function AddAdminPage() {
                 value={form.address}
                 onChange={handleChange}
                 placeholder="Enter address"
+              />
+            </div>
+            <div className="form-group mb-3">
+              <label>PhotoProfile</label>
+              <input
+                type="file"
+                name="photoProfile"
+                className="form-control"
+                value={form.photoProfile}
+                onChange={handleChange}
               />
             </div>
 

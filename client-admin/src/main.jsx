@@ -16,6 +16,8 @@ import DashboardPage from "./pages/DashboardPage";
 import AddAdminPage from "./pages/AddAdminPage";
 import CategoriesPage from "./pages/CategoriesPage";
 import ClosedTripsPage from "./pages/ClosedTripsPage";
+import ChatPage from "./pages/ChatPage";
+import GroupChat from "./pages/GroupChat";
 export const router = createBrowserRouter([
   {
     path: "/login",
@@ -51,6 +53,14 @@ export const router = createBrowserRouter([
       {
         path: "/tripClose",
         element: <ClosedTripsPage />,
+      },
+      {
+        path: "/chats",
+        element: <ChatPage />,
+      },
+      {
+        path: "/groupChats/:tripId",
+        element: <GroupChat />,
       },
     ],
   },
