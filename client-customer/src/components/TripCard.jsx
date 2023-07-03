@@ -1,61 +1,88 @@
+import { useNavigate } from "react-router-dom";
+import Star from "./Star";
+
 function TripCard() {
+  const navigate = useNavigate();
+
+  const trip = {
+    id: 1,
+    name: "Wisata Labuan Bajo Sailing Komodo",
+    categoryId: 1,
+    adminId: 3,
+    date: "2023-08-17T00:00:00.000Z",
+    price: 2000000,
+    status: true,
+    imgUrl:
+      "https://res.klook.com/image/upload/Mobile/City/rv76yqukp2hey0fckh99.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=kQIri35Yjds",
+    duration: 3,
+    meetingPoint: "Jakarta",
+    location: "Nusa Tenggara Timur",
+    limit: 30,
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat architecto necessitatibus tempora molestias explicabo delectus distinctio cupiditate esse totam, quibusdam ea vitae fugit natus numquam cumque, quisquam accusamus quis quam.",
+    chatId: "wisata-labuan-bajo-sailing-komodo",
+    createdAt: "2023-07-03T01:09:28.291Z",
+    updatedAt: "2023-07-03T01:09:28.291Z",
+    Category: {
+      id: 1,
+      name: "Beaches",
+      imgUrl:
+        "https://img.freepik.com/free-photo/beautiful-tropical-empty-beach-sea-ocean-with-white-cloud-blue-sky-background_74190-13668.jpg?size=626&ext=jpg&uid=R41671461&ga=GA1.2.468604856.1683977961&semt=sph",
+      createdAt: "2023-07-03T01:09:28.285Z",
+      updatedAt: "2023-07-03T01:09:28.285Z",
+    },
+  };
+
+  const id = 22;
+
+  const formatter = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  });
+
+  function handleDetail(e) {
+    e.preventDefault()
+    navigate(`/trip/${id}`);
+  }
+
   return (
-    <div className="flex items-center justify-center py-6">
-      <div className="px-3">
-        <button className="bg-white shadow-xl rounded-lg overflow-hidden cursor-pointer">
-          <div
-            className="bg-cover bg-center h-56 p-4"
-            style={{
-              backgroundImage: `url('https://images.unsplash.com/photo-1475855581690-80accde3ae2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')`,
-            }}
-          >
-            <div className="flex justify-end">
-              <svg
-                className="h-6 w-6 text-white fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12.76 3.76a6 6 0 0 1 8.48 8.48l-8.53 8.54a1 1 0 0 1-1.42 0l-8.53-8.54a6 6 0 0 1 8.48-8.48l.76.75.76-.75zm7.07 7.07a4 4 0 1 0-5.66-5.66l-1.46 1.47a1 1 0 0 1-1.42 0L9.83 5.17a4 4 0 1 0-5.66 5.66L12 18.66l7.83-7.83z"></path>
-              </svg>
-            </div>
+    <div className="mx-5 w-80">
+      <div className="bg-white shadow-md rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700">
+        <div className="h-40 overflow-hidden">
+          <img
+            src={trip.imgUrl}
+            alt="Card Image"
+            className="object-cover w-full h-full rounded-t-lg"
+          />
+        </div>
+        <div className="px-5 pb-5">
+          <h3 className="text-gray-900 font-semibold text-xl tracking-tight dark:text-white">
+            {trip.name}
+          </h3>
+          <p>{trip.location}</p>
+          <div className="flex items-center mt-2.5 mb-5">
+            <Star />
+            <Star />
+            <Star />
+            <Star />
+            <Star />
+            <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
+              5.0
+            </span>
           </div>
-          <div className="p-4">
-            <p className="uppercase tracking-wide text-sm font-bold text-gray-700">
-              Detached house • 5y old
-            </p>
-            <p className="text-3xl text-gray-900">$750,000</p>
-            <p className="text-gray-700">742 Evergreen Terrace</p>
+          <div className="flex items-end flex-col">
+            <span className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+              {formatter.format(trip.price)}
+            </span>
+            <a
+              onClick={handleDetail}
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer"
+            >
+              Selengkapnya
+            </a>
           </div>
-          <div className="flex p-4 border-t border-gray-300 text-gray-700">
-            <div className="flex-1 inline-flex items-center">
-              <svg
-                className="h-6 w-6 text-gray-600 fill-current mr-3"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path d="M0 16L3 5V1a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v4l3 11v5a1 1 0 0 1-1 1v2h-1v-2H2v2H1v-2a1 1 0 0 1-1-1v-5zM19 5h1V1H4v4h1V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1h2V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1zm0 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V6h-2v2a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6H3.76L1.04 16h21.92L20.24 6H19zM1 17v4h22v-4H1zM6 4v4h4V4H6zm8 0v4h4V4h-4z"></path>
-              </svg>
-              <p>
-                <span className="text-gray-900 font-bold">3</span> Bedrooms
-              </p>
-            </div>
-            <div className="flex-1 inline-flex items-center">
-              <svg
-                className="h-6 w-6 text-gray-600 fill-current mr-3"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M17.03 21H7.97a4 4 0 0 1-1.3-.22l-1.22 2.44-.9-.44 1.22-2.44a4 4 0 0 1-1.38-1.55L.5 11h7.56a4 4 0 0 1 1.78.42l2.32 1.16a4 4 0 0 0 1.78.42h9.56l-2.9 5.79a4 4 0 0 1-1.37 1.55l1.22 2.44-.9.44-1.22-2.44a4 4 0 0 1-1.3.22zM21 11h2.5a.5.5 0 1 1 0 1h-9.06a4.5 4.5 0 0 1-2-.48l-2.32-1.15A3.5 3.5 0 0 0 8.56 10H.5a.5.5 0 0 1 0-1h8.06c.7 0 1.38.16 2 .48l2.32 1.15a3.5 3.5 0 0 0 1.56.37H20V2a1 1 0 0 0-1.74-.67c.64.97.53 2.29-.32 3.14l-.35.36-3.54-3.54.35-.35a2.5 2.5 0 0 1 3.15-.32A2 2 0 0 1 21 2v9zm-5.48-9.65l2 2a1.5 1.5 0 0 0-2-2zm-10.23 17A3 3 0 0 0 7.97 20h9.06a3 3 0 0 0 2.68-1.66L21.88 14h-7.94a5 5 0 0 1-2.23-.53L9.4 12.32A3 3 0 0 0 8.06 12H2.12l3.17 6.34z"
-                ></path>
-              </svg>
-              <p>
-                <span className="text-gray-900 font-bold">2</span> Bathrooms
-              </p>
-            </div>
-          </div>
-        </button>
+        </div>
       </div>
     </div>
   );

@@ -1,11 +1,9 @@
 import { FETCH_CATEGORIES, FETCH_TRIPS, FETCH_TRIP_DETAIL, USER_LOGIN } from "./actionType"
-// import multer from 'multer'
-
+import axios from 'axios'
+import Swal from 'sweetalert2'
 const baseUrl = "https://mcd-server.jatisuryo.com/";
 // http://localhost:3000/
 // https://mcd-server.jatisuryo.com/
-
-import Swal from 'sweetalert2'
 
 export const fetchTripAllSuccess = (payload) => {
     return {
@@ -32,6 +30,41 @@ export const userLoginSuccess = (payload) => {
     return {
         type: USER_LOGIN,
         payload: payload
+    }
+}
+
+export const paymentGateway = (id) => {
+    return async (dispatch) => {
+        try {
+            let { data } = await axios({
+                url: this.baseurl + `/generate-midtrans/${id}`,
+                method: 'post',
+                headers: {
+                    access_token_app: localStorage.access_token_app
+                }
+            })
+
+            let cb = await this.updateStatus(id)
+            window.snap.pay(data.token, {
+                onSuccess: async function (result) {
+                    /* You may add your own implementation here */
+                    await Swal.fire({
+                        text: 'Success To Pay, Enjoy!!!',
+                        icon: 'success',
+                        confirmButtonText: 'Okay'
+                    })
+                    cb()
+                }
+            })
+        } catch (error) {
+            console.log(error)
+            Swal.fire({
+                title: 'Error!',
+                text: error.response.data.message,
+                icon: 'error',
+                confirmButtonText: 'Cool'
+            })
+        }
     }
 }
 
