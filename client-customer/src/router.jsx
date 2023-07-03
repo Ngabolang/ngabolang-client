@@ -45,13 +45,13 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginView />,
-    loader: () => {
-      let token = localStorage.userId;
-      if (token) {
-        return redirect("/menu");
-      }
-      return null;
-    },
+    // loader: () => {
+    //   let token = localStorage.userId;
+    //   if (token) {
+    //     return redirect("/menu");
+    //   }
+    //   return null;
+    // },
   },
   {
     path: "/register",

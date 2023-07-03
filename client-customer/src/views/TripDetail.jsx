@@ -2,6 +2,10 @@ import { useParams } from "react-router-dom";
 
 export default function TripDetail() {
   const { id } = useParams();
+  const vacation = {
+    youtubeUrl: "https://www.youtube.com/embed/Bl0s-1c5L0M",
+    title: "acanana",
+  };
 
   return (
     <>
@@ -33,13 +37,17 @@ export default function TripDetail() {
             src="https://source.unsplash.com/random/200x200/?3"
           />
         </div>
+        <iframe
+          width="100%"
+          height="315"
+          src={vacation.youtubeUrl}
+          title={vacation.title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        ></iframe>
         <div className="m-10">
-          <p className="text-3xl py-3 font-bold">
-            JALAN JALAN KE TRIP {id}
-          </p>
-          <p className="py-3">
-            sdadadadadsadasdadsdsasds
-          </p>
+          <p className="text-3xl py-3 font-bold">JALAN JALAN KE TRIP {id}</p>
+          <p className="py-3">sdadadadadsadasdadsdsasds</p>
         </div>
       </section>
     </>
