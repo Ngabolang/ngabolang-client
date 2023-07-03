@@ -18,7 +18,7 @@ export default function ChatPage() {
       }); //ambil data dari current user
 
       const session = new Talk.Session({
-        appId: "tfF99kzl",
+        appId: "tKz5u74h",
         me: currentUser,
       });
 

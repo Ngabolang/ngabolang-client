@@ -2,7 +2,9 @@ import Talk from "talkjs";
 import { useParams } from "react-router";
 import { useEffect, useState, useRef } from "react";
 export default function GroupChat() {
-  const { tripId } = useParams();
+  // const { tripId } = useParams();
+  const tripId = "bali";
+
   const chatboxEl = useRef();
   // wait for TalkJS to load
   const [talkLoaded, markTalkLoaded] = useState(false);
@@ -21,7 +23,7 @@ export default function GroupChat() {
       }); //ini akan selalu admin yg nge create
 
       const session = new Talk.Session({
-        appId: "tfF99kzl",
+        appId: "tKz5u74h",
         me: currentUser,
       });
 
@@ -31,7 +33,7 @@ export default function GroupChat() {
       conversation.setParticipant(currentUser);
       conversation.setAttributes({
         photoUrl:
-          "https://rimage.gnst.jp/livejapan.com/public/article/detail/a/00/02/a0002487/img/basic/a0002487_main.jpg?20230106161700", //foto grup
+          "https://suntourismpune.files.wordpress.com/2022/01/bali-tours-from-pune-g2g.jpg", //foto grup
         subject: `Trip to ${tripId}`, //judul grup
       });
 
@@ -46,7 +48,7 @@ export default function GroupChat() {
   return (
     <>
       <section className="col-md-10">
-        <div style={{ height: "100%", width: "100%" }} ref={chatboxEl} />
+        <div style={{ height: "100%" }} ref={chatboxEl} />
       </section>
     </>
   );
