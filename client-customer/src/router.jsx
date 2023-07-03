@@ -6,8 +6,9 @@ import RegisterCustomerView from "./views/RegisterCustomerView";
 import LandingPage from "./views/LandingPage";
 import MyTrip from "./views/MyTripMyAdventure";
 import TalkChat from "./views/TalkChat";
-import ImageUploader from "./views/example";
 import TripDetail from "./views/TripDetail";
+import Categories from "./views/CategoriesView";
+import Trips from "./views/TripsView";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,14 @@ const router = createBrowserRouter([
         path: "/trip/:id",
         element: <TripDetail />,
       },
+      {
+        path: "/trip/",
+        element: <Trips />,
+      },
+      {
+        path: "/categories",
+        element: <Categories />,
+      },
     ],
   },
   {
@@ -57,16 +66,7 @@ const router = createBrowserRouter([
     path: "/register",
     element: <RegisterCustomerView />,
   },
-  {
-    path: "/test",
-    element: <ImageUploader />,
-  },
 
-
-
-
-
-  
   // {
   //   path: "/",
   //   loader: () => {

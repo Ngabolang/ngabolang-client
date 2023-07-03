@@ -1,4 +1,4 @@
-import { FETCH_CATEGORIES,FETCH_TRIPS,FETCH_TRIP_DETAIL,USER_LOGIN } from "./actionType"
+import { FETCH_CATEGORIES, FETCH_TRIPS, FETCH_TRIP_DETAIL, USER_LOGIN } from "./actionType"
 // import multer from 'multer'
 
 const baseUrl = "https://mcd-server.jatisuryo.com/";
@@ -104,6 +104,41 @@ export const registerUser = (payload) => {
 //         }
 //     }
 // }
+
+export const loginGoogleUser = (payload) => {
+    return async (dispatch) => {
+        // try {
+        //     let response = await fetch(baseUrl + `admin/login`, {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify(payload),
+        //     });
+        //     console.log(response);
+        //     let result = await response.json();
+        //     if(!response.ok) throw {res:response.status,result} 
+        //     localStorage.access_token = result.access_token;
+        //     localStorage.userId = result.userId;
+        //     localStorage.email = result.email;
+        //     dispatch(userLoginSuccess(result))
+        //     Swal.fire({
+        //         icon: 'success',
+        //         title: 'Success logged in',
+        //         showConfirmButton: false,
+        //         timer: 1500
+        //       })
+        // } catch (error) {
+        //     console.log(error);
+        //     Swal.fire({
+        //         icon: 'error',
+        //         title: `Error ${error.res}`,
+        //         text: error.result.message
+        //       })
+        // }
+        localStorage.access_token = payload
+    }
+}
 
 
 // export const fetchTrips = () => {

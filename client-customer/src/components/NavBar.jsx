@@ -3,18 +3,37 @@ import logo from "../assets/ngabolang.png";
 
 function NavBar() {
   const navigate = useNavigate();
-
+  const token = localStorage.access_token;
+  
   async function handleHome(e) {
     e.preventDefault();
     navigate("/home");
   }
+
   async function handleAbout(e) {
     e.preventDefault();
     navigate("/");
   }
+
   async function handleTrip(e) {
     e.preventDefault();
+    navigate("/trip");
+  }
+
+  async function handleCategory(e) {
+    e.preventDefault();
+    navigate("/categories");
+  }
+
+  async function handleMyTrip(e) {
+    e.preventDefault();
     navigate("/mytrip");
+  }
+
+  async function handleLogOut(e) {
+    e.preventDefault();
+    localStorage.clear();
+    navigate("/login");
   }
 
   async function handleLogin(e) {
@@ -52,22 +71,45 @@ function NavBar() {
           >
             Trip
           </a>
+          <a
+            onClick={handleCategory}
+            className="mx-3 hover:text-gray-400 cursor-pointer"
+          >
+            Kategori
+          </a>
         </div>
       </div>
-      <div>
-        <button
-          onClick={handleLogin}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-        >
-          Masuk
-        </button>
-        <button
-          onClick={handleRegister}
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Daftar
-        </button>
-      </div>
+      {token ? (
+        <div>
+          <a
+            onClick={handleMyTrip}
+            className="mx-3 hover:text-gray-400 cursor-pointer"
+          >
+            Trip Saya
+          </a>
+          <a
+            onClick={handleLogOut}
+            className="mx-3 hover:text-gray-400 cursor-pointer"
+          >
+            Keluar
+          </a>
+        </div>
+      ) : (
+        <div>
+          <button
+            onClick={handleLogin}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+          >
+            Masuk
+          </button>
+          <button
+            onClick={handleRegister}
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Daftar
+          </button>
+        </div>
+      )}
     </nav>
   );
 }
