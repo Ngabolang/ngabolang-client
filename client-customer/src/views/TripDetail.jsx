@@ -53,25 +53,6 @@ export default function TripDetail() {
   ];
 
   const Carousel = ({ cards }) => {
-    const settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-    };
-  
-    return (
-      <Slider {...settings}>
-        {cards.map((card, index) => (
-          <div key={index}>
-            <h1 className="text-2xl font-bold">{card.title}</h1>
-            <p className="text-gray-600">{card.content}</p>
-          </div>
-        ))}
-      </Slider>
-    );
-  };
 
   const containerStyle = {
     width: "500px",
@@ -91,6 +72,59 @@ export default function TripDetail() {
   const onLoad = (marker) => {
     console.log("marker: ", marker);
   };
+  
+    const settings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+    };
+  
+    return (
+      <Slider {...settings}>
+        {cards.map((card, index) => (
+          <div
+          key={index}
+          class="rounded-lg shadow-lg bg-gray-200 w-full flex flex-row flex-wrap p-3 antialiased"
+          style={{
+            backgroundImage: `url(${card.imgUrl})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundBlendMode: "multiply",
+          }}
+        >
+          <div class="md:w-1/3 w-full">
+            <LoadScript googleMapsApiKey="AIzaSyDX5Eak21bfqjXb0Un9RJip6_RHOaJDDug">
+              <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={center}
+                zoom={13}
+              >
+                <Marker onLoad={onLoad} position={position} />
+                <></>
+              </GoogleMap>
+            </LoadScript>
+          </div>
+          <div class="md:w-2/3 w-full px-3 flex flex-row flex-wrap">
+            <div class="w-full text-right text-gray-700 font-semibold relative pt-3 md:pt-0">
+              <div class="text-2xl text-white leading-tight">Admin User</div>
+              <div class="text-normal text-gray-300 hover:text-gray-400 cursor-pointer">
+                <span class="border-b border-dashed border-gray-500 pb-1">
+                  Administrator
+                </span>
+              </div>
+              <div class="text-sm text-gray-300 hover:text-gray-400 cursor-pointer md:absolute pt-3 md:pt-0 bottom-0 right-0">
+                Last Seen: <b>2 days ago</b>
+              </div>
+            </div>
+          </div>
+        </div>
+        ))}
+      </Slider>
+    );
+  };
+
 
   useEffect(() => {}, []);
 
@@ -139,41 +173,11 @@ export default function TripDetail() {
           <p className="py-3">sdadadadadsadasdadsdsasds</p>
         </div>
 
-        <div
-          class="rounded-lg shadow-lg bg-gray-200 w-full flex flex-row flex-wrap p-3 antialiased"
-          style={{
-            backgroundImage: `url(${destinations[0].imgUrl})`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            backgroundBlendMode: "multiply",
-          }}
-        >
-          <div class="md:w-1/3 w-full">
-            <LoadScript googleMapsApiKey="AIzaSyDX5Eak21bfqjXb0Un9RJip6_RHOaJDDug">
-              <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={center}
-                zoom={13}
-              >
-                <Marker onLoad={onLoad} position={position} />
-                <></>
-              </GoogleMap>
-            </LoadScript>
-          </div>
-          <div class="md:w-2/3 w-full px-3 flex flex-row flex-wrap">
-            <div class="w-full text-right text-gray-700 font-semibold relative pt-3 md:pt-0">
-              <div class="text-2xl text-white leading-tight">Admin User</div>
-              <div class="text-normal text-gray-300 hover:text-gray-400 cursor-pointer">
-                <span class="border-b border-dashed border-gray-500 pb-1">
-                  Administrator
-                </span>
-              </div>
-              <div class="text-sm text-gray-300 hover:text-gray-400 cursor-pointer md:absolute pt-3 md:pt-0 bottom-0 right-0">
-                Last Seen: <b>2 days ago</b>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Carousel cards={cards} />
+
+        
+
+
       </section>
     </>
   );
