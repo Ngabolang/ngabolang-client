@@ -16,6 +16,7 @@ function LoginView() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = localStorage.access_token;
+  
   // global state
 
   // function

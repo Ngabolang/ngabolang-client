@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -7,6 +8,12 @@ function LandingPage() {
     e.preventDefault();
     navigate("/home");
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, []);
+
+
   return (
     <>
       <div className="flex flex-col h-screen">

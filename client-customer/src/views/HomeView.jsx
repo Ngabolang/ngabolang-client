@@ -12,6 +12,7 @@ function HomeView() {
   const dispatch = useDispatch();
   // lifecycle
   useEffect(() => {
+    window.scrollTo(0, 0)
     if (isLoading) {
       // dispatch(fetchMenus())
       //   .then((res) => {
