@@ -25,10 +25,11 @@ function LoginView() {
   }
 
   async function handleLogin(e) {
-    setIsLoading(true);
+    // setIsLoading(true);
     e.preventDefault();
+    console.log(formData);
     // dispatch(loginUser(formData));
-    setIsLoading(false);
+    // setIsLoading(false);
   }
 
   async function handleAbout(e) {
@@ -39,7 +40,7 @@ function LoginView() {
   async function handleRegister(e) {
     setIsLoading(true);
     e.preventDefault();
-    navigate('/register')
+    navigate("/register");
     setIsLoading(false);
   }
 
@@ -83,12 +84,12 @@ function LoginView() {
               tabIndex="0"
               className="focus:outline-none text-sm mt-4 font-medium leading-none text-gray-500"
             >
-              Belum punya akun?{' '}
+              Belum punya akun?{" "}
               <a
                 onClick={handleRegister}
                 className="hover:text-gray-500 focus:text-gray-500 focus:outline-none focus:underline hover:underline text-sm font-medium leading-none  text-gray-800 cursor-pointer"
               >
-                {' '}
+                {" "}
                 Daftar sekarang disini
               </a>
             </p>
@@ -96,25 +97,28 @@ function LoginView() {
               <label
                 id="email"
                 className="text-sm font-medium leading-none text-gray-800"
+                htmlFor="email"
               >
                 Email
               </label>
               <input
-                aria-labelledby="email"
+                onChange={handleForm}
+                name="email"
                 type="email"
                 className="bg-gray-100 border rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
               />
             </div>
             <div className="mt-6  w-full">
               <label
-                htmlFor="pass"
+                htmlFor="password"
                 className="text-sm font-medium leading-none text-gray-800"
               >
                 Password
               </label>
               <div className="relative flex items-center justify-center">
                 <input
-                  id="pass"
+                  onChange={handleForm}
+                  name="password"
                   type="password"
                   className="bg-gray-100 border rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
                 />
@@ -136,7 +140,7 @@ function LoginView() {
             </div>
             <div className="mt-8">
               <button
-                onClick={handleAbout}
+                onClick={handleLogin}
                 role="button"
                 className="focus:ring-2 focus:ring-offset-2 focus:ring-[#20c4ba] text-sm font-semibold leading-none text-white focus:outline-none bg-[#20c4ba] border rounded hover:bg-[#199d94] py-4 w-full"
               >
