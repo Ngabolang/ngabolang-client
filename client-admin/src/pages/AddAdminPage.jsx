@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 export default function AddAdminPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -22,20 +23,30 @@ export default function AddAdminPage() {
     console.log(form);
   }
 
-  function handleImageUpload(event) {
+  async function handleImageUpload(event) {
     const file = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      const imageData = reader.result;
+    const formData = new FormData();
+    formData.append("image", file);
+    try {
+      let { data } = await axios({
+        method: "post",
+        url: "https://api.imgur.com/3/upload",
+        headers: {
+          Authorization: "Client-ID afd82e67ae0ee83",
+        },
+        data: formData,
+      });
+      console.log(data);
+      let { link } = data.data;
+      console.log(link);
       setForm({
         ...form,
-        photoProfile: imageData,
+        photoProfile: link,
       });
-      console.log(imageData);
-    };
-
-    reader.readAsDataURL(file);
+      console.log(form);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async function handleSubmit(e) {

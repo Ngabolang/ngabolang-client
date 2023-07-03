@@ -1,7 +1,21 @@
 import { useEffect, useState } from "react";
-export default function DetailModal({ vacation }) {
+export default function DetailModal() {
   const [show, setShow] = useState(false);
+  const [vacation, setVacation] = useState({});
 
+  useEffect(() => {
+    setVacation({
+      title: "Summer Vacation",
+      youtubeUrl: "https://www.youtube.com/embed/v6eWQqpfuCg",
+      image:
+        "https://images.unsplash.com/photo-1604999333679-b86d54738315?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1925&q=80",
+      description: "Enjoy your summer vacation at a beautiful beach resort.",
+      time: "July 15 - July 22, 2023",
+      quota: "Limited availability",
+      price: "$1000",
+      status: "Open for booking",
+    });
+  }, []);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
