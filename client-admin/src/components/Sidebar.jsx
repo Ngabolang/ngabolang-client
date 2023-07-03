@@ -14,7 +14,7 @@ export default function Sidebar() {
   }
 
   return (
-    <section className=" col-md-3 col-lg-2 shadow bg-sidebar text-white ">
+    <section className=" col-md-4 col-lg-2 shadow bg-sidebar text-white ">
       <div className="sidebar d-flex align-items-start flex-column">
         <div className="mb-2">
           <img src={logo} className="logo" />

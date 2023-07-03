@@ -2,6 +2,8 @@
   max-width: auto;
   height: 100%;
   margin: 0;
+  font-family: "monaco", monospace;
+  font-size: small;
 }
 .logo-login {
   height: 8em;

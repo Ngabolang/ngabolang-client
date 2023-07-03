@@ -22,33 +22,50 @@ export default function AddAdminPage() {
     console.log(form);
   }
 
+  function handleImageUpload(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const imageData = reader.result;
+      setForm({
+        ...form,
+        photoProfile: imageData,
+      });
+      console.log(imageData);
+    };
+
+    reader.readAsDataURL(file);
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!form.username || !form.email || !form.password || !form.photoProfile) {
-      setError("Please fill all the field");
-    } else {
-      try {
-        let payload = {
-          username: form.username,
-          email: form.email,
-          password: form.password,
-          role: "admin",
-          phoneNumber: form.phoneNumber,
-          address: form.address,
-          photoProfile: form.photoProfile,
-        };
-        // await dispatch(addAdmin(payload));
-        await Swal.fire({
-          title: "sucess",
-          text: "new Admin added",
-          icon: "success",
-          confirmButtonText: "Okay",
-        });
-        navigate("/");
-      } catch (error) {
-        console.log(error);
-      }
+    // if (!form.username || !form.email || !form.password || !form.photoProfile) {
+    //   setError("Please fill all the field");
+    // } else {
+    try {
+      let payload = {
+        username: form.username,
+        email: form.email,
+        password: form.password,
+        role: "admin",
+        phoneNumber: form.phoneNumber,
+        address: form.address,
+        photoProfile: form.photoProfile,
+      };
+      console.log(payload);
+      // await dispatch(addAdmin(payload));
+      await Swal.fire({
+        title: "sucess",
+        text: "new Admin added",
+        icon: "success",
+        confirmButtonText: "Okay",
+      });
+      navigate("/");
+    } catch (error) {
+      console.log(error);
     }
+    // }
   }
 
   return (
@@ -118,13 +135,13 @@ export default function AddAdminPage() {
               />
             </div>
             <div className="form-group mb-3">
-              <label>PhotoProfile</label>
+              <label>Photo Profile</label>
               <input
                 type="file"
                 name="photoProfile"
+                accept="image/*"
                 className="form-control"
-                value={form.photoProfile}
-                onChange={handleChange}
+                onChange={handleImageUpload}
               />
             </div>
 

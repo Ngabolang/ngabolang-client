@@ -11,8 +11,10 @@ export default function DashboardPage() {
     setLoading(false);
   }, []);
 
+  function handleAddTrip(params) {
+    navigate("/newTrip");
+  }
   async function handleDelete(id) {
-    dispatch(deleteMovie(id));
     await Swal.fire({
       title: "sucess",
       text: `movie with id ${id} deleted`,
@@ -34,7 +36,9 @@ export default function DashboardPage() {
       <div className="container-fluid">
         <div className="d-sm-flex align-items-center justify-content-between mb-4 mt-3 pt-5">
           <h1 className="h3 mb-0">Trips</h1>
-          <button className="btn btn-primary p-2">Add New Trip</button>
+          <button className="btn btn-primary p-2" onClick={handleAddTrip}>
+            Add New Trip
+          </button>
         </div>
 
         <div className="flex flex-wrap align-items-center">
