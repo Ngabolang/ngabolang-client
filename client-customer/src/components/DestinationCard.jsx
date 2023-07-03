@@ -22,7 +22,7 @@ export default function DestinationCard({ destination }) {
 
   return (
     <div
-      class="rounded-lg shadow-lg bg-gray-200 w-full flex flex-row flex-wrap p-3 antialiased"
+    className="rounded-lg shadow-lg bg-gray-200 w-full flex flex-row flex-wrap p-3 antialiased"
       style={{
         backgroundImage: `url(${destination.imgUrl})`,
         backgroundRepeat: "no-repeat",
@@ -30,7 +30,7 @@ export default function DestinationCard({ destination }) {
         backgroundBlendMode: "multiply",
       }}
     >
-      <div class="md:w-1/3 w-full">
+      <div className="md:w-1/3 w-full">
         <LoadScript googleMapsApiKey="AIzaSyDX5Eak21bfqjXb0Un9RJip6_RHOaJDDug">
           <GoogleMap
             mapContainerStyle={containerStyle}
@@ -42,15 +42,20 @@ export default function DestinationCard({ destination }) {
           </GoogleMap>
         </LoadScript>
       </div>
-      <div class="md:w-2/3 w-full px-3 flex flex-row flex-wrap">
-        <div class="w-full text-right text-gray-700 font-semibold relative pt-3 md:pt-0">
-          <div class="text-2xl text-white font-bold leading-tight">{destination.name}</div>
-          <div class="text-normal text-gray-100">
-            <span class="  pb-1">
+      <div className="md:w-2/3 w-full px-3 flex flex-row flex-wrap">
+        <div className="w-full text-right text-gray-700 font-semibold relative pt-3 md:pt-0">
+          <div className="text-2xl text-white font-bold leading-tight">{destination.name}</div>
+          <div className="text-normal text-gray-100">
+            <span className="  pb-1">
+              Hari ke {destination.labelDay}
+            </span>
+          </div>
+          <div className="text-normal text-gray-100">
+            <span className="  pb-1">
               Kegiatan yang dilakukan: {destination.activity}
             </span>
           </div>
-          <div class="text-md text-gray-100 text-white md:absolute pt-3 md:pt-0 bottom-0 right-0 m-2">
+          <div className="text-md text-gray-100 text-white md:absolute pt-3 md:pt-0 bottom-0 right-0 m-2">
             Start Hour: <b>{destination.startHour}</b>
           </div>
         </div>

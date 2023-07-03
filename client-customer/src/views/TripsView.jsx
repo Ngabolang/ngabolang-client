@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import TripCard from "../components/TripCard";
 
 export default function Trips() {
+  
+
   function filterLodging() {
     return "GG";
   }
@@ -56,6 +58,7 @@ export default function Trips() {
           <TripCard></TripCard>
           <TripCard></TripCard>
         </div>
+
       </div>
     </>
   );

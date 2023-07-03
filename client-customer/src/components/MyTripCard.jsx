@@ -1,11 +1,28 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Modal from "./Modal";
 
-function MyTripCard({trip}) {
-  const navigate=useNavigate()
-  
-  function handleChat(){
-    navigate('/chat')
+function MyTripCard({ trip }) {
+  const navigate = useNavigate();
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [submittedValue, setSubmittedValue] = useState("");
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleSubmit = (value) => {
+    setSubmittedValue(value);
+    closeModal();
+  };
+
+  function handleChat() {
+    navigate("/chat");
   }
 
   return (
@@ -45,6 +62,39 @@ function MyTripCard({trip}) {
           >
             Group Chat
           </button>
+          <div>
+          <button
+            className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 bg-purple-500 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none"
+            onClick={openModal}
+          >
+           Review
+          </button>
+
+          <Modal
+            isOpen={modalOpen}
+            onClose={closeModal}
+            onSubmit={handleSubmit}
+          >
+            <h2 className="text-lg font-bold mb-4">Modal Content</h2>
+            <input
+              type="text"
+              className="w-full px-4 py-2 mb-4 border border-gray-300 rounded"
+              placeholder="Enter a value"
+            />
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
+          </Modal>
+
+          {submittedValue && (
+            <div className="mt-4">
+              <p>Submitted Value: {submittedValue}</p>
+            </div>
+          )}
+        </div>
           <a
             href="/"
             aria-label=""
@@ -59,6 +109,7 @@ function MyTripCard({trip}) {
               <path d="M9.707,5.293l-5-5A1,1,0,0,0,3.293,1.707L7.586,6,3.293,10.293a1,1,0,1,0,1.414,1.414l5-5A1,1,0,0,0,9.707,5.293Z"></path>
             </svg>
           </a>
+          
         </div>
       </div>
     </div>
