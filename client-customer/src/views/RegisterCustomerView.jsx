@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { registerUser } from "../store/actions/actionCreator";
+import axios from "axios";
 
 function RegisterCustomerView() {
   // local state
@@ -30,20 +31,30 @@ function RegisterCustomerView() {
     });
   }
 
-  const handleImageUpload = (event) => {
+  async function handleImageUpload(event) {
     const file = event.target.files[0];
-    const reader = new FileReader();
+    const formData = new FormData();
+    formData.append("image", file);
+    try {
+      let { data } = await axios({
+        method: "post",
+        url: "https://api.imgur.com/3/upload",
+        headers: {
+          Authorization: "Client-ID afd82e67ae0ee83",
+        },
+        data: formData,
+      });
 
-    reader.onloadend = () => {
-      const imageData = reader.result;
+      let { link } = data.data;
+      console.log(link);
       setForm({
         ...form,
-        photoProfile: imageData,
+        photoProfile: link,
       });
-      // console.log(imageData);
-    };
-    reader.readAsDataURL(file);
-  };
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   function handleAbout(e) {
     e.preventDefault();
@@ -52,7 +63,7 @@ function RegisterCustomerView() {
 
   async function handleRegister(e) {
     e.preventDefault();
-    await dispatch(registerUser(form));
+    dispatch(registerUser(form));
     // navigate("/login");
   }
   // lifecycle
@@ -92,7 +103,7 @@ function RegisterCustomerView() {
                       Username
                     </label>
                     <input
-                    onChange={handleForm}
+                      onChange={handleForm}
                       name="username"
                       type="text"
                       placeholder="John"
@@ -107,7 +118,7 @@ function RegisterCustomerView() {
                       Password
                     </label>
                     <input
-                    onChange={handleForm}
+                      onChange={handleForm}
                       name="password"
                       type="password"
                       placeholder="Enter your password"
@@ -123,7 +134,7 @@ function RegisterCustomerView() {
                       Phone number
                     </label>
                     <input
-                    onChange={handleForm}
+                      onChange={handleForm}
                       name="phoneNumber"
                       type="text"
                       placeholder="XXX-XX-XXXX-XXX"
@@ -155,7 +166,7 @@ function RegisterCustomerView() {
                     Address
                   </label>
                   <textarea
-                  onChange={handleForm}
+                    onChange={handleForm}
                     className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     placeholder="Insert menu description here"
                     rows="4"
@@ -173,8 +184,11 @@ function RegisterCustomerView() {
                     type="file"
                     accept="image/*"
                     onChange={handleImageUpload}
+                    name="photoProfile"
                   />
-                  {form.photoProfile && <img className="w-40 mt-3" src={form.photoProfile} alt="Uploaded" />}
+                  {form.photoProfile && (
+                    <img className="w-40 mt-3" src={form.photoProfile} />
+                  )}
                 </div>
                 <div className="flex justify-between">
                   <button

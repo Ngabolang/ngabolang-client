@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import logo from "../assets/ngabolang.svg";
+import { useGoogleLogin, GoogleLogin } from "@react-oauth/google";
+import { loginGoogleUser } from "../store/actions/actionCreator";
 
 function LoginView() {
   // local state
@@ -31,6 +33,24 @@ function LoginView() {
     // dispatch(loginUser(formData));
     // setIsLoading(false);
   }
+
+  function handleGoogle(token) {
+    // setIsLoading(true);
+    console.log(token);
+    dispatch(loginGoogleUser(token))
+      .then((result) => {
+        navigate("/home");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  const login = useGoogleLogin({
+    onSuccess: (tokenResponse) => {
+      handleGoogle(tokenResponse.access_token);
+    },
+  });
 
   async function handleAbout(e) {
     e.preventDefault();
@@ -161,7 +181,18 @@ function LoginView() {
               </p>
               <hr className="w-full bg-gray-400  "></hr>
             </div>
+
+            <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                console.log(credentialResponse);
+              }}
+              onError={() => {
+                console.log("Login Failed");
+              }}
+            />
+
             <button
+              onClick={() => login()}
               aria-label="Continue with google"
               role="button"
               className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full mt-10"

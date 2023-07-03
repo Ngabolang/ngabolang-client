@@ -1,4 +1,6 @@
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
 export default function TripDetail() {
   const { id } = useParams();
@@ -6,6 +8,29 @@ export default function TripDetail() {
     youtubeUrl: "https://www.youtube.com/embed/Bl0s-1c5L0M",
     title: "acanana",
   };
+
+  const containerStyle = {
+    width: "400px",
+    height: "400px",
+  };
+
+  const center = {
+    lat: -8.568110718636364,
+    lng: 119.8088147469443,
+  };
+
+  const position = {
+    lat: -8.568110718636364,
+    lng: 119.8088147469443,
+  };
+
+  const onLoad = (marker) => {
+    console.log("marker: ", marker);
+  };
+
+  useEffect(() => {
+  
+  }, []);
 
   return (
     <>
@@ -37,18 +62,31 @@ export default function TripDetail() {
             src="https://source.unsplash.com/random/200x200/?3"
           />
         </div>
+
         <iframe
           width="100%"
-          height="315"
-          src={vacation.youtubeUrl}
-          title={vacation.title}
+          height="500"
+          src="https://www.youtube.com/embed/Bl0s-1c5L0M"
+          title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
         ></iframe>
+
         <div className="m-10">
           <p className="text-3xl py-3 font-bold">JALAN JALAN KE TRIP {id}</p>
           <p className="py-3">sdadadadadsadasdadsdsasds</p>
         </div>
+
+        <LoadScript googleMapsApiKey="AIzaSyDX5Eak21bfqjXb0Un9RJip6_RHOaJDDug">
+          <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={center}
+            zoom={13}
+          >
+            <Marker onLoad={onLoad} position={position} />
+            <></>
+          </GoogleMap>
+        </LoadScript>
       </section>
     </>
   );
