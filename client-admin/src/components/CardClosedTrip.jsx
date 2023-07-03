@@ -38,7 +38,7 @@ export default function CardClosedTrip() {
         </div>
         <div className="col-3 d-flex flex-column align-items-center justify-content-center">
           <div className="d-flex align-items-center justify-content-end">
-            <DetailModal vacation={vacation} />
+            {/* <DetailModal vacation={vacation} /> */}
             <button className="btn btn-primary m-2">Destinations</button>
           </div>
           <div className="d-flex align-items-center justify-content-end">

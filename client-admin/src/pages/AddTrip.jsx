@@ -75,11 +75,11 @@ export default function AddTrip() {
     // dispatch(addMovie(payload));
     await Swal.fire({
       title: "sucess",
-      text: "new movie added",
+      text: "new trip added",
       icon: "success",
       confirmButtonText: "Okay",
     });
-    // navigate("/");
+    navigate("/");
   }
 
   function addDestClick(e) {

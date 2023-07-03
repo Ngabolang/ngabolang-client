@@ -2,14 +2,18 @@ import Talk from "talkjs";
 import { useParams } from "react-router";
 import { useEffect, useState, useRef } from "react";
 export default function GroupChat() {
-  // const { tripId } = useParams();
-  const tripId = "bali";
+  const { tripId } = useParams();
+  // const tripId = "bali";
 
   const chatboxEl = useRef();
   // wait for TalkJS to load
   const [talkLoaded, markTalkLoaded] = useState(false);
 
   useEffect(() => {
+    talkInit();
+  }, [talkLoaded]);
+
+  function talkInit() {
     Talk.ready.then(() => markTalkLoaded(true));
 
     if (talkLoaded) {
@@ -18,7 +22,7 @@ export default function GroupChat() {
         name: "Syamsul",
         email: "henrymill@example.com",
         photoUrl: "https://avatars.githubusercontent.com/u/50189632?v=4",
-        welcomeMessage: `hello welcome to trip ${tripId}`,
+        welcomeMessage: `hello welcome to ${tripId}`,
         role: "admin",
       }); //ini akan selalu admin yg nge create
 
@@ -34,7 +38,7 @@ export default function GroupChat() {
       conversation.setAttributes({
         photoUrl:
           "https://suntourismpune.files.wordpress.com/2022/01/bali-tours-from-pune-g2g.jpg", //foto grup
-        subject: `Trip to ${tripId}`, //judul grup
+        subject: `${tripId.split("-").join(" ")}`, //judul grup
       });
 
       const chatbox = session.createChatbox();
@@ -43,7 +47,7 @@ export default function GroupChat() {
 
       return () => session.destroy();
     }
-  }, [talkLoaded]);
+  }
 
   return (
     <>
