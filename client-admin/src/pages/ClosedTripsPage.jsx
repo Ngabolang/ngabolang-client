@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CardTrip from "../components/CardTrip";
+import CardClosedTrip from "../components/CardClosedTrip";
 export default function ClosedTripsPage() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState("");
 
   useEffect(() => {
     setLoading(false);
+    setPage("closed");
   }, []);
 
   async function handleDelete(id) {
@@ -37,11 +40,7 @@ export default function ClosedTripsPage() {
         </div>
 
         <div className="flex flex-wrap align-items-center">
-          <CardTrip />
-          <CardTrip />
-          <CardTrip />
-          <CardTrip />
-          <CardTrip />
+          <CardClosedTrip />
         </div>
       </div>
     </section>

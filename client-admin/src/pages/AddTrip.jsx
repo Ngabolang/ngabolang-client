@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import AutocompleteInput from "../components/AutocompleteInput";
 
 export default function AddTrip() {
   const navigate = useNavigate();
@@ -28,17 +29,6 @@ export default function AddTrip() {
       activity: "",
       latitude: "",
       longitude: "",
-      placeId: "",
-    },
-    {
-      name: "",
-      imgUrl: "",
-      labelDay: "",
-      startHour: "",
-      activity: "",
-      latitude: "",
-      longitude: "",
-      placeId: "",
     },
   ]);
 
@@ -53,31 +43,35 @@ export default function AddTrip() {
     });
   }
   function handleChangeDest(index, event) {
-    let newDest = [...castForm];
+    let newDest = [...destForm];
     newDest[index] = {
       ...newDest[index],
       [event.target.name]: event.target.value,
     };
     setDestForm(newDest);
+    console.log(destForm);
+  }
+  function handlePlaceSelected(index, lat, lng) {
+    console.log(index);
+    console.log(lat, lng, "ini di addtrip");
+    let newDest = [...destForm];
+    newDest[index] = {
+      ...newDest[index],
+      latitude: lat,
+      longitude: lng,
+    };
+    setDestForm(newDest);
+    console.log(destForm);
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!castForm[0].name || !castForm[1].name) {
-      return setError("Input The Cast");
+    if (!destForm[0].name) {
+      return setError("Input The Destination");
     }
-    let payload = {
-      title: form.title,
-      slug: form.title,
-      synopsis: form.synopsis,
-      trailerUrl: form.trailerUrl,
-      imgUrl: form.imgUrl,
-      rating: form.rating,
-      genreId: Number(form.genreId),
-      casts: castForm,
-    };
+    let payload = form;
+    payload.destinations = destForm;
     console.log(payload);
-    console.log(payload.casts);
     // dispatch(addMovie(payload));
     await Swal.fire({
       title: "sucess",
@@ -85,14 +79,19 @@ export default function AddTrip() {
       icon: "success",
       confirmButtonText: "Okay",
     });
-    navigate("/");
+    // navigate("/");
   }
 
   function addDestClick(e) {
     console.log(destForm);
     const newDest = {
       name: "",
-      profilePict: "",
+      imgUrl: "",
+      labelDay: "",
+      startHour: "",
+      activity: "",
+      latitude: "",
+      longitude: "",
     };
     setDestForm([...destForm, newDest]);
   }
@@ -107,37 +106,47 @@ export default function AddTrip() {
           <div className="col-md-6 pl-3">
             <form onSubmit={handleSubmit}>
               <div className="form-group mb-3">
-                <label>Title</label>
+                <label>Name</label>
                 <input
                   type="text"
-                  name="title"
+                  name="name"
                   className="form-control"
-                  value={form.title}
+                  value={form.name}
                   onChange={handleChange}
-                  placeholder="Enter title"
+                  placeholder="Enter Name"
                 />
               </div>
               <div className="form-group mb-3">
-                <label>Synopsis</label>
+                <label>Description</label>
                 <br />
                 <textarea
                   onChange={handleChange}
-                  name="synopsis"
-                  value={form.synopsis}
-                  rows="4"
-                  cols="64"
+                  name="description"
+                  className="form-control"
+                  value={form.description}
                 ></textarea>
               </div>
 
               <div className="form-group mb-3">
-                <label>Trailer Url</label>
+                <label>Location</label>
                 <input
                   type="text"
-                  name="trailerUrl"
+                  name="location"
                   className="form-control"
-                  value={form.trailerUrl}
+                  value={form.location}
                   onChange={handleChange}
-                  placeholder="Enter trailerUrl"
+                  placeholder="Enter location"
+                />
+              </div>
+              <div className="form-group mb-3">
+                <label>Meeting Point</label>
+                <input
+                  type="text"
+                  name="meetingPoint"
+                  className="form-control"
+                  value={form.meetingPoint}
+                  onChange={handleChange}
+                  placeholder="Enter Meeting Point"
                 />
               </div>
               <div className="form-group mb-3">
@@ -148,29 +157,63 @@ export default function AddTrip() {
                   className="form-control"
                   value={form.imgUrl}
                   onChange={handleChange}
-                  placeholder="Enter imageUrl"
+                  placeholder="Enter Image Url"
                 />
               </div>
               <div className="form-group mb-3">
-                <label>Rating</label>
+                <label>Video Url</label>
                 <input
-                  type="text"
-                  name="rating"
+                  type="url"
+                  name="videoUrl"
                   className="form-control"
-                  value={form.rating}
+                  value={form.videoUrl}
                   onChange={handleChange}
-                  placeholder="Enter rating"
+                  placeholder="Enter Video Url"
                 />
               </div>
               <div className="form-group mb-3">
-                <label>Genre</label> <br />
+                <label>Price</label>
+                <input
+                  type="number"
+                  name="price"
+                  className="form-control"
+                  value={form.price}
+                  onChange={handleChange}
+                  placeholder="Enter Price"
+                />
+              </div>
+              <div className="form-group mb-3">
+                <label>Date</label>
+                <input
+                  type="date"
+                  name="date"
+                  className="form-control"
+                  value={form.date}
+                  onChange={handleChange}
+                  placeholder="Enter date"
+                />
+              </div>
+              <div className="form-group mb-3">
+                <label>Duration</label>
+                <input
+                  type="number"
+                  name="duration"
+                  className="form-control"
+                  value={form.duration}
+                  onChange={handleChange}
+                  placeholder="Enter trip duration day"
+                />
+              </div>
+              <div className="form-group mb-3">
+                <label>Categories</label> <br />
                 <select
-                  name="genreId"
-                  value={form.genreId}
+                  name="categoryId"
+                  className="form-select"
+                  value={form.categoryId}
                   onChange={handleChange}
                 >
                   <option value="" disabled>
-                    --Select Genre--
+                    --Select Category--
                   </option>
                   {/* {genres.map((item) => {
                     return (
@@ -204,20 +247,64 @@ export default function AddTrip() {
                     className="form-control"
                     value={destForm.name}
                     onChange={(event) => handleChangeDest(index, event)}
-                    placeholder="Enter Cast Name"
+                    placeholder="Enter Destinations Name"
                     required
                   />
                 </div>
                 <div className="form-group mb-3">
-                  <label>Profile Picture</label>
+                  <label>Activity</label>
+                  <input
+                    type="text"
+                    name="activity"
+                    className="form-control"
+                    value={destForm.activity}
+                    onChange={(event) => handleChangeDest(index, event)}
+                    placeholder="Enter Destinations activity"
+                    required
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label>Image Url</label>
                   <input
                     type="url"
-                    name="profilePict"
+                    name="imgUrl"
                     className="form-control"
-                    value={destForm.profilePict}
+                    value={destForm.imgUrl}
                     onChange={(event) => handleChangeDest(index, event)}
-                    placeholder="Enter Profile Picture"
+                    placeholder="Enter Image Url"
                     required
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label>Day</label>
+                  <input
+                    type="number"
+                    name="labelDay"
+                    className="form-control"
+                    value={destForm.labelDay}
+                    onChange={(event) => handleChangeDest(index, event)}
+                    placeholder="Enter activy day"
+                    required
+                  />
+                </div>
+
+                <div className="form-group mb-3">
+                  <label>Time</label>
+                  <input
+                    type="time"
+                    name="startHour"
+                    className="form-control"
+                    value={destForm.startHour}
+                    onChange={(event) => handleChangeDest(index, event)}
+                    placeholder="Enter startHour"
+                    required
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label>Map Place</label>
+                  <AutocompleteInput
+                    onPlaceSelected={handlePlaceSelected}
+                    index={index}
                   />
                 </div>
               </form>
