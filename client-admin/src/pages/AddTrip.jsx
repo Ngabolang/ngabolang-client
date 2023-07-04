@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import AutocompleteInput from "../components/AutocompleteInput";
+import { addTrip, fetchCat } from "../stores/actions/actionType";
 
 export default function AddTrip() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.category);
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -33,7 +35,7 @@ export default function AddTrip() {
   ]);
 
   useEffect(() => {
-    // dispatch(fetchGenre());
+    dispatch(fetchCat());
   }, []);
 
   function handleChange(event) {
@@ -63,25 +65,6 @@ export default function AddTrip() {
     setDestForm(newDest);
     console.log(destForm);
   }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    if (!destForm[0].name) {
-      return setError("Input The Destination");
-    }
-    let payload = form;
-    payload.destinations = destForm;
-    console.log(payload);
-    // dispatch(addMovie(payload));
-    await Swal.fire({
-      title: "sucess",
-      text: "new movie added",
-      icon: "success",
-      confirmButtonText: "Okay",
-    });
-    // navigate("/");
-  }
-
   function addDestClick(e) {
     console.log(destForm);
     const newDest = {
@@ -96,12 +79,40 @@ export default function AddTrip() {
     setDestForm([...destForm, newDest]);
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (
+      !form.name ||
+      !form.description ||
+      !form.location ||
+      !form.duration ||
+      !form.date ||
+      !form.limit ||
+      !form.price ||
+      !form.categoryId ||
+      !form.imgUrl ||
+      !form.videoUrl ||
+      !form.meetingPoint
+    ) {
+      return setError("Input all the field");
+    }
+    if (!destForm[0].name) {
+      return setError("Input The Destination");
+    }
+    let payload = form;
+    payload.destinations = destForm;
+    console.log(payload);
+    dispatch(addTrip(payload));
+    navigate("/");
+  }
+
   return (
     <section className="col-md-10">
       <div className="container-fluid">
         <div className="d-sm-flex align-items-center justify-content-between mb-4 mt-3 pt-5">
           <h1 className="h3 mb-0 text-gray-800">Add new Trip</h1>
         </div>
+        {error && <div className="alert alert-danger"> {error}</div>}
         <div className="row">
           <div className="col-md-6 pl-3">
             <form onSubmit={handleSubmit}>
@@ -205,6 +216,17 @@ export default function AddTrip() {
                 />
               </div>
               <div className="form-group mb-3">
+                <label>Quota</label>
+                <input
+                  type="number"
+                  name="limit"
+                  className="form-control"
+                  value={form.limit}
+                  onChange={handleChange}
+                  placeholder="Enter participant trip quota"
+                />
+              </div>
+              <div className="form-group mb-3">
                 <label>Categories</label> <br />
                 <select
                   name="categoryId"
@@ -215,13 +237,13 @@ export default function AddTrip() {
                   <option value="" disabled>
                     --Select Category--
                   </option>
-                  {/* {genres.map((item) => {
+                  {categories.map((item) => {
                     return (
                       <option value={item.id} key={item.id}>
                         {item.name}
                       </option>
                     );
-                  })} */}
+                  })}
                 </select>
               </div>
 
@@ -235,7 +257,7 @@ export default function AddTrip() {
 
           <div className="col-md-6 pl-5">
             <h3>Destinations</h3>
-            {error && <div className="alert alert-danger"> {error}</div>}
+
             {destForm.map((el, index) => (
               <form key={index}>
                 <h5>Destination #{index + 1}</h5>

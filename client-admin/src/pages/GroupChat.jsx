@@ -1,25 +1,33 @@
 import Talk from "talkjs";
 import { useParams } from "react-router";
 import { useEffect, useState, useRef } from "react";
+import { fetchChatTrip, fetchUser } from "../stores/actions/actionType";
+import { useDispatch, useSelector } from "react-redux";
 export default function GroupChat() {
-  // const { tripId } = useParams();
-  const tripId = "bali";
+  const { tripId } = useParams();
 
   const chatboxEl = useRef();
   // wait for TalkJS to load
   const [talkLoaded, markTalkLoaded] = useState(false);
+  const disptach = useDispatch();
+  const { user } = useSelector((state) => state.user);
+  const { infoChat } = useSelector((state) => state.trip);
 
   useEffect(() => {
     Talk.ready.then(() => markTalkLoaded(true));
+    disptach(fetchUser());
+    disptach(fetchChatTrip(tripId));
+  }, []);
 
-    if (talkLoaded) {
+  useEffect(() => {
+    if (talkLoaded && user && infoChat) {
       const currentUser = new Talk.User({
-        id: "1",
-        name: "Syamsul",
-        email: "henrymill@example.com",
-        photoUrl: "https://avatars.githubusercontent.com/u/50189632?v=4",
-        welcomeMessage: `hello welcome to trip ${tripId}`,
-        role: "admin",
+        id: user.id,
+        name: user.username,
+        email: user.email,
+        photoUrl: user.photoProfile,
+        welcomeMessage: `hello`,
+        role: user.role,
       }); //ini akan selalu admin yg nge create
 
       const session = new Talk.Session({
@@ -29,12 +37,17 @@ export default function GroupChat() {
 
       const conversationId = Talk.oneOnOneId(tripId); //harus punya trip Id masing masing grup nya
       const conversation = session.getOrCreateConversation(conversationId);
-      console.log(conversation);
-      conversation.setParticipant(currentUser);
       conversation.setAttributes({
-        photoUrl:
-          "https://suntourismpune.files.wordpress.com/2022/01/bali-tours-from-pune-g2g.jpg", //foto grup
-        subject: `Trip to ${tripId}`, //judul grup
+        custom: {
+          category: "group",
+        },
+      });
+      conversation.setParticipant(currentUser);
+      console.log(user);
+      console.log(infoChat);
+      conversation.setAttributes({
+        photoUrl: infoChat.imgUrl,
+        subject: infoChat.name, //judul grup
       });
 
       const chatbox = session.createChatbox();
@@ -43,7 +56,7 @@ export default function GroupChat() {
 
       return () => session.destroy();
     }
-  }, [talkLoaded]);
+  }, [infoChat]);
 
   return (
     <>

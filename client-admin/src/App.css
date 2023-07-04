@@ -2,8 +2,10 @@
   max-width: auto;
   height: 100%;
   margin: 0;
-  font-family: "monaco", monospace;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: small;
+  font-feature-settings: normal;
+  font-variation-settings: normal;
 }
 .logo-login {
   height: 8em;
@@ -98,7 +100,7 @@ a:hover{
   border: 1px solid #adadad;
   background-repeat: no-repeat;
   background-position: 50% 50%;
-  background-size: contain;
+  background-size: cover;
 }
 
 .profile-picture {
@@ -108,3 +110,9 @@ a:hover{
   object-fit: cover;
 }
 
+.modal-backdrop{
+  opacity:0; transition:opacity .2s;
+}
+.modal-backdrop.in{
+  opacity:.7;
+}

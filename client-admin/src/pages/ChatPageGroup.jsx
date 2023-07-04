@@ -2,17 +2,15 @@ import Talk from "talkjs";
 import { useEffect, useState } from "react";
 import { fetchUser } from "../stores/actions/actionType";
 import { useDispatch, useSelector } from "react-redux";
-export default function ChatPage() {
+export default function ChatPageGroup() {
   // wait for TalkJS to load
   const [talkLoaded, markTalkLoaded] = useState(false);
-  const [loading, setLoading] = useState(true);
   const disptach = useDispatch();
   const { user } = useSelector((state) => state.user);
   useEffect(() => {
     Talk.ready.then(() => markTalkLoaded(true));
     disptach(fetchUser());
-    if (user && talkLoaded) {
-      console.log(user);
+    if (talkLoaded && user) {
       const currentUser = new Talk.User({
         id: user.id,
         name: user.username,
@@ -28,8 +26,9 @@ export default function ChatPage() {
       });
 
       const inbox = session.createInbox();
-      inbox.setFeedFilter({ custom: { category: ["==", "personal"] } });
+      inbox.setFeedFilter({ custom: { category: ["==", "group"] } });
       inbox.mount(document.getElementById("inbox-container"));
+
       return () => session.destroy();
     }
   }, [talkLoaded]);

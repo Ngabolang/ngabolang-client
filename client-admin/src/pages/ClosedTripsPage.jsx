@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import CardTrip from "../components/CardTrip";
+
 import CardClosedTrip from "../components/CardClosedTrip";
+import { fetchComTrip } from "../stores/actions/actionType";
 export default function ClosedTripsPage() {
   const navigate = useNavigate();
-  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const { comTrips } = useSelector((state) => state.trip);
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState("");
 
   useEffect(() => {
-    setLoading(false);
-    setPage("closed");
+    dispatch(fetchComTrip())
+      .then(() => {})
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   async function handleDelete(id) {
@@ -40,7 +44,9 @@ export default function ClosedTripsPage() {
         </div>
 
         <div className="flex flex-wrap align-items-center">
-          <CardClosedTrip />
+          {comTrips.map((item, index) => (
+            <CardClosedTrip item={item} index={index} key={item.id} />
+          ))}
         </div>
       </div>
     </section>

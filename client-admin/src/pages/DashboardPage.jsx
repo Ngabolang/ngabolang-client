@@ -2,13 +2,19 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CardTrip from "../components/CardTrip";
+import { fetchTrip } from "../stores/actions/actionType";
 export default function DashboardPage() {
   const navigate = useNavigate();
-  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const { trips } = useSelector((state) => state.trip);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(false);
+    dispatch(fetchTrip())
+      .then(() => {})
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   function handleAddTrip(params) {
@@ -17,7 +23,7 @@ export default function DashboardPage() {
   async function handleDelete(id) {
     await Swal.fire({
       title: "sucess",
-      text: `movie with id ${id} deleted`,
+      text: `trip with id ${id} deleted`,
       icon: "success",
       confirmButtonText: "Okay",
     });
@@ -42,11 +48,9 @@ export default function DashboardPage() {
         </div>
 
         <div className="flex flex-wrap align-items-center">
-          <CardTrip />
-          <CardTrip />
-          <CardTrip />
-          <CardTrip />
-          <CardTrip />
+          {trips.map((item, index) => (
+            <CardTrip item={item} index={index} key={item.id} />
+          ))}
         </div>
       </div>
     </section>

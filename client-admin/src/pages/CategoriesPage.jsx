@@ -1,12 +1,20 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import CardCategory from "../components/CardCategory";
+import { fetchCat } from "../stores/actions/actionType";
 export default function CategoriesPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.category);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(false);
+    dispatch(fetchCat())
+      .then(() => {})
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   function handleAddCategory(e) {
@@ -32,13 +40,9 @@ export default function CategoriesPage() {
         </div>
 
         <div className="d-flex flex-wrap align-items-center">
-          <CardCategory />
-          <CardCategory />
-          <CardCategory />
-          <CardCategory />
-          <CardCategory />
-          <CardCategory />
-          <CardCategory />
+          {categories.map((item, index) => (
+            <CardCategory item={item} key={item.id} index={index} />
+          ))}
         </div>
       </div>
     </section>

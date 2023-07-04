@@ -1,7 +1,16 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/ngabolang-long.png";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "../stores/actions/actionType";
 export default function Sidebar() {
   const navigate = useNavigate();
+  const disptach = useDispatch();
+  const { user } = useSelector((state) => state.user);
+  useEffect(() => {
+    disptach(fetchUser());
+  }, []);
+
   async function handlingLogout(e) {
     e.preventDefault();
     localStorage.clear();
@@ -41,7 +50,7 @@ export default function Sidebar() {
                 isPending ? "pending" : isActive ? "active" : ""
               }
             >
-              Closed Trips
+              Completed Trips
             </NavLink>
           </div>
           <div className="sidebar-item fw-bold">
@@ -67,7 +76,7 @@ export default function Sidebar() {
             </NavLink>
           </div>
           <div className="sidebar-item fw-bold">
-            <i className="bi bi-chat-dots p-3"></i>
+            <i className="bi bi-chat p-3"></i>
             <NavLink
               to="/chats"
               className={({ isActive, isPending }) =>
@@ -77,6 +86,17 @@ export default function Sidebar() {
               Chats
             </NavLink>
           </div>
+          <div className="sidebar-item fw-bold">
+            <i className="bi bi-chat-dots p-3"></i>
+            <NavLink
+              to="/chatsGroups"
+              className={({ isActive, isPending }) =>
+                isPending ? "pending" : isActive ? "active" : ""
+              }
+            >
+              Group Chats
+            </NavLink>
+          </div>
         </div>
 
         <div className="sidebar-item mt-auto p-2 fw-bold">
@@ -84,15 +104,15 @@ export default function Sidebar() {
             <i className="bi bi-box-arrow-left p-3"></i>
             <a onClick={handlingLogout}>Logout</a>
           </div>
-          <div className="profile-section mx-auto mt-3">
+          <div className="profile-section mx-auto mt-3 border">
             <div className="profile-section d-flex align-items-center">
               <img
-                src="https://avatars.githubusercontent.com/u/50189632?v=4"
+                src={user.photoProfile}
                 alt="Profile"
                 className="profile-picture mr-3"
               />
-              <div className="m-2">
-                <h5 className="username text-black">Syamsul</h5>
+              <div className="m-2 ">
+                <h5 className="username text-black">{user.username}</h5>
                 <p className="role text-black">Admin</p>
               </div>
             </div>

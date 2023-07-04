@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import logo from "../assets/ngabolang.png";
+import { login } from "../stores/actions/actionType";
 export default function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,14 +20,13 @@ export default function LoginPage() {
 
   async function onSubmit(e) {
     e.preventDefault();
-    // dispatch(login(form));
-    localStorage.access_token = "testingdong";
-    await Swal.fire({
-      text: "Login Success",
-      icon: "success",
-      confirmButtonText: "Okay",
-    });
-    navigate("/");
+    try {
+      await dispatch(login(form));
+
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (

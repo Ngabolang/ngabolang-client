@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { addCat } from "../stores/actions/actionType";
 
 export default function AddCategory() {
   const navigate = useNavigate();
@@ -19,25 +20,14 @@ export default function AddCategory() {
     console.log(form);
   }
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-
     if (!form.name || !form.imgUrl) {
       setError("Please fill all the field");
     } else {
-      try {
-        let payload = form;
-        console.log(payload);
-        await Swal.fire({
-          title: "sucess",
-          text: "new category added",
-          icon: "success",
-          confirmButtonText: "Okay",
-        });
-        navigate("/categories");
-      } catch (error) {
-        console.log(error);
-      }
+      let payload = form;
+      dispatch(addCat(payload));
+      navigate("/categories");
     }
   }
 

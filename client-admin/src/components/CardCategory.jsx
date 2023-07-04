@@ -1,14 +1,10 @@
-export default function CardCategory() {
+export default function CardCategory({ item }) {
   return (
     <div className="card text-white m-3 p-0 shadow">
-      <img
-        src="https://www.kintamani.id/wp-content/uploads/Keindahan-Pantai-Kuta-Bali-yang-sanggup-menarik-ribuan-wisatawan-setiap-tahunnya-768x971.jpg"
-        className="card-image-cat"
-        alt="Background"
-      />
+      <img src={item.imgUrl} className="card-image-cat" alt="Background" />
       <div className="card-img-overlay d-flex align-items-center justify-content-center">
         <h5 className="card-title text-center text-white font-weight-bold shadow-text">
-          Pantai
+          {item.name}
         </h5>
       </div>
     </div>

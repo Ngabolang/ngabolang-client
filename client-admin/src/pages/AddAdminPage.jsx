@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import { addAdmin } from "../stores/actions/actionType";
 export default function AddAdminPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -49,34 +50,16 @@ export default function AddAdminPage() {
     }
   }
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-    // if (!form.username || !form.email || !form.password || !form.photoProfile) {
-    //   setError("Please fill all the field");
-    // } else {
-    try {
-      let payload = {
-        username: form.username,
-        email: form.email,
-        password: form.password,
-        role: "admin",
-        phoneNumber: form.phoneNumber,
-        address: form.address,
-        photoProfile: form.photoProfile,
-      };
+    if (!form.username || !form.email || !form.password) {
+      setError("Please fill all the field");
+    } else {
+      let payload = form;
       console.log(payload);
-      // await dispatch(addAdmin(payload));
-      await Swal.fire({
-        title: "sucess",
-        text: "new Admin added",
-        icon: "success",
-        confirmButtonText: "Okay",
-      });
+      dispatch(addAdmin(payload));
       navigate("/");
-    } catch (error) {
-      console.log(error);
     }
-    // }
   }
 
   return (
