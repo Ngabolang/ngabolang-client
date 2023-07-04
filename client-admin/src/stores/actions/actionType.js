@@ -2,8 +2,10 @@ import {
   CAT_FETCH_ALL,
   GET_USER,
   TRIPS_FETCH_ALL,
+  TRIPS_FETCH_COMPLETE,
   TRIP_FETCH_DEST,
   TRIP_FETCH_DETAIL,
+  TRIP_FETCH_INFOCHAT,
 } from "./actionCreator";
 import axios from "axios";
 const baseUrl = "http://localhost:3000/admin";
@@ -96,6 +98,37 @@ export const fetchDetailTrip = (id) => {
   };
 };
 
+//info chat
+export const fetchChatTripSuccess = (payload) => {
+  return {
+    type: TRIP_FETCH_INFOCHAT,
+    payload: payload,
+  };
+};
+
+export const fetchChatTrip = (chatId) => {
+  return async (dispatch) => {
+    try {
+      let { data } = await axios({
+        method: "get",
+        url: baseUrl + `/chat/${chatId}`,
+        headers: {
+          access_token: localStorage.access_token,
+        },
+      });
+      dispatch(fetchChatTripSuccess(data));
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: error.response.status,
+        text: error.response.data.message,
+        icon: "error",
+        confirmButtonText: "ok",
+      });
+    }
+  };
+};
+
 //dest
 export const fetchDestTripSuccess = (payload) => {
   return {
@@ -126,7 +159,92 @@ export const fetchDestTrip = (id) => {
     }
   };
 };
+//add new trip
+export const addTrip = (payload) => {
+  return async (dispatch) => {
+    try {
+      await axios({
+        method: "post",
+        url: baseUrl + `/trip`,
+        headers: {
+          access_token: localStorage.access_token,
+        },
+        data: payload,
+      });
+      await dispatch(fetchTrip());
+      await Swal.fire({
+        text: "Success add new Trip",
+        icon: "success",
+        confirmButtonText: "Okay",
+      });
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: error.response.status,
+        text: error.response.data.message,
+        icon: "error",
+        confirmButtonText: "ok",
+      });
+    }
+  };
+};
+export const updateTrip = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios({
+        method: "patch",
+        url: baseUrl + `/trip/${id}`,
+        headers: {
+          access_token: localStorage.access_token,
+        },
+        data: { status: false },
+      });
+      await dispatch(fetchComTrip());
+      await Swal.fire({
+        text: "Success add new Trip",
+        icon: "success",
+        confirmButtonText: "Okay",
+      });
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: error.response.status,
+        text: error.response.data.message,
+        icon: "error",
+        confirmButtonText: "ok",
+      });
+    }
+  };
+};
+export const fetchComTripSuccess = (payload) => {
+  return {
+    type: TRIPS_FETCH_COMPLETE,
+    payload: payload,
+  };
+};
 
+export const fetchComTrip = () => {
+  return async (dispatch) => {
+    try {
+      let { data } = await axios({
+        method: "get",
+        url: baseUrl + `/trip/close`,
+        headers: {
+          access_token: localStorage.access_token,
+        },
+      });
+      dispatch(fetchComTripSuccess(data));
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: error.response.status,
+        text: error.response.data.message,
+        icon: "error",
+        confirmButtonText: "ok",
+      });
+    }
+  };
+};
 // categories
 export const fetchCatSuccess = (payload) => {
   return {
@@ -146,6 +264,35 @@ export const fetchCat = () => {
         },
       });
       dispatch(fetchCatSuccess(data));
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: error.response.status,
+        text: error.response.data.message,
+        icon: "error",
+        confirmButtonText: "ok",
+      });
+    }
+  };
+};
+//add category
+export const addCat = (payload) => {
+  return async (dispatch) => {
+    try {
+      await axios({
+        method: "post",
+        url: baseUrl + `/category`,
+        headers: {
+          access_token: localStorage.access_token,
+        },
+        data: payload,
+      });
+      dispatch(fetchCat());
+      await Swal.fire({
+        text: "Success add category",
+        icon: "success",
+        confirmButtonText: "Okay",
+      });
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -177,6 +324,35 @@ export const fetchUser = () => {
         },
       });
       dispatch(fetchUserSuccess(data));
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: error.response.status,
+        text: error.response.data.message,
+        icon: "error",
+        confirmButtonText: "ok",
+      });
+    }
+  };
+};
+
+//add new admin
+export const addAdmin = (payload) => {
+  return async (dispatch) => {
+    try {
+      await axios({
+        method: "post",
+        url: baseUrl + `/register`,
+        headers: {
+          access_token: localStorage.access_token,
+        },
+        data: payload,
+      });
+      await Swal.fire({
+        text: "Success add new Admin",
+        icon: "success",
+        confirmButtonText: "Okay",
+      });
     } catch (error) {
       console.log(error);
       Swal.fire({

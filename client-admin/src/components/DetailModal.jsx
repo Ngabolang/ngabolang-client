@@ -53,10 +53,7 @@ export default function DetailModal({ id }) {
                   <iframe
                     width="100%"
                     height="315"
-                    src={
-                      `https://www.youtube.com/embed/` +
-                      trip.videoUrl.split("?v=")[1]
-                    }
+                    src={trip.videoUrl}
                     title={trip.name}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen

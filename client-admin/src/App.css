@@ -100,7 +100,7 @@ a:hover{
   border: 1px solid #adadad;
   background-repeat: no-repeat;
   background-position: 50% 50%;
-  background-size: contain;
+  background-size: cover;
 }
 
 .profile-picture {

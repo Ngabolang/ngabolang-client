@@ -1,21 +1,26 @@
 import Talk from "talkjs";
 import { useParams } from "react-router";
 import { useEffect, useState, useRef } from "react";
-import { fetchUser } from "../stores/actions/actionType";
+import { fetchChatTrip, fetchUser } from "../stores/actions/actionType";
 import { useDispatch, useSelector } from "react-redux";
 export default function GroupChat() {
-  // const { tripId } = useParams();
-  const tripId = "trip-to-malaysia";
+  const { tripId } = useParams();
 
   const chatboxEl = useRef();
   // wait for TalkJS to load
   const [talkLoaded, markTalkLoaded] = useState(false);
   const disptach = useDispatch();
   const { user } = useSelector((state) => state.user);
+  const { infoChat } = useSelector((state) => state.trip);
+
   useEffect(() => {
     Talk.ready.then(() => markTalkLoaded(true));
     disptach(fetchUser());
-    if (talkLoaded && user) {
+    disptach(fetchChatTrip(tripId));
+  }, []);
+
+  useEffect(() => {
+    if (talkLoaded && user && infoChat) {
       const currentUser = new Talk.User({
         id: user.id,
         name: user.username,
@@ -38,10 +43,11 @@ export default function GroupChat() {
         },
       });
       conversation.setParticipant(currentUser);
+      console.log(user);
+      console.log(infoChat);
       conversation.setAttributes({
-        photoUrl:
-          "https://asset-a.grid.id/crop/0x0:0x0/x/photo/2023/02/10/urban-high-klcc-malaysia-sky_112-20230210101040.jpg", //foto grup
-        subject: `${tripId.split("-").join(" ")}`, //judul grup
+        photoUrl: infoChat.imgUrl,
+        subject: infoChat.name, //judul grup
       });
 
       const chatbox = session.createChatbox();
@@ -50,7 +56,7 @@ export default function GroupChat() {
 
       return () => session.destroy();
     }
-  }, [talkLoaded]);
+  }, [infoChat]);
 
   return (
     <>

@@ -1,12 +1,22 @@
 import DestModal from "./DestModal";
 import DetailModal from "./DetailModal";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { updateTrip } from "../stores/actions/actionType";
 export default function CardTrip({ item }) {
   const navigate = useNavigate();
 
-  function handleChat() {
+  const dispatch = useDispatch();
+  function handleChat(e) {
+    e.preventDefault();
     let trip = item.chatId;
     navigate(`/groupChats/${trip}`);
+  }
+
+  function updateStatus(e) {
+    e.preventDefault();
+    dispatch(updateTrip(item.id));
+    navigate("/tripClose");
   }
 
   return (
@@ -33,7 +43,9 @@ export default function CardTrip({ item }) {
             <button className="btn btn-secondary m-2" onClick={handleChat}>
               Chat
             </button>
-            <button className="btn btn-success m-2">Completed</button>
+            <button className="btn btn-success m-2" onClick={updateStatus}>
+              Completed
+            </button>
           </div>
         </div>
       </div>

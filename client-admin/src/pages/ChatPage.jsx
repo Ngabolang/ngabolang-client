@@ -5,12 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 export default function ChatPage() {
   // wait for TalkJS to load
   const [talkLoaded, markTalkLoaded] = useState(false);
+  const [loading, setLoading] = useState(true);
   const disptach = useDispatch();
   const { user } = useSelector((state) => state.user);
   useEffect(() => {
     Talk.ready.then(() => markTalkLoaded(true));
     disptach(fetchUser());
-    if (talkLoaded && user) {
+    if (user && talkLoaded) {
+      console.log(user);
       const currentUser = new Talk.User({
         id: user.id,
         name: user.username,
@@ -28,7 +30,6 @@ export default function ChatPage() {
       const inbox = session.createInbox();
       inbox.setFeedFilter({ custom: { category: ["==", "personal"] } });
       inbox.mount(document.getElementById("inbox-container"));
-
       return () => session.destroy();
     }
   }, [talkLoaded]);
