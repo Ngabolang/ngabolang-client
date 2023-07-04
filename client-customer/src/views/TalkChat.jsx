@@ -1,5 +1,6 @@
 import Talk from "talkjs";
 import { useEffect, useState, useRef } from "react";
+import { useSelector } from "react-redux";
 
 export default function TalkChat() {
   const chatboxEl = useRef();
@@ -7,23 +8,22 @@ export default function TalkChat() {
   // wait for TalkJS to load
   const [talkLoaded, markTalkLoaded] = useState(false);
 
-  function handlePopup(e) {
-    e.preventDefault();
-    chatboxEl.show();
-  }
-
+  const {user} = useSelector((state) => {
+    return state.user;
+  });
+  console.log(user);
   useEffect(() => {
     Talk.ready.then(() => markTalkLoaded(true));
 
     if (talkLoaded) {
       const customer = new Talk.User({
-        id: "10",
-        name: "wira",
-        email: "asdasada@example.com",
+        id: user.id||100,
+        name: user.username,
+        email: user.email,
         photoUrl:
-          "https://images-ext-1.discordapp.net/external/6kzkXrkqpqUoUcLBdDb-zi7Al0shicYtIcYuKP9lxN4/https/i.imgur.com/bnavNFF.jpg?width=386&height=390",
+         user.photoProfile,
         welcomeMessage: "Hello!",
-        role: "default",
+        role: "customer",
       }); // ini buat customer yg login
 
       const session = new Talk.Session({

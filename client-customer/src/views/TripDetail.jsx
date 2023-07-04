@@ -6,6 +6,7 @@ import {
   fetchTripDetail,
   paymentGateway,
 } from "../store/actions/actionCreator";
+import ImageDestination from "../components/ImageDestination";
 
 export default function TripDetail() {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,7 +16,6 @@ export default function TripDetail() {
 
   const dispatch = useDispatch();
   const { id } = useParams();
-  
 
   async function handlePay() {
     dispatch(paymentGateway(id));
@@ -39,11 +39,13 @@ export default function TripDetail() {
 
   if (isLoading) {
     return (
-      <img
-        className="w-full h-60 scale-50"
-        src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"
-        alt=""
-      />
+      <div className="flex justify-center items-center h-screen">
+        <img
+          className=" scale-100 w-[60vh]"
+          src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"
+          alt=""
+        />
+      </div>
     );
   }
 
@@ -56,33 +58,17 @@ export default function TripDetail() {
             alt=""
             className="w-full h-full col-span-2 row-span-2 rounded shadow-sm min-h-96 md:col-start-3 md:row-start-1 dark:bg-gray-500 aspect-square"
           />
-          <img
-            alt=""
-            className="w-full h-full rounded shadow-sm min-h-48 dark:bg-gray-500 aspect-square"
-            src={trip[0].Destinations[0].imgUrl}
-          />
-          <img
-            alt=""
-            className="w-full h-full rounded shadow-sm min-h-48 dark:bg-gray-500 aspect-square"
-            src={trip[0].Destinations[1].imgUrl}
-          />
-          <img
-            alt=""
-            className="w-full h-full rounded shadow-sm min-h-48 dark:bg-gray-500 aspect-square"
-            src={trip[0].Destinations[2].imgUrl}
-          />
-          {trip[0].Destinations[3]?<img
-            alt=""
-            className="w-full h-full rounded shadow-sm min-h-48 dark:bg-gray-500 aspect-square"
-            src={trip[0].Destinations[3].imgUrl}
-          />:<p></p>}
-          
+          {trip[0].Destinations.map((el, index) => (
+             <ImageDestination key={index} image={el.imgUrl}></ImageDestination>
+          ))}
         </div>
 
         <iframe
           width="100%"
           height="500"
-          src={`https://www.youtube.com/embed/` + trip[0].videoUrl.split("?v=")[1]}
+          src={
+            `https://www.youtube.com/embed/` + trip[0].videoUrl.split("?v=")[1]
+          }
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
@@ -95,7 +81,9 @@ export default function TripDetail() {
 
         <div className="my-10">
           <p className="text-3xl py-3 font-bold">Destinasi Trip</p>
-          <DestinationCarousel cards={trip[0].Destinations}></DestinationCarousel>
+          <DestinationCarousel
+            cards={trip[0].Destinations}
+          ></DestinationCarousel>
         </div>
 
         <div className="flex justify-between">

@@ -118,7 +118,7 @@ export const loginUser = (payload) => {
             localStorage.access_token = result.access_token;
             localStorage.userId = result.userId;
             localStorage.email = result.email;
-            // console.log(result);
+            console.log(result);
             dispatch(userLoginSuccess(result))
             Swal.fire({
                 icon: 'success',
@@ -138,37 +138,38 @@ export const loginUser = (payload) => {
 }
 
 export const loginGoogleUser = (payload) => {
+    console.log(payload);
     return async (dispatch) => {
-        // try {
-        //     let response = await fetch(baseUrl + `admin/login`, {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //         },
-        //         body: JSON.stringify(payload),
-        //     });
-        //     console.log(response);
-        //     let result = await response.json();
-        //     if(!response.ok) throw {res:response.status,result} 
-        //     localStorage.access_token = result.access_token;
-        //     localStorage.userId = result.userId;
-        //     localStorage.email = result.email;
-        //     dispatch(userLoginSuccess(result))
-        //     Swal.fire({
-        //         icon: 'success',
-        //         title: 'Success logged in',
-        //         showConfirmButton: false,
-        //         timer: 1500
-        //       })
-        // } catch (error) {
-        //     console.log(error);
-        //     Swal.fire({
-        //         icon: 'error',
-        //         title: `Error ${error.res}`,
-        //         text: error.result.message
-        //       })
-        // }
-        localStorage.access_token = payload
+        try {
+            let response = await fetch(baseUrl + `customer/google-sign-in`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "google_access_token":payload
+                },
+            });
+            console.log(response);
+            let result = await response.json();
+            console.log(result);
+            if(!response.ok) throw {res:response.status,result} 
+            localStorage.access_token = result.access_token;
+            localStorage.userId = result.user.id;
+            localStorage.email = result.user.email;
+            dispatch(userLoginSuccess(result.user))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success logged in',
+                showConfirmButton: false,
+                timer: 1500
+              })
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                icon: 'error',
+                title: `Error ${error.res}`,
+                text: error.result.message
+              })
+        }
     }
 }
 

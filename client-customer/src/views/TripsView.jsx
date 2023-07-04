@@ -5,7 +5,7 @@ import { fetchTrips } from "../store/actions/actionCreator";
 
 export default function Trips() {
   const [isLoading, setIsLoading] = useState(true);
-  const {trips} = useSelector((state) => {
+  const { trips } = useSelector((state) => {
     return state.trip;
   });
   // console.log(trips);
@@ -32,11 +32,13 @@ export default function Trips() {
 
   if (isLoading) {
     return (
-      <img
-        className="w-full h-60 scale-50"
-        src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"
-        alt=""
-      />
+      <div className="flex justify-center items-center h-screen">
+        <img
+          className=" scale-100 w-[60vh]"
+          src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"
+          alt=""
+        />
+      </div>
     );
   }
 
@@ -48,9 +50,7 @@ export default function Trips() {
             onChange={filterLodging}
             className="relative cursor-pointer pb-1 border-b border-gray-400 text-sm font-medium transition hover:border-gray-600 "
           >
-            <option disabled>
-              Filter berdasarkan kategori
-            </option>
+            <option disabled>Filter berdasarkan kategori</option>
             <option value="type.id">GG</option>
             <option value="type.id">GG</option>
             <option value="type.id">GG</option>
@@ -73,9 +73,9 @@ export default function Trips() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {trips.map((el, index) => (
-          <TripCard key={index} trip={el}></TripCard>
-        ))}
+          {trips.map((el, index) => (
+            <TripCard key={index} trip={el}></TripCard>
+          ))}
         </div>
       </div>
     </>
