@@ -64,7 +64,6 @@ function RegisterCustomerView() {
   async function handleRegister(e) {
     e.preventDefault();
     dispatch(registerUser(form));
-    // navigate("/login");
   }
   // lifecycle
   useEffect(() => {

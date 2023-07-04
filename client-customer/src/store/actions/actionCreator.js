@@ -1,11 +1,9 @@
-import { FETCH_CATEGORIES, FETCH_TRIPS, FETCH_TRIP_DETAIL, USER_LOGIN } from "./actionType"
-// import multer from 'multer'
-
-const baseUrl = "https://mcd-server.jatisuryo.com/";
+import { FETCH_CATEGORIES, FETCH_MYTRIP, FETCH_TRIPS, FETCH_TRIP_DETAIL, USER_LOGIN } from "./actionType"
+import axios from 'axios'
+import Swal from 'sweetalert2'
+const baseUrl = "http://localhost:3000/";
 // http://localhost:3000/
 // https://mcd-server.jatisuryo.com/
-
-import Swal from 'sweetalert2'
 
 export const fetchTripAllSuccess = (payload) => {
     return {
@@ -35,174 +33,304 @@ export const userLoginSuccess = (payload) => {
     }
 }
 
+export const fetchMyTripSuccess = (payload) => {
+    return {
+        type: FETCH_MYTRIP,
+        payload: payload
+    }
+}
+
+
+export const paymentGateway = (tripId) => {
+    return async (dispatch) => {
+        try {
+            let response = await fetch(
+                baseUrl + "customer/midtrans/" + tripId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'access_token': localStorage.access_token
+                },
+            }
+            );
+            let result = await response.json();
+            console.log(result);
+            
+            window.snap.pay(result.token, {
+                onSuccess: async function (result) {
+                    
+                    await Swal.fire({
+                        text: 'Success To Pay, Enjoy!!!',
+                        icon: 'success',
+                        confirmButtonText: 'Okay'
+                    })
+                    await dispatch(updateStatus(tripId))
+                }
+            })
+        } catch (error) {
+            console.log(error);
+            await Swal.fire({
+                icon: 'error',
+                title: `Error ${error.res}`,
+                text: error.result.message
+            })
+        }
+    }
+}
+
+export const updateStatus = (tripId) => {
+    return async (dispatch) => {
+        try {
+            let { data } = await axios({
+                url: baseUrl + `customer/payment/${tripId}`,
+                method: 'patch',
+                headers: {
+                    access_token: localStorage.access_token
+                }
+            })
+
+            await dispatch(fetchMyTrip())
+
+        } catch (error) {
+            console.log(error)
+            Swal.fire({
+                title: 'Error!',
+                text: error.response.data.message,
+                icon: 'error',
+                confirmButtonText: 'Cool'
+            })
+        }
+    }
+}
+
 export const registerUser = (payload) => {
     // const token = localStorage.access_token;
     return async (dispatch) => {
-        console.log(payload);
-        dispatch(userLoginSuccess(payload))
-        // try {
-        //     let response = await fetch(
-        //         baseUrl + "admin/register", {
-        //         method: 'post',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             // 'access_token': token
-        //         },
-        //         body: JSON.stringify(payload),
-        //     }
-        //     );
-        //     let result = await response.json();
-        //     if(!response.ok) throw {res:response.status,result} 
-        //     // console.log(result);
-        //     Swal.fire({
-        //         icon: 'success',
-        //         title: 'Success register user',
-        //         showConfirmButton: false,
-        //         timer: 1500
-        //       })
-        // } catch (error) {
-        //     console.log(error);
-        //     Swal.fire({
-        //         icon: 'error',
-        //         title: `Error ${error.res}`,
-        //         text: error.result.message
-        //       })
-        // }
+        try {
+            let response = await fetch(
+                baseUrl + "customer/register", {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'access_token': token
+                },
+                body: JSON.stringify(payload),
+            }
+            );
+            let result = await response.json();
+            if (!response.ok) throw { res: response.status, result }
+            // console.log(result);
+            Swal.fire({
+                icon: 'success',
+                title: 'Success register user',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                icon: 'error',
+                title: `Error ${error.res}`,
+                text: error.result.message
+            })
+        }
     }
 }
 
-// export const loginUser = (payload) => {
-//     return async (dispatch) => {
-//         try {
-//             let response = await fetch(baseUrl + `admin/login`, {
-//                 method: "POST",
-//                 headers: {
-//                     "Content-Type": "application/json",
-//                 },
-//                 body: JSON.stringify(payload),
-//             });
-//             console.log(response);
-//             let result = await response.json();
-//             if(!response.ok) throw {res:response.status,result} 
-//             localStorage.access_token = result.access_token;
-//             localStorage.userId = result.userId;
-//             localStorage.email = result.email;
-//             dispatch(userLoginSuccess(result))
-//             Swal.fire({
-//                 icon: 'success',
-//                 title: 'Success logged in',
-//                 showConfirmButton: false,
-//                 timer: 1500
-//               })
-//         } catch (error) {
-//             console.log(error);
-//             Swal.fire({
-//                 icon: 'error',
-//                 title: `Error ${error.res}`,
-//                 text: error.result.message
-//               })
-//         }
-//     }
-// }
+export const loginUser = (payload) => {
+    return async (dispatch) => {
+        try {
+            let response = await fetch(baseUrl + `customer/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+            // console.log(response);
+            let result = await response.json();
+            if (!response.ok) throw { res: response.status, result }
+            localStorage.access_token = result.access_token;
+            localStorage.id = result.id;
+            localStorage.email = result.email;
+            localStorage.photoProfile = result.photoProfile;
+            localStorage.username = result.username;
+            console.log(result);
+            dispatch(userLoginSuccess(result))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success logged in',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                icon: 'error',
+                title: `Error ${error.res}`,
+                text: error.result.message
+            })
+        }
+    }
+}
 
 export const loginGoogleUser = (payload) => {
+    console.log(payload);
     return async (dispatch) => {
-        // try {
-        //     let response = await fetch(baseUrl + `admin/login`, {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //         },
-        //         body: JSON.stringify(payload),
-        //     });
-        //     console.log(response);
-        //     let result = await response.json();
-        //     if(!response.ok) throw {res:response.status,result} 
-        //     localStorage.access_token = result.access_token;
-        //     localStorage.userId = result.userId;
-        //     localStorage.email = result.email;
-        //     dispatch(userLoginSuccess(result))
-        //     Swal.fire({
-        //         icon: 'success',
-        //         title: 'Success logged in',
-        //         showConfirmButton: false,
-        //         timer: 1500
-        //       })
-        // } catch (error) {
-        //     console.log(error);
-        //     Swal.fire({
-        //         icon: 'error',
-        //         title: `Error ${error.res}`,
-        //         text: error.result.message
-        //       })
-        // }
-        localStorage.access_token = payload
+        try {
+            let response = await fetch(baseUrl + `customer/google-sign-in`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "google_access_token": payload
+                },
+            });
+            console.log(response);
+            let result = await response.json();
+            console.log(result);
+            if (!response.ok) throw { res: response.status, result }
+            localStorage.access_token = result.access_token;
+            localStorage.userId = result.user.id;
+            localStorage.email = result.user.email;
+            localStorage.photoProfile = result.user.photoProfile;
+            localStorage.username = result.user.username;
+            dispatch(userLoginSuccess(result.user))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success logged in',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                icon: 'error',
+                title: `Error ${error.res}`,
+                text: error.result.message
+            })
+        }
     }
 }
 
 
-// export const fetchTrips = () => {
-//     const token = localStorage.access_token;
-//     return async (dispatch) => {
-//         try {
-//             let response = await fetch(
-//                 baseUrl + "admin/item", {
-//                 method: 'GET',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                     'access_token': token
-//                 }
-//             }
-//             );
-//             let result = await response.json();
-//             await dispatch(fetchMenusSuccess(result.items));
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     }
-// }
+export const fetchTrips = (category) => {
+    return async (dispatch) => {
+        try {
+            let endpoint = "customer/trip"
+            if (category) {
+                endpoint = `customer/trip-by-category/${category}`
+            }
+            let response = await fetch(
+                baseUrl + endpoint, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }
+            );
+            let result = await response.json();
+            await dispatch(fetchTripAllSuccess(result));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
 
-// export const fetchTripDetail = (id) => {
-//     return async (dispatch) => {
-//         const token = localStorage.access_token;
-//         try {
-//             let response = await fetch(
-//                 baseUrl + "admin/item/" + id, {
-//                 method: 'GET',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                     'access_token': token
-//                 }
-//             }
-//             );
-//             let result = await response.json();
-//             // console.log(result.item);
-//             await dispatch(fetchMenuSuccess(result.item));
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     }
-// }
+export const reviewUser = (id,payload) => {
+    return async (dispatch) => {
+        try {
+            let response = await fetch(
+                baseUrl + `customer/review/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "access_token": localStorage.access_token
+                },
+                body: JSON.stringify(payload),
+            }
+            );
+            await dispatch(fetchMyTrip());
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
 
-// export const fetchCategories = (payload) => {
-//     const token = localStorage.access_token;
-//     return async (dispatch) => {
-//         try {
-//             let response = await fetch(
-//                 baseUrl + "admin/categories", {
-//                 method: 'GET',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                     'access_token': token
-//                 }
-//             }
-//             );
-//             let result = await response.json();
-//             await dispatch(fetchCategoriesSuccess(result.categories))
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     }
-// }
+export const fetchTripDetail = (id) => {
+    return async (dispatch) => {
+        try {
+            let response = await fetch(
+                baseUrl + "customer/trip-by-id/" + id, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }
+            );
+            let result = await response.json();
+            await dispatch(fetchTripDetailSuccess(result));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const fetchCategories = () => {
+    return async (dispatch) => {
+        try {
+            let response = await fetch(
+                baseUrl + "customer/category", {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }
+            );
+            let result = await response.json();
+            await dispatch(fetchCategoriesSuccess(result))
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const createMytrip = (id) => {
+    return async (dispatch) => {
+        try {
+            let response = await fetch(
+                baseUrl + `customer/buy-trip/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "access_token": localStorage.access_token
+                }
+            }
+            );
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const fetchMyTrip = () => {
+    return async (dispatch) => {
+        try {
+            let response = await fetch(
+                baseUrl + `customer/my-trip`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "access_token": localStorage.access_token
+                }
+            }
+            );
+            let result = await response.json();
+            console.log(result);
+            dispatch(fetchMyTripSuccess(result))
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
 
 

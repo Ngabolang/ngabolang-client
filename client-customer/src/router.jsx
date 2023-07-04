@@ -34,15 +34,19 @@ const router = createBrowserRouter([
         element: <MyTrip />,
       },
       {
-        path: "/chat",
+        path: "/chat/:chatId",
         element: <TalkChat />,
       },
       {
-        path: "/trip/:id",
+        path: "/trip/detail/:id",
         element: <TripDetail />,
       },
       {
         path: "/trip/",
+        element: <Trips />,
+      },
+      {
+        path: "/trip/:category",
         element: <Trips />,
       },
       {

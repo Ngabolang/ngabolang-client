@@ -8,6 +8,35 @@ function HomeView() {
   // local state
   const [isLoading, setIsLoading] = useState(true);
   // global State
+  const dummy = {
+    id: 1,
+    name: "Wisata Labuan Bajo Sailing Komodo",
+    categoryId: 1,
+    adminId: 3,
+    date: "2023-08-17T00:00:00.000Z",
+    price: 2000000,
+    status: true,
+    imgUrl:
+      "https://res.klook.com/image/upload/Mobile/City/rv76yqukp2hey0fckh99.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=kQIri35Yjds",
+    duration: 3,
+    meetingPoint: "Jakarta",
+    location: "Nusa Tenggara Timur",
+    limit: 30,
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat architecto necessitatibus tempora molestias explicabo delectus distinctio cupiditate esse totam, quibusdam ea vitae fugit natus numquam cumque, quisquam accusamus quis quam.",
+    chatId: "wisata-labuan-bajo-sailing-komodo",
+    createdAt: "2023-07-04T01:36:03.951Z",
+    updatedAt: "2023-07-04T01:36:03.951Z",
+    Category: {
+      id: 1,
+      name: "Beaches",
+      imgUrl:
+        "https://img.freepik.com/free-photo/beautiful-tropical-empty-beach-sea-ocean-with-white-cloud-blue-sky-background_74190-13668.jpg?size=626&ext=jpg&uid=R41671461&ga=GA1.2.468604856.1683977961&semt=sph",
+      createdAt: "2023-07-04T01:36:03.949Z",
+      updatedAt: "2023-07-04T01:36:03.949Z",
+    },
+  };
   // requirement
   const dispatch = useDispatch();
   // lifecycle
@@ -45,69 +74,69 @@ function HomeView() {
         <Carousel images={images} width="100%" />
       </div>
       <div className="m-10">
-        <div class="h-[70vh] flex items-center justify-center">
-          <div class="grid grid-cols-12 px-18 gap-5">
-            <div class="col-span-12">
+        <div className="h-[70vh] flex items-center justify-center">
+          <div className="grid grid-cols-12 px-18 gap-5">
+            <div className="col-span-12">
               <div className="flex justify-between">
                 <p>Top kategori</p>
                 <button>Lihat Semua Kategori</button>
               </div>
               <hr className="w-full bg-gray-400"></hr>
             </div>
-            <a class="col-span-3 bg-rose-700 rounded-xl h-52 md:h-80" href="">
+            <a className="col-span-3 bg-cyan-600 rounded-xl h-52 md:h-80" href="">
               <img
                 src="https://a0.muscache.com/im/pictures/a433b4d0-8183-4523-b4c5-99b81c5729c1.jpg?im_w=320"
-                class="rounded-t-xl max-h-44"
+                className="rounded-t-xl max-h-44"
               />
 
-              <p class="text-xl md:text-3xl text-gray-50 pt-5 pl-3">
+              <p className="text-xl md:text-3xl text-gray-50 pt-5 pl-3">
                 {" "}
                 Bandung{" "}
               </p>
 
-              <p class="text-xs md:text-lg font-light text-gray-50 pt-3 pl-3 pb-10">
+              <p className="text-xs md:text-lg font-light text-gray-50 pt-3 pl-3 pb-10">
                 {" "}
                 117 kilometers away{" "}
               </p>
             </a>
 
-            <a class="col-span-3 bg-red-500 rounded-xl h-52 md:h-80" href="">
+            <a className="col-span-3 bg-cyan-600 rounded-xl h-52 md:h-80" href="">
               <img
                 src="https://a0.muscache.com/im/pictures/db8167f7-5c57-4684-80ae-4350c73e45ef.jpg?im_w=320"
-                class="rounded-t-xl max-h-44"
+                className="rounded-t-xl max-h-44"
               />
 
-              <p class="text-xl md:text-3xl text-gray-50 pt-5 pl-3">
+              <p className="text-xl md:text-3xl text-gray-50 pt-5 pl-3">
                 {" "}
                 Lembang{" "}
               </p>
 
-              <p class="text-xs md:text-lg font-light text-gray-50 pt-3 pl-3 pb-10">
+              <p className="text-xs md:text-lg font-light text-gray-50 pt-3 pl-3 pb-10">
                 {" "}
                 109 kilometers away{" "}
               </p>
             </a>
-            <a class="col-span-3 bg-pink-700 rounded-xl h-52 md:h-80" href="">
+            <a className="col-span-3 bg-cyan-600 rounded-xl h-52 md:h-80" href="">
               <img
                 src="https://a0.muscache.com/im/pictures/ffde0c4b-1889-4d11-bb00-41411d34fdfc.jpg?im_w=320"
-                class="rounded-t-xl max-h-44"
+                className="rounded-t-xl max-h-44"
               />
-              <p class="text-xl md:text-3xl text-gray-50 pt-5 pl-3">
+              <p className="text-xl md:text-3xl text-gray-50 pt-5 pl-3">
                 {" "}
                 Semarang{" "}
               </p>
-              <p class="text-xs md:text-lg font-light text-gray-50 pt-3 pl-3 pb-10">
+              <p className="text-xs md:text-lg font-light text-gray-50 pt-3 pl-3 pb-10">
                 {" "}
                 406 kilometers away{" "}
               </p>
             </a>
-            <a class="col-span-3 bg-rose-600 rounded-xl h-52 md:h-80" href="">
+            <a className="col-span-3 bg-cyan-600 rounded-xl h-52 md:h-80" href="">
               <img
                 src="https://a0.muscache.com/im/pictures/03bb6d0a-5ccb-47e1-83fc-b7ad87e7f8c3.jpg?im_w=320"
-                class="rounded-t-xl max-h-44"
+                className="rounded-t-xl max-h-44"
               />
-              <p class="text-xl md:text-3xl text-gray-50 pt-5 pl-3"> Serang </p>
-              <p class="text-xs md:text-lg font-light text-gray-50 pt-3 pl-3 pb-10">
+              <p className="text-xl md:text-3xl text-gray-50 pt-5 pl-3"> Serang </p>
+              <p className="text-xs md:text-lg font-light text-gray-50 pt-3 pl-3 pb-10">
                 {" "}
                 78 kilometers away{" "}
               </p>
@@ -122,14 +151,14 @@ function HomeView() {
 
           <hr className="w-full bg-gray-400"></hr>
           <div className="flex overflow-x-scroll hide-scroll-bar">
-            <div className="flex flex-nowrap ">
-              <TripCard></TripCard>
-              <TripCard></TripCard>
-              <TripCard></TripCard>
-              <TripCard></TripCard>
-              <TripCard></TripCard>
-              <TripCard></TripCard>
-              <TripCard></TripCard>
+            <div className="flex flex-nowrap my-4">
+              <TripCard trip={dummy}></TripCard>
+              <TripCard trip={dummy}></TripCard>
+              <TripCard trip={dummy}></TripCard>
+              <TripCard trip={dummy}></TripCard>
+              <TripCard trip={dummy}></TripCard>
+              <TripCard trip={dummy}></TripCard>
+              <TripCard trip={dummy}></TripCard>
             </div>
           </div>
         </div>

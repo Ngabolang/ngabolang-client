@@ -10,7 +10,6 @@ function App() {
     <>
       <NavBar></NavBar>
       <Outlet></Outlet>
-      {token?<CustomerService></CustomerService>:<p></p>}
       <FooterNgabolang></FooterNgabolang>
       
     </>

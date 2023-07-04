@@ -1,42 +1,44 @@
 import Talk from "talkjs";
 import { useEffect, useState, useRef } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 export default function TalkChat() {
   const chatboxEl = useRef();
-
+  const { chatId } = useParams();
   // wait for TalkJS to load
   const [talkLoaded, markTalkLoaded] = useState(false);
 
+  const { user } = useSelector((state) => {
+    return state.user;
+  });
+  console.log(user);
   useEffect(() => {
     Talk.ready.then(() => markTalkLoaded(true));
 
     if (talkLoaded) {
-        const me = new Talk.User({
-        id: "11",
-        name: "jati",
-        email: "asdasada@example.com",
-        photoUrl: 'https://i.imgur.com/NMNA14J.jpeg',
+      const customer = new Talk.User({
+        id: localStorage.id,
+        name: localStorage.username,
+        email: localStorage.email,
+        photoUrl: localStorage.photoProfile,
         welcomeMessage: "Hello!",
-        role: "default",
+        role: "customer",
       }); // ini buat customer yg login
-      const admin = new Talk.User({
-        id: "1",
-        name: "Syamsul",
-        email: "henrymill@example.com",
-        photoUrl: "https://avatars.githubusercontent.com/u/50189632?v=4",
-        welcomeMessage: `hello welcome to Customer Service`,
-        role: "admin",
-      }); //ini akan selalu admin yg nge create
 
       const session = new Talk.Session({
         appId: "tKz5u74h",
-        me: me,
+        me: customer,
       });
 
-      const conversationId = Talk.oneOnOneId(me, "cs00");
+      const conversationId = Talk.oneOnOneId(chatId); //japan nya nanti harus diganti yg sama dengan id grup chat
       const conversation = session.getOrCreateConversation(conversationId);
-      conversation.setParticipant(me);
-      conversation.setParticipant(admin);
+      conversation.setAttributes({
+        custom: {
+          category: "group",
+        },
+      });
+      conversation.setParticipant(customer);
 
       const chatbox = session.createChatbox();
       chatbox.select(conversation);
@@ -45,7 +47,6 @@ export default function TalkChat() {
       return () => session.destroy();
     }
   }, [talkLoaded]);
-
   return (
     <>
       <div className="container-fluid mt-40">
