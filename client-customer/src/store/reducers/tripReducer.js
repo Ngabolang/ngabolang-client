@@ -1,9 +1,10 @@
-import { FETCH_TRIPS, FETCH_CATEGORIES, FETCH_TRIP_DETAIL } from "../actions/actionType"
+import { FETCH_TRIPS, FETCH_CATEGORIES, FETCH_TRIP_DETAIL, FETCH_MYTRIP } from "../actions/actionType"
 
 const initialState = {
     trips: [],
     trip: {},
-    categories:[]
+    categories: [],
+    mytrips:[]
 }
 function menusReducer(state = initialState, action) {
     switch (action.type) {
@@ -22,10 +23,15 @@ function menusReducer(state = initialState, action) {
                 ...state,
                 trip: action.payload
             }
+        case FETCH_MYTRIP:
+            return {
+                ...state,
+                mytrips: action.payload
+            }
         default:
             return state
     }
-
+    
 
 
 }

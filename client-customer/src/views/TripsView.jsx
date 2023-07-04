@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import TripCard from "../components/TripCard";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTrips } from "../store/actions/actionCreator";
+import { useParams } from "react-router-dom";
 
 export default function Trips() {
   const [isLoading, setIsLoading] = useState(true);
   const { trips } = useSelector((state) => {
     return state.trip;
   });
-  // console.log(trips);
+  const {category}=useParams()
+  console.log(trips);
 
   function filterLodging() {
     return "GG";
@@ -21,7 +23,7 @@ export default function Trips() {
   const dispatch = useDispatch();
   useEffect(() => {
     window.scrollTo(0, 0);
-    dispatch(fetchTrips())
+    dispatch(fetchTrips(category))
       .then((result) => {
         setIsLoading(false);
       })

@@ -1,14 +1,15 @@
 import Talk from "talkjs";
 import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 export default function TalkChat() {
   const chatboxEl = useRef();
-
+  const { chatId } = useParams();
   // wait for TalkJS to load
   const [talkLoaded, markTalkLoaded] = useState(false);
 
-  const {user} = useSelector((state) => {
+  const { user } = useSelector((state) => {
     return state.user;
   });
   console.log(user);
@@ -17,11 +18,10 @@ export default function TalkChat() {
 
     if (talkLoaded) {
       const customer = new Talk.User({
-        id: user.id||100,
-        name: user.username,
-        email: user.email,
-        photoUrl:
-         user.photoProfile,
+        id: localStorage.id,
+        name: localStorage.username,
+        email: localStorage.email,
+        photoUrl: localStorage.photoProfile,
         welcomeMessage: "Hello!",
         role: "customer",
       }); // ini buat customer yg login
@@ -31,7 +31,7 @@ export default function TalkChat() {
         me: customer,
       });
 
-      const conversationId = Talk.oneOnOneId("trip-to-malaysia"); //japan nya nanti harus diganti yg sama dengan id grup chat
+      const conversationId = Talk.oneOnOneId(chatId); //japan nya nanti harus diganti yg sama dengan id grup chat
       const conversation = session.getOrCreateConversation(conversationId);
       conversation.setAttributes({
         custom: {
@@ -40,7 +40,7 @@ export default function TalkChat() {
       });
       conversation.setParticipant(customer);
 
-    const chatbox = session.createChatbox();
+      const chatbox = session.createChatbox();
       chatbox.select(conversation);
       chatbox.mount(chatboxEl.current);
 

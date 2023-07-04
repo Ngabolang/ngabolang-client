@@ -11,7 +11,7 @@ function TripCard({ trip }) {
 
   function handleDetail(e) {
     e.preventDefault();
-    navigate(`/trip/${trip.id}`);
+    navigate(`/trip/detail/${trip.id}`);
   }
 
   return (

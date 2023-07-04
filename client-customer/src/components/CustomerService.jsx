@@ -1,7 +1,7 @@
 import Talk from "talkjs";
 import { useEffect, useState, useRef } from "react";
 
-export default function CustomerService() {
+export default function CustomerService({ admin }) {
   const chatboxEl = useRef();
 
   // wait for TalkJS to load
@@ -11,21 +11,21 @@ export default function CustomerService() {
     Talk.ready.then(() => markTalkLoaded(true));
 
     if (talkLoaded) {
-        const me = new Talk.User({
-        id: "11",
-        name: "jati",
-        email: "asdasada@example.com",
-        photoUrl: 'https://i.imgur.com/NMNA14J.jpeg',
+      const me = new Talk.User({
+        id: localStorage.id,
+        name: localStorage.username,
+        email: localStorage.email,
+        photoUrl: localStorage.photoProfile,
         welcomeMessage: "Hello!",
-        role: "default",
+        role: "customer",
       }); // ini buat customer yg login
-      const admin = new Talk.User({
-        id: "1",
-        name: "Syamsul",
-        email: "henrymill@example.com",
-        photoUrl: "https://avatars.githubusercontent.com/u/50189632?v=4",
+      const cs = new Talk.User({
+        id: admin.id,
+        name: admin.username,
+        email: admin.email,
+        photoUrl: admin.photoProfile,
         welcomeMessage: `hello welcome to Customer Service`,
-        role: "admin",
+        role: admin.role,
       }); //ini akan selalu admin yg nge create
 
       const session = new Talk.Session({
@@ -33,7 +33,7 @@ export default function CustomerService() {
         me: me,
       });
 
-      const conversationId = Talk.oneOnOneId(me, "cs00");
+      const conversationId = Talk.oneOnOneId(me, cs);
       const conversation = session.getOrCreateConversation(conversationId);
       conversation.setAttributes({
         custom: {
@@ -41,17 +41,13 @@ export default function CustomerService() {
         },
       });
       conversation.setParticipant(me);
-      conversation.setParticipant(admin);
+      conversation.setParticipant(cs);
 
       const chatbox = session.createPopup();
       chatbox.select(conversation);
       chatbox.mount({ show: false });
 
-    
-
       return () => session.destroy();
     }
   }, [talkLoaded]);
-
- 
 }

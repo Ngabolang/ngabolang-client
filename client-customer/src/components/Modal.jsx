@@ -1,15 +1,22 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { reviewUser } from "../store/actions/actionCreator";
 
-export default function Modal({isOpen, onClose, onSubmit}) {
-  const [inputValue, setInputValue] = useState("");
-
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-  };
+export default function Modal({isOpen, onClose, id}) {
+  const [inputValue, setInputValue] = useState({
+    review:'',
+    rating:5
+  });
+  const dispatch=useDispatch()
+  function handleInputChange(event) {
+    setInputValue({
+      ...inputValue,
+      [event.target.name]: event.target.value,
+    });
+  }
 
   const handleSubmit = () => {
-    onSubmit(inputValue);
-    setInputValue("");
+    dispatch(reviewUser(id,inputValue))
   };
 
   const modalClasses = isOpen
@@ -38,12 +45,12 @@ export default function Modal({isOpen, onClose, onSubmit}) {
             />
           </svg>
         </button>
-        <h2 className="text-lg font-bold mb-4">Modal Content</h2>
+        <h2 className="text-lg font-bold mb-4">Review</h2>
         <input
           type="text"
+          name="review"
           className="w-full px-4 py-2 mb-4 border border-gray-300 rounded"
-          placeholder="Enter a value"
-          value={inputValue}
+          placeholder="Masukan review disini"
           onChange={handleInputChange}
         />
         <button

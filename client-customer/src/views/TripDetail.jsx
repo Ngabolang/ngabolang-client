@@ -1,26 +1,34 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import DestinationCarousel from "../components/DestinationCarousel";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  createMytrip,
   fetchTripDetail,
   paymentGateway,
 } from "../store/actions/actionCreator";
 import ImageDestination from "../components/ImageDestination";
+import Participant from "../components/Participant";
+import CustomerService from "../components/CustomerService";
 
 export default function TripDetail() {
   const [isLoading, setIsLoading] = useState(true);
   const { trip } = useSelector((state) => {
     return state.trip;
   });
-
+  const navigate=useNavigate()
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  async function handlePay() {
-    dispatch(paymentGateway(id));
+  function handlePay() {
+    dispatch(createMytrip(id))
+    .then((result) => {
+      navigate('/mytrip')
+    }).catch((err) => {
+      console.log(err);
+    });
   }
-
+  const token=localStorage.access_token
   const formatter = new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
@@ -59,7 +67,7 @@ export default function TripDetail() {
             className="w-full h-full col-span-2 row-span-2 rounded shadow-sm min-h-96 md:col-start-3 md:row-start-1 dark:bg-gray-500 aspect-square"
           />
           {trip[0].Destinations.map((el, index) => (
-             <ImageDestination key={index} image={el.imgUrl}></ImageDestination>
+            <ImageDestination key={index} image={el.imgUrl}></ImageDestination>
           ))}
         </div>
 
@@ -90,7 +98,8 @@ export default function TripDetail() {
           <div>
             <p className="py-3">Meeting Point: {trip[0].meetingPoint}</p>
             <p className="py-3">Location: {trip[0].location}</p>
-            <p className="py-3">Limit: {trip[0].limit}</p>
+            <p className="py-3">Participants: {trip[0].TripGroups.length} / {trip[0].limit}</p>
+            <p className="py-3">Start Date: {trip[0].date}</p>
             <p className="py-3">Category: {trip[0].Category.name}</p>
             <p className="py-3">Price: {formatter.format(trip[0].price)}</p>
             <button
@@ -104,7 +113,7 @@ export default function TripDetail() {
             <div class="p-4 bg-white rounded-lg shadow-md sm:p-8 mx-5 w-[50vh] dark:bg-gray-800 dark:border-gray-700">
               <div class="flex justify-between items-center mb-4">
                 <h3 class="text-xl font-bold leading-none text-gray-900 dark:text-white">
-                  User
+                  Participants
                 </h3>
               </div>
               <div class="flow-root">
@@ -112,106 +121,15 @@ export default function TripDetail() {
                   role="list"
                   class="divide-y divide-gray-200 dark:divide-gray-700"
                 >
-                  <li class="py-3 sm:py-4">
-                    <div class="flex items-center space-x-4">
-                      <div class="flex-shrink-0">
-                        <img
-                          class="w-8 h-8 rounded-full"
-                          src="https://flowbite.com/docs/images/people/profile-picture-1.jpg"
-                          alt="Neil image"
-                        ></img>
-                      </div>
-                      <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                          Neil Sims
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                          email@windster.com
-                        </p>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="py-3 sm:py-4">
-                    <div class="flex items-center space-x-4">
-                      <div class="flex-shrink-0">
-                        <img
-                          class="w-8 h-8 rounded-full"
-                          src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-                          alt="Bonnie image"
-                        ></img>
-                      </div>
-                      <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                          Bonnie Green
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                          email@windster.com
-                        </p>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="py-3 sm:py-4">
-                    <div class="flex items-center space-x-4">
-                      <div class="flex-shrink-0">
-                        <img
-                          class="w-8 h-8 rounded-full"
-                          src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
-                          alt="Michael image"
-                        ></img>
-                      </div>
-                      <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                          Michael Gough
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                          email@windster.com
-                        </p>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="py-3 sm:py-4">
-                    <div class="flex items-center space-x-4">
-                      <div class="flex-shrink-0">
-                        <img
-                          class="w-8 h-8 rounded-full"
-                          src="https://flowbite.com/docs/images/people/profile-picture-4.jpg"
-                          alt="Lana image"
-                        ></img>
-                      </div>
-                      <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                          Lana Byrd
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                          email@windster.com
-                        </p>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="pt-3 pb-0 sm:pt-4">
-                    <div class="flex items-center space-x-4">
-                      <div class="flex-shrink-0">
-                        <img
-                          class="w-8 h-8 rounded-full"
-                          src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                          alt="Thomas image"
-                        ></img>
-                      </div>
-                      <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                          Thomes Lean
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                          email@windster.com
-                        </p>
-                      </div>
-                    </div>
-                  </li>
+                  {trip[0].TripGroups.map((el, index) => (
+                    <Participant key={index} user={el.User}></Participant>
+                  ))}
                 </ul>
               </div>
             </div>
           </div>
         </div>
+        {token?<CustomerService admin={trip[0].User}></CustomerService>:<p></p>}
       </section>
     </>
   );
