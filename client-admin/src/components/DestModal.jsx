@@ -29,7 +29,10 @@ export default function DestModal({ id }) {
       </button>
 
       {show && (
-        <div className="modal show text-black" style={{ display: "block" }}>
+        <div
+          className="modal show text-black"
+          style={{ display: "block", backdropFilter: "blur(5px)" }}
+        >
           <div className="modal-dialog modal-lg">
             <div className="modal-content">
               <div className="modal-header">

@@ -20,6 +20,7 @@ import ChatPage from "./pages/ChatPage";
 import GroupChat from "./pages/GroupChat";
 import AddCategory from "./pages/AddCategory";
 import AddTrip from "./pages/AddTrip";
+import ChatPageGroup from "./pages/ChatPageGroup";
 export const router = createBrowserRouter([
   {
     path: "/login",
@@ -71,6 +72,10 @@ export const router = createBrowserRouter([
       {
         path: "/newTrip",
         element: <AddTrip />,
+      },
+      {
+        path: "/chatsGroups",
+        element: <ChatPageGroup />,
       },
     ],
   },

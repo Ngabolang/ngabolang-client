@@ -1,5 +1,6 @@
 import {
   CAT_FETCH_ALL,
+  GET_USER,
   TRIPS_FETCH_ALL,
   TRIP_FETCH_DEST,
   TRIP_FETCH_DETAIL,
@@ -145,6 +146,37 @@ export const fetchCat = () => {
         },
       });
       dispatch(fetchCatSuccess(data));
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: error.response.status,
+        text: error.response.data.message,
+        icon: "error",
+        confirmButtonText: "ok",
+      });
+    }
+  };
+};
+
+//get current user
+export const fetchUserSuccess = (payload) => {
+  return {
+    type: GET_USER,
+    payload: payload,
+  };
+};
+
+export const fetchUser = () => {
+  return async (dispatch) => {
+    try {
+      let { data } = await axios({
+        method: "get",
+        url: baseUrl + `/user`,
+        headers: {
+          access_token: localStorage.access_token,
+        },
+      });
+      dispatch(fetchUserSuccess(data));
     } catch (error) {
       console.log(error);
       Swal.fire({

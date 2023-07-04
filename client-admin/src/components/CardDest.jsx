@@ -17,13 +17,13 @@ export default function CardDest({ item }) {
   return (
     <div className="card mb-2">
       <div className="row">
-        <div className="col-7">
+        <div className="col-5">
           <h5>{item.name}</h5>
-          <p>{item.acitvity}</p>
+          <p>Activity: {item.activity}</p>
           <p>Day: {item.labelDay}</p>
           <p>Time: {item.startHour}</p>
         </div>
-        <div className="col-5">
+        <div className="col-7">
           <LoadScript googleMapsApiKey="AIzaSyDX5Eak21bfqjXb0Un9RJip6_RHOaJDDug">
             <GoogleMap
               mapContainerStyle={containerStyle}

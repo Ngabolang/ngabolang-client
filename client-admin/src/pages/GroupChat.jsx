@@ -1,29 +1,28 @@
 import Talk from "talkjs";
 import { useParams } from "react-router";
 import { useEffect, useState, useRef } from "react";
+import { fetchUser } from "../stores/actions/actionType";
+import { useDispatch, useSelector } from "react-redux";
 export default function GroupChat() {
-  const { tripId } = useParams();
-  // const tripId = "bali";
+  // const { tripId } = useParams();
+  const tripId = "trip-to-malaysia";
 
   const chatboxEl = useRef();
   // wait for TalkJS to load
   const [talkLoaded, markTalkLoaded] = useState(false);
-
+  const disptach = useDispatch();
+  const { user } = useSelector((state) => state.user);
   useEffect(() => {
-    talkInit();
-  }, [talkLoaded]);
-
-  function talkInit() {
     Talk.ready.then(() => markTalkLoaded(true));
-
-    if (talkLoaded) {
+    disptach(fetchUser());
+    if (talkLoaded && user) {
       const currentUser = new Talk.User({
-        id: "1",
-        name: "Syamsul",
-        email: "henrymill@example.com",
-        photoUrl: "https://avatars.githubusercontent.com/u/50189632?v=4",
-        welcomeMessage: `hello welcome to ${tripId}`,
-        role: "admin",
+        id: user.id,
+        name: user.username,
+        email: user.email,
+        photoUrl: user.photoProfile,
+        welcomeMessage: `hello`,
+        role: user.role,
       }); //ini akan selalu admin yg nge create
 
       const session = new Talk.Session({
@@ -33,11 +32,15 @@ export default function GroupChat() {
 
       const conversationId = Talk.oneOnOneId(tripId); //harus punya trip Id masing masing grup nya
       const conversation = session.getOrCreateConversation(conversationId);
-      console.log(conversation);
+      conversation.setAttributes({
+        custom: {
+          category: "group",
+        },
+      });
       conversation.setParticipant(currentUser);
       conversation.setAttributes({
         photoUrl:
-          "https://suntourismpune.files.wordpress.com/2022/01/bali-tours-from-pune-g2g.jpg", //foto grup
+          "https://asset-a.grid.id/crop/0x0:0x0/x/photo/2023/02/10/urban-high-klcc-malaysia-sky_112-20230210101040.jpg", //foto grup
         subject: `${tripId.split("-").join(" ")}`, //judul grup
       });
 
@@ -47,7 +50,7 @@ export default function GroupChat() {
 
       return () => session.destroy();
     }
-  }
+  }, [talkLoaded]);
 
   return (
     <>

@@ -33,7 +33,7 @@ export default function CardTrip({ item }) {
             <button className="btn btn-secondary m-2" onClick={handleChat}>
               Chat
             </button>
-            <button className="btn btn-danger m-2">Completed</button>
+            <button className="btn btn-success m-2">Completed</button>
           </div>
         </div>
       </div>

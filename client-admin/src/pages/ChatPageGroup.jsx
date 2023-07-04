@@ -2,7 +2,7 @@ import Talk from "talkjs";
 import { useEffect, useState } from "react";
 import { fetchUser } from "../stores/actions/actionType";
 import { useDispatch, useSelector } from "react-redux";
-export default function ChatPage() {
+export default function ChatPageGroup() {
   // wait for TalkJS to load
   const [talkLoaded, markTalkLoaded] = useState(false);
   const disptach = useDispatch();
@@ -26,7 +26,7 @@ export default function ChatPage() {
       });
 
       const inbox = session.createInbox();
-      inbox.setFeedFilter({ custom: { category: ["==", "personal"] } });
+      inbox.setFeedFilter({ custom: { category: ["==", "group"] } });
       inbox.mount(document.getElementById("inbox-container"));
 
       return () => session.destroy();

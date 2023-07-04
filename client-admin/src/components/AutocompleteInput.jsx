@@ -7,24 +7,26 @@ const AutocompleteInput = ({ onPlaceSelected, index }) => {
     const autocomplete = new window.google.maps.places.Autocomplete(
       inputRef.current
     );
-    Geocode.setApiKey("AIzaSyDYy31KeTisiiboB3aVNtsXM8DI6Om9NJg");
-    Geocode.setLanguage("en");
-    Geocode.setRegion("id");
+    if (autocomplete) {
+      Geocode.setApiKey("AIzaSyDYy31KeTisiiboB3aVNtsXM8DI6Om9NJg");
+      Geocode.setLanguage("en");
+      Geocode.setRegion("id");
 
-    autocomplete.addListener("place_changed", () => {
-      const place = autocomplete.getPlace();
-      Geocode.fromAddress(place.formatted_address).then(
-        (response) => {
-          console.log(response);
-          const { lat, lng } = response.results[0].geometry.location;
-          console.log(lat, lng);
-          onPlaceSelected(index, lat, lng);
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
-    });
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        Geocode.fromAddress(place.formatted_address).then(
+          (response) => {
+            console.log(response);
+            const { lat, lng } = response.results[0].geometry.location;
+            console.log(lat, lng);
+            onPlaceSelected(index, lat, lng);
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
+      });
+    }
   }, [onPlaceSelected]);
 
   return (
