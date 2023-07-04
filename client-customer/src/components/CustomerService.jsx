@@ -7,39 +7,51 @@ export default function CustomerService() {
   // wait for TalkJS to load
   const [talkLoaded, markTalkLoaded] = useState(false);
 
-  function handlePopup(e) {
-    e.preventDefault();
-    chatboxEl.show();
-  }
-
   useEffect(() => {
     Talk.ready.then(() => markTalkLoaded(true));
 
     if (talkLoaded) {
-      const customer = new Talk.User({
-        id: "10",
-        name: "wira",
+        const me = new Talk.User({
+        id: "11",
+        name: "jati",
         email: "asdasada@example.com",
-        photoUrl:
-          "https://images-ext-1.discordapp.net/external/6kzkXrkqpqUoUcLBdDb-zi7Al0shicYtIcYuKP9lxN4/https/i.imgur.com/bnavNFF.jpg?width=386&height=390",
+        photoUrl: 'https://i.imgur.com/NMNA14J.jpeg',
         welcomeMessage: "Hello!",
         role: "default",
       }); // ini buat customer yg login
+      const admin = new Talk.User({
+        id: "1",
+        name: "Syamsul",
+        email: "henrymill@example.com",
+        photoUrl: "https://avatars.githubusercontent.com/u/50189632?v=4",
+        welcomeMessage: `hello welcome to Customer Service`,
+        role: "admin",
+      }); //ini akan selalu admin yg nge create
 
       const session = new Talk.Session({
         appId: "tKz5u74h",
-        me: customer,
+        me: me,
       });
 
-      const conversationId = Talk.oneOnOneId("bali"); //japan nya nanti harus diganti yg sama dengan id grup chat
+      const conversationId = Talk.oneOnOneId(me, "cs00");
       const conversation = session.getOrCreateConversation(conversationId);
-      conversation.setParticipant(customer);
+      conversation.setAttributes({
+        custom: {
+          category: "personal",
+        },
+      });
+      conversation.setParticipant(me);
+      conversation.setParticipant(admin);
 
       const chatbox = session.createPopup();
       chatbox.select(conversation);
       chatbox.mount({ show: false });
 
+    
+
       return () => session.destroy();
     }
   }, [talkLoaded]);
+
+ 
 }

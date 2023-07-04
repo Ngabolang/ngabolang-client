@@ -8,6 +8,35 @@ function HomeView() {
   // local state
   const [isLoading, setIsLoading] = useState(true);
   // global State
+  const dummy = {
+    id: 1,
+    name: "Wisata Labuan Bajo Sailing Komodo",
+    categoryId: 1,
+    adminId: 3,
+    date: "2023-08-17T00:00:00.000Z",
+    price: 2000000,
+    status: true,
+    imgUrl:
+      "https://res.klook.com/image/upload/Mobile/City/rv76yqukp2hey0fckh99.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=kQIri35Yjds",
+    duration: 3,
+    meetingPoint: "Jakarta",
+    location: "Nusa Tenggara Timur",
+    limit: 30,
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat architecto necessitatibus tempora molestias explicabo delectus distinctio cupiditate esse totam, quibusdam ea vitae fugit natus numquam cumque, quisquam accusamus quis quam.",
+    chatId: "wisata-labuan-bajo-sailing-komodo",
+    createdAt: "2023-07-04T01:36:03.951Z",
+    updatedAt: "2023-07-04T01:36:03.951Z",
+    Category: {
+      id: 1,
+      name: "Beaches",
+      imgUrl:
+        "https://img.freepik.com/free-photo/beautiful-tropical-empty-beach-sea-ocean-with-white-cloud-blue-sky-background_74190-13668.jpg?size=626&ext=jpg&uid=R41671461&ga=GA1.2.468604856.1683977961&semt=sph",
+      createdAt: "2023-07-04T01:36:03.949Z",
+      updatedAt: "2023-07-04T01:36:03.949Z",
+    },
+  };
   // requirement
   const dispatch = useDispatch();
   // lifecycle
@@ -123,13 +152,13 @@ function HomeView() {
           <hr className="w-full bg-gray-400"></hr>
           <div className="flex overflow-x-scroll hide-scroll-bar">
             <div className="flex flex-nowrap my-4">
-              <TripCard></TripCard>
-              <TripCard></TripCard>
-              <TripCard></TripCard>
-              <TripCard></TripCard>
-              <TripCard></TripCard>
-              <TripCard></TripCard>
-              <TripCard></TripCard>
+              <TripCard trip={dummy}></TripCard>
+              <TripCard trip={dummy}></TripCard>
+              <TripCard trip={dummy}></TripCard>
+              <TripCard trip={dummy}></TripCard>
+              <TripCard trip={dummy}></TripCard>
+              <TripCard trip={dummy}></TripCard>
+              <TripCard trip={dummy}></TripCard>
             </div>
           </div>
         </div>

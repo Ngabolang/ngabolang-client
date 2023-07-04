@@ -7,45 +7,46 @@ export default function TalkChat() {
   // wait for TalkJS to load
   const [talkLoaded, markTalkLoaded] = useState(false);
 
+  function handlePopup(e) {
+    e.preventDefault();
+    chatboxEl.show();
+  }
+
   useEffect(() => {
     Talk.ready.then(() => markTalkLoaded(true));
 
     if (talkLoaded) {
-        const me = new Talk.User({
-        id: "11",
-        name: "jati",
+      const customer = new Talk.User({
+        id: "10",
+        name: "wira",
         email: "asdasada@example.com",
-        photoUrl: 'https://i.imgur.com/NMNA14J.jpeg',
+        photoUrl:
+          "https://images-ext-1.discordapp.net/external/6kzkXrkqpqUoUcLBdDb-zi7Al0shicYtIcYuKP9lxN4/https/i.imgur.com/bnavNFF.jpg?width=386&height=390",
         welcomeMessage: "Hello!",
         role: "default",
       }); // ini buat customer yg login
-      const admin = new Talk.User({
-        id: "1",
-        name: "Syamsul",
-        email: "henrymill@example.com",
-        photoUrl: "https://avatars.githubusercontent.com/u/50189632?v=4",
-        welcomeMessage: `hello welcome to Customer Service`,
-        role: "admin",
-      }); //ini akan selalu admin yg nge create
 
       const session = new Talk.Session({
         appId: "tKz5u74h",
-        me: me,
+        me: customer,
       });
 
-      const conversationId = Talk.oneOnOneId(me, "cs00");
+      const conversationId = Talk.oneOnOneId("trip-to-malaysia"); //japan nya nanti harus diganti yg sama dengan id grup chat
       const conversation = session.getOrCreateConversation(conversationId);
-      conversation.setParticipant(me);
-      conversation.setParticipant(admin);
+      conversation.setAttributes({
+        custom: {
+          category: "group",
+        },
+      });
+      conversation.setParticipant(customer);
 
-      const chatbox = session.createChatbox();
+    const chatbox = session.createChatbox();
       chatbox.select(conversation);
       chatbox.mount(chatboxEl.current);
 
       return () => session.destroy();
     }
   }, [talkLoaded]);
-
   return (
     <>
       <div className="container-fluid mt-40">

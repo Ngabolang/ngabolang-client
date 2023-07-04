@@ -4,7 +4,7 @@ import Modal from "./Modal";
 
 function MyTripCard({ trip }) {
   const navigate = useNavigate();
-
+  const id=33
   const [modalOpen, setModalOpen] = useState(false);
   const [submittedValue, setSubmittedValue] = useState("");
 
@@ -25,11 +25,15 @@ function MyTripCard({ trip }) {
     navigate("/chat");
   }
 
+  function handleTrip() {
+    navigate(`/trip/${id}`);
+  }
+
   return (
     <div className="my-4 flex flex-col w-[140vh] h-80 overflow-hidden bg-white border rounded-lg shadow-xl lg:flex-row ">
       <div className="relative lg:w-1/2">
         <img
-          src="https://images.unsplash.com/photo-1523908511403-7fc7b25592f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=2700&q=80"
+          src="https://res.klook.com/image/upload/Mobile/City/rv76yqukp2hey0fckh99.jpg"
           alt="Persons talking in a work setting."
           className="object-cover w-full lg:absolute h-80 lg:h-full"
         />
@@ -96,9 +100,9 @@ function MyTripCard({ trip }) {
           )}
         </div>
           <a
-            href="/"
+            onClick={handleTrip}
             aria-label=""
-            className="inline-flex items-center text-lg underline transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
+            className="inline-flex cursor-pointer items-center text-lg underline transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
           >
             Ke Halaman Trip
             <svg

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import logo from "../assets/ngabolang.svg";
 import { useGoogleLogin, GoogleLogin } from "@react-oauth/google";
-import { loginGoogleUser } from "../store/actions/actionCreator";
+import { loginGoogleUser, loginUser } from "../store/actions/actionCreator";
 
 function LoginView() {
   // local state
@@ -28,11 +28,17 @@ function LoginView() {
   }
 
   async function handleLogin(e) {
-    // setIsLoading(true);
+    setIsLoading(true);
     e.preventDefault();
     console.log(formData);
-    // dispatch(loginUser(formData));
-    // setIsLoading(false);
+    dispatch(loginUser(formData))
+    .then((result) => {
+       setIsLoading(false);
+       navigate('/trip')
+    }).catch((err) => {
+      
+    });
+   
   }
 
   function handleGoogle(token) {
