@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import logo from "../assets/ngabolang.svg";
-import { useGoogleLogin, GoogleLogin } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
 import { loginGoogleUser, loginUser } from "../store/actions/actionCreator";
 
 function LoginView() {
@@ -34,7 +34,7 @@ function LoginView() {
     dispatch(loginUser(formData))
       .then((result) => {
         setIsLoading(false);
-        navigate("/trip");
+        navigate("/home");
       })
       .catch((err) => {});
   }

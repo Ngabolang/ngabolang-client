@@ -8,7 +8,7 @@ function MyTrip() {
   const { mytrips } = useSelector((state) => {
     return state.trip;
   });
-  console.log(mytrips);
+  // console.log(mytrips);
   const dispatch = useDispatch();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -23,11 +23,17 @@ function MyTrip() {
 
   return (
     <div className="mt-20">
-      <div className="py-12 flex flex-col justify-center items-center">
-        {mytrips.map((el, index) => (
-          <MyTripCard key={index} mytrip={el}></MyTripCard>
-        ))}
-      </div>
+      {mytrips.length ? (
+        <div className="py-12 flex flex-col justify-center items-center">
+          {mytrips.map((el, index) => (
+            <MyTripCard key={index} mytrip={el}></MyTripCard>
+          ))}
+        </div>
+      ) : (
+        <div className="py-12 flex h-[60vh] flex-col justify-center items-center">
+          <p>Trip Belum Ada, tambahkan trip terlebih dahulu</p>
+        </div>
+      )}
     </div>
   );
 }

@@ -15,10 +15,7 @@ export default function DestinationCard({ destination }) {
     lat: +destination.latitude,
     lng: +destination.longitude,
   };
-
-  const onLoad = (marker) => {
-    console.log("marker: ", marker);
-  };
+  
 
   return (
     <div
@@ -37,7 +34,7 @@ export default function DestinationCard({ destination }) {
             center={center}
             zoom={13}
           >
-            <Marker onLoad={onLoad} position={position} />
+            <Marker position={position} />
             <></>
           </GoogleMap>
         </LoadScript>

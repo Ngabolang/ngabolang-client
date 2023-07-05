@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, } from "react-router-dom";
 import { registerUser } from "../store/actions/actionCreator";
 import axios from "axios";
 
@@ -63,7 +63,12 @@ function RegisterCustomerView() {
 
   async function handleRegister(e) {
     e.preventDefault();
-    dispatch(registerUser(form));
+    dispatch(registerUser(form))
+    .then((result) => {
+      navigate("/login");
+    }).catch((err) => {
+      
+    });
   }
   // lifecycle
   useEffect(() => {

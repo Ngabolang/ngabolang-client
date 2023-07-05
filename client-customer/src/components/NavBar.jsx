@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/ngabolang.png";
+import Swal from 'sweetalert2'
 
 function NavBar() {
   const navigate = useNavigate();
@@ -33,7 +34,13 @@ function NavBar() {
   async function handleLogOut(e) {
     e.preventDefault();
     localStorage.clear();
-    navigate("/login");
+    await Swal.fire({
+      icon: 'success',
+      title: 'Akun berhasil keluar',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    navigate("/");
   }
 
   async function handleLogin(e) {

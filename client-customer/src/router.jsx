@@ -14,7 +14,7 @@ const router = createBrowserRouter([
   {
     element: <App />,
     // loader: () => {
-    //   let token = localStorage.userId;
+    //   let token = localStorage.access_token;
     //   if (!token) {
     //     return redirect("/login");
     //   }
@@ -32,6 +32,13 @@ const router = createBrowserRouter([
       {
         path: "/mytrip",
         element: <MyTrip />,
+        loader: () => {
+          let token = localStorage.access_token;
+          if (!token) {
+            return redirect("/");
+          }
+          return null;
+        },
       },
       {
         path: "/chat/:chatId",
@@ -58,31 +65,25 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginView />,
-    // loader: () => {
-    //   let token = localStorage.userId;
-    //   if (token) {
-    //     return redirect("/menu");
-    //   }
-    //   return null;
-    // },
+    loader: () => {
+      let token = localStorage.access_token;
+      if (token) {
+        return redirect("/");
+      }
+      return null;
+    },
   },
   {
     path: "/register",
     element: <RegisterCustomerView />,
+    loader: () => {
+      let token = localStorage.access_token;
+      if (token) {
+        return redirect("/");
+      }
+      return null;
+    },
   },
-
-  // {
-  //   path: "/",
-  //   loader: () => {
-  //     let token = localStorage.userId;
-  //     if (token) {
-  //       return redirect("/menu");
-  //     } else {
-  //       return redirect("/login");
-  //     }
-  //     return null;
-  //   },
-  // },
 ]);
 
 export default router;

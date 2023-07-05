@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import Carousel from "../components/carousel";
 import TripCard from "../components/TripCard";
+import { fetchReview } from "../store/actions/actionCreator";
 
 function HomeView() {
   // local state
@@ -40,28 +40,36 @@ function HomeView() {
   // requirement
   const dispatch = useDispatch();
   // lifecycle
+
+  const { reviews } = useSelector((state) => {
+    return state.trip;
+  });
+
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     if (isLoading) {
-      // dispatch(fetchMenus())
-      //   .then((res) => {
-      //     setIsLoading(false);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+      dispatch(fetchReview())
+        .then((res) => {
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }, []);
 
-  // if (isLoading) {
-  //   return (
-  //     <img
-  //       className="w-full pl-60 scale-50"
-  //       src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"
-  //       alt=""
-  //     />
-  //   );
-  // }
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <img
+          className=" scale-100 w-[60vh]"
+          src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"
+          alt=""
+        />
+      </div>
+    );
+  }
+
   const images = [
     "https://images.unsplash.com/photo-1528265417219-1a288ae08573?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
     "https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=738&q=80",
@@ -83,7 +91,10 @@ function HomeView() {
               </div>
               <hr className="w-full bg-gray-400"></hr>
             </div>
-            <a className="col-span-3 bg-cyan-600 rounded-xl h-52 md:h-80" href="">
+            <a
+              className="col-span-3 bg-cyan-600 rounded-xl h-52 md:h-80"
+              href=""
+            >
               <img
                 src="https://a0.muscache.com/im/pictures/a433b4d0-8183-4523-b4c5-99b81c5729c1.jpg?im_w=320"
                 className="rounded-t-xl max-h-44"
@@ -100,7 +111,10 @@ function HomeView() {
               </p>
             </a>
 
-            <a className="col-span-3 bg-cyan-600 rounded-xl h-52 md:h-80" href="">
+            <a
+              className="col-span-3 bg-cyan-600 rounded-xl h-52 md:h-80"
+              href=""
+            >
               <img
                 src="https://a0.muscache.com/im/pictures/db8167f7-5c57-4684-80ae-4350c73e45ef.jpg?im_w=320"
                 className="rounded-t-xl max-h-44"
@@ -116,7 +130,10 @@ function HomeView() {
                 109 kilometers away{" "}
               </p>
             </a>
-            <a className="col-span-3 bg-cyan-600 rounded-xl h-52 md:h-80" href="">
+            <a
+              className="col-span-3 bg-cyan-600 rounded-xl h-52 md:h-80"
+              href=""
+            >
               <img
                 src="https://a0.muscache.com/im/pictures/ffde0c4b-1889-4d11-bb00-41411d34fdfc.jpg?im_w=320"
                 className="rounded-t-xl max-h-44"
@@ -130,12 +147,18 @@ function HomeView() {
                 406 kilometers away{" "}
               </p>
             </a>
-            <a className="col-span-3 bg-cyan-600 rounded-xl h-52 md:h-80" href="">
+            <a
+              className="col-span-3 bg-cyan-600 rounded-xl h-52 md:h-80"
+              href=""
+            >
               <img
                 src="https://a0.muscache.com/im/pictures/03bb6d0a-5ccb-47e1-83fc-b7ad87e7f8c3.jpg?im_w=320"
                 className="rounded-t-xl max-h-44"
               />
-              <p className="text-xl md:text-3xl text-gray-50 pt-5 pl-3"> Serang </p>
+              <p className="text-xl md:text-3xl text-gray-50 pt-5 pl-3">
+                {" "}
+                Serang{" "}
+              </p>
               <p className="text-xs md:text-lg font-light text-gray-50 pt-3 pl-3 pb-10">
                 {" "}
                 78 kilometers away{" "}
@@ -161,6 +184,21 @@ function HomeView() {
               <TripCard trip={dummy}></TripCard>
             </div>
           </div>
+        </div>
+        <div className=" text-3xl my-10 items-center flex flex-col mx-[35vh]">
+        <p className="my-20">Ini Section Review</p>
+        {reviews.length? <div>
+          {reviews.map((el, index) => (
+            <div key={index}>
+              <p>Nama: {el.User.username}</p>
+              <p>Trip: {el.Trip.name}</p>
+              <p>Reviw :{el.review}</p>
+              <p>Rating :{el.rating}</p>
+            </div>
+          ))}
+          </div>:<p className="text-lg">Review masih kosong</p>}
+         
+          
         </div>
       </div>
     </>

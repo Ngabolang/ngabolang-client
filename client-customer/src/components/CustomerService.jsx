@@ -1,8 +1,7 @@
 import Talk from "talkjs";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 export default function CustomerService({ admin }) {
-  const chatboxEl = useRef();
 
   // wait for TalkJS to load
   const [talkLoaded, markTalkLoaded] = useState(false);
@@ -45,7 +44,7 @@ export default function CustomerService({ admin }) {
 
       const chatbox = session.createPopup();
       chatbox.select(conversation);
-      chatbox.mount({ show: false });
+      chatbox.mount();
 
       return () => session.destroy();
     }

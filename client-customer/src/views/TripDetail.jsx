@@ -5,30 +5,40 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   createMytrip,
   fetchTripDetail,
-  paymentGateway,
 } from "../store/actions/actionCreator";
 import ImageDestination from "../components/ImageDestination";
 import Participant from "../components/Participant";
 import CustomerService from "../components/CustomerService";
+import Swal from "sweetalert2";
 
 export default function TripDetail() {
   const [isLoading, setIsLoading] = useState(true);
   const { trip } = useSelector((state) => {
     return state.trip;
   });
-  const navigate=useNavigate()
+  // console.log(trip[0],TripGroups);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
-
+  const token = localStorage.access_token;
   function handlePay() {
-    dispatch(createMytrip(id))
-    .then((result) => {
-      navigate('/mytrip')
-    }).catch((err) => {
-      console.log(err);
-    });
+    if (token) {
+      dispatch(createMytrip(id))
+        .then((result) => {
+          navigate("/mytrip");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: `Login terlebih dahulu`,
+      });
+      navigate("/login");
+    }
   }
-  const token=localStorage.access_token
+
   const formatter = new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
@@ -70,17 +80,19 @@ export default function TripDetail() {
             <ImageDestination key={index} image={el.imgUrl}></ImageDestination>
           ))}
         </div>
-
-        <iframe
-          width="100%"
-          height="500"
-          src={
-            `https://www.youtube.com/embed/` + trip[0].videoUrl.split("?v=")[1]
-          }
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        ></iframe>
+        <div className=" items-center flex justify-center my-4">
+          <iframe
+            width="80%"
+            height="450"
+            src={
+              `https://www.youtube.com/embed/` +
+              trip[0].videoUrl.split("?v=")[1]
+            }
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
+            allowFullScreen
+          ></iframe>
+        </div>
 
         <div className="my-10">
           <p className="text-3xl py-3 font-bold">{trip[0].name}</p>
@@ -89,16 +101,21 @@ export default function TripDetail() {
 
         <div className="my-10">
           <p className="text-3xl py-3 font-bold">Destinasi Trip</p>
-          <DestinationCarousel
+          <div className="w-[120vh] ml-20">
+            <DestinationCarousel
             cards={trip[0].Destinations}
           ></DestinationCarousel>
+          </div>
+          
         </div>
 
         <div className="flex justify-between">
           <div>
             <p className="py-3">Meeting Point: {trip[0].meetingPoint}</p>
             <p className="py-3">Location: {trip[0].location}</p>
-            <p className="py-3">Participants: {trip[0].TripGroups.length} / {trip[0].limit}</p>
+            <p className="py-3">
+              Participants: {trip[0].TripGroups.length} / {trip[0].limit}
+            </p>
             <p className="py-3">Start Date: {trip[0].date}</p>
             <p className="py-3">Category: {trip[0].Category.name}</p>
             <p className="py-3">Price: {formatter.format(trip[0].price)}</p>
@@ -106,20 +123,20 @@ export default function TripDetail() {
               onClick={handlePay}
               className="bg-green-500 px-10 rounded-lg py-2 shadow-md text-white"
             >
-              <p className="font-bold"> BELI SEKARANG</p>
+              <p className="font-bold"> Tambahkan</p>
             </button>
           </div>
           <div>
-            <div class="p-4 bg-white rounded-lg shadow-md sm:p-8 mx-5 w-[50vh] dark:bg-gray-800 dark:border-gray-700">
-              <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-bold leading-none text-gray-900 dark:text-white">
+            <div className="p-4 bg-white rounded-lg shadow-md sm:p-8 mx-5 w-[50vh] dark:bg-gray-800 dark:border-gray-700">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
                   Participants
                 </h3>
               </div>
-              <div class="flow-root">
+              <div className="flow-root">
                 <ul
                   role="list"
-                  class="divide-y divide-gray-200 dark:divide-gray-700"
+                  className="divide-y divide-gray-200 dark:divide-gray-700"
                 >
                   {trip[0].TripGroups.map((el, index) => (
                     <Participant key={index} user={el.User}></Participant>
@@ -129,7 +146,14 @@ export default function TripDetail() {
             </div>
           </div>
         </div>
-        {token?<CustomerService admin={trip[0].User}></CustomerService>:<p></p>}
+        <div className="mx-1">
+        {token ? (
+          <CustomerService admin={trip[0].User}></CustomerService>
+        ) : (
+          <p></p>
+        )}
+        </div>
+        
       </section>
     </>
   );

@@ -5,9 +5,8 @@ import { useDispatch } from "react-redux";
 import { paymentGateway } from "../store/actions/actionCreator";
 
 function MyTripCard({ mytrip }) {
-  console.log(mytrip);
+  // console.log(mytrip);
   const navigate = useNavigate();
-  const id = 33;
   const [modalOpen, setModalOpen] = useState(false);
   const [submittedValue, setSubmittedValue] = useState("");
 
@@ -19,14 +18,9 @@ function MyTripCard({ mytrip }) {
     setModalOpen(false);
   };
 
-  const handleSubmit = (value) => {
-    setSubmittedValue(value);
-    closeModal();
-  };
-  
   function handleChat() {
-    const slug=mytrip.Trip.chatId
-    navigate(`/chat/`+slug);
+    const slug = mytrip.Trip.chatId;
+    navigate(`/chat/` + slug);
   }
 
   const dispatch = useDispatch();
@@ -39,7 +33,7 @@ function MyTripCard({ mytrip }) {
   }
 
   return (
-    <div className="my-4 flex flex-col w-[140vh] h-80 overflow-hidden bg-white border rounded-lg shadow-xl lg:flex-row ">
+    <div className="my-4 flex flex-col w-[140vh] h-auto overflow-hidden bg-white border rounded-lg shadow-xl lg:flex-row ">
       <div className="relative lg:w-1/2">
         <img
           src={mytrip.Trip.imgUrl}
@@ -56,9 +50,23 @@ function MyTripCard({ mytrip }) {
       </div>
       <div className="flex flex-col justify-center p-8 bg-white lg:p-16 lg:pl-10 lg:w-1/2">
         <div>
-          <p className="inline-block px-3 py-1 mb-4 text-xs font-medium tracking-wider text-purple-600 uppercase bg-purple-200 rounded-full">
-            {!mytrip.paymentStatus ? "Belum Bayar" : "Udah Bayar"}
-          </p>
+          {!mytrip.Trip.status ? (
+            <p className="inline-block px-3 py-1 mb-4 text-xs font-medium tracking-wider text-blue-600 uppercase bg-blue-200 rounded-full">
+              Udah Bayar
+            </p>
+          ) : (
+            <div>
+              {!mytrip.paymentStatus ? (
+                <p className="inline-block px-3 py-1 mb-4 text-xs font-medium tracking-wider text-red-600 uppercase bg-red-200 rounded-full">
+                  Belum Bayar
+                </p>
+              ) : (
+                <p className="inline-block px-3 py-1 mb-4 text-xs font-medium tracking-wider text-blue-600 uppercase bg-blue-200 rounded-full">
+                  Udah Bayar
+                </p>
+              )}
+            </div>
+          )}
         </div>
         <h5 className="mb-3 text-3xl font-extrabold leading-none sm:text-4xl">
           {mytrip.Trip.name}
@@ -68,9 +76,9 @@ function MyTripCard({ mytrip }) {
           {!mytrip.paymentStatus ? (
             <button
               onClick={handlePay}
-              className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 bg-purple-500 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none"
+              className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 bg-green-500 rounded-lg hover:bg-green-700 focus:shadow-outline focus:outline-none"
             >
-              BAYAR LO
+              Bayar
             </button>
           ) : (
             <div>
