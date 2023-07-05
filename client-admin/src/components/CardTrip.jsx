@@ -2,7 +2,7 @@ import DestModal from "./DestModal";
 import DetailModal from "./DetailModal";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { updateTrip } from "../stores/actions/actionType";
+import { updateTrip } from "../stores/actions/actionCreator";
 export default function CardTrip({ item }) {
   const navigate = useNavigate();
 

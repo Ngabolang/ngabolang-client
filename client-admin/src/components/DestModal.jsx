@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { fetchDestTrip } from "../stores/actions/actionType";
+import { fetchDestTrip } from "../stores/actions/actionCreator";
 import { useDispatch, useSelector } from "react-redux";
 import CardDest from "./CardDest";
 export default function DestModal({ id }) {

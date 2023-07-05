@@ -1,4 +1,4 @@
-import { CAT_FETCH_ALL } from "../actions/actionCreator";
+import { CAT_FETCH_ALL } from "../actions/actionType";
 
 const initState = {
   categories: [],

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { addAdmin } from "../stores/actions/actionType";
+import { addAdmin } from "../stores/actions/actionCreator";
 export default function AddAdminPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -107,6 +107,16 @@ export default function AddAdminPage() {
               />
             </div>
             <div className="form-group mb-3">
+              <label>Photo Profile</label>
+              <input
+                type="file"
+                name="photoProfile"
+                accept="image/*"
+                className="form-control"
+                onChange={handleImageUpload}
+              />
+            </div>
+            <div className="form-group mb-3">
               <label>Phone Number</label>
               <input
                 type="text"
@@ -126,16 +136,6 @@ export default function AddAdminPage() {
                 value={form.address}
                 onChange={handleChange}
                 placeholder="Enter address"
-              />
-            </div>
-            <div className="form-group mb-3">
-              <label>Photo Profile</label>
-              <input
-                type="file"
-                name="photoProfile"
-                accept="image/*"
-                className="form-control"
-                onChange={handleImageUpload}
               />
             </div>
 

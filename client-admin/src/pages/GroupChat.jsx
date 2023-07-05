@@ -1,7 +1,7 @@
 import Talk from "talkjs";
 import { useParams } from "react-router";
 import { useEffect, useState, useRef } from "react";
-import { fetchChatTrip, fetchUser } from "../stores/actions/actionType";
+import { fetchChatTrip, fetchUser } from "../stores/actions/actionCreator";
 import { useDispatch, useSelector } from "react-redux";
 export default function GroupChat() {
   const { tripId } = useParams();

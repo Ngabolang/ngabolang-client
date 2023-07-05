@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchDetailTrip } from "../stores/actions/actionType";
+import { fetchDetailTrip } from "../stores/actions/actionCreator";
 import { useDispatch, useSelector } from "react-redux";
 import CardParticipants from "./CardParticipants";
 export default function DetailModal({ id }) {

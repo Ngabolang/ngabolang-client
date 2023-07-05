@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { addCat } from "../stores/actions/actionType";
+import { addCat } from "../stores/actions/actionCreator";
 
 export default function AddCategory() {
   const navigate = useNavigate();
