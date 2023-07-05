@@ -74,12 +74,11 @@ function LoginView() {
     return (
       <div className="flex justify-center items-center h-screen">
         <img
-        className=" scale-100 w-[60vh]"
-        src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"
-        alt=""
-      />
+          className=" scale-100 w-[60vh]"
+          src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"
+          alt=""
+        />
       </div>
-      
     );
   }
 
@@ -171,7 +170,7 @@ function LoginView() {
               <button
                 onClick={handleAbout}
                 role="button"
-                className="focus:ring-2 focus:ring-offset-2 focus:ring-[#20c4ba] text-sm font-semibold leading-none text-white focus:outline-none bg-[#ca3333] border rounded hover:bg-[#199d94] py-4 w-full"
+                className="focus:ring-2 focus:ring-offset-2 focus:ring-rose-600 text-sm font-semibold leading-none text-white focus:outline-none bg-rose-400 border rounded hover:bg-rose-600 py-4 w-full"
               >
                 Kembali
               </button>
@@ -186,7 +185,7 @@ function LoginView() {
             <div className=" flex justify-center items-center">
               <GoogleLogin
                 onSuccess={(credentialResponse) => {
-                  handleGoogle(credentialResponse.credential)
+                  handleGoogle(credentialResponse.credential);
                 }}
                 onError={() => {
                   console.log("Login Failed");

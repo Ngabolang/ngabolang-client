@@ -54,7 +54,7 @@ function NavBar() {
   }
 
   return (
-    <nav className="fixed top-0 z-50 flex items-center justify-between px-40 bg-white text-black w-screen">
+    <nav className="fixed top-0 z-50 flex items-center justify-between px-40 bg-white text-black w-screen shadow-md py-1">
       <div className="flex items-center my-3">
         <div className="mr-10 cursor-pointer" onClick={handleAbout}>
           <img src={logo} alt="Logo" className="w-[14vh]" />
@@ -105,13 +105,13 @@ function NavBar() {
         <div>
           <button
             onClick={handleLogin}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+            className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded mr-2"
           >
             Masuk
           </button>
           <button
             onClick={handleRegister}
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold py-2 px-4 rounded"
           >
             Daftar
           </button>

@@ -217,7 +217,7 @@ function RegisterCustomerView() {
 
                   <button
                     onClick={handleAbout}
-                    className="flex items-center justify-between w-60 px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#ca4545] rounded-md hover:bg-[#1ba89f] focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                    className="flex items-center justify-between w-60 px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-rose-400 rounded-md hover:bg-rose-600 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
                   >
                     <span>Kembali</span>
 

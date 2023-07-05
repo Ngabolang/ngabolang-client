@@ -62,10 +62,10 @@ export const paymentGateway = (tripId) => {
             );
             let result = await response.json();
             console.log(result);
-            
+
             window.snap.pay(result.token, {
                 onSuccess: async function (result) {
-                    
+
                     await Swal.fire({
                         text: 'Success To Pay, Enjoy!!!',
                         icon: 'success',
@@ -166,7 +166,7 @@ export const loginUser = (payload) => {
             dispatch(userLoginSuccess(result))
             Swal.fire({
                 icon: 'success',
-                title: 'Success logged in',
+                title: 'Akun berhasil masuk',
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -182,7 +182,7 @@ export const loginUser = (payload) => {
 }
 
 export const loginGoogleUser = (payload) => {
-    // console.log(payload);
+    console.log(payload);
     return async (dispatch) => {
         try {
             let response = await fetch(baseUrl + `customer/google-sign-in`, {
@@ -243,6 +243,27 @@ export const fetchTrips = (category) => {
     }
 }
 
+export const fetchSearchTrips = (val) => {
+    console.log(val);
+    return async (dispatch) => {
+        try {
+            let response = await fetch(
+                baseUrl + "customer/trip?search=" + val, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }
+            );
+            let result = await response.json();
+            console.log(result);
+            await dispatch(fetchTripAllSuccess(result));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
 export const fetchReview = () => {
     return async (dispatch) => {
         try {
@@ -263,7 +284,7 @@ export const fetchReview = () => {
     }
 }
 
-export const reviewUser = (id,payload) => {
+export const reviewUser = (id, payload) => {
     return async (dispatch) => {
         try {
             let response = await fetch(
@@ -334,7 +355,7 @@ export const createMytrip = (id) => {
             }
             );
             let result = await response.json();
-            if(result.message==="you are already buy this tri["){
+            if (result.message === "you are already buy this trip") {
                 Swal.fire({
                     icon: 'error',
                     title: `Tidak bisa menambahkan trip yang sama`,
@@ -347,7 +368,7 @@ export const createMytrip = (id) => {
                     timer: 1500
                 })
             }
-            
+
         } catch (error) {
             console.log(error);
         }

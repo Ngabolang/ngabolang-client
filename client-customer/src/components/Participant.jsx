@@ -1,6 +1,6 @@
 export default function Participant({user}) {
   return (
-    <li className="py-3 sm:py-4">
+    <div className="py-3 sm:py-4">
       <div className="flex items-center space-x-4">
         <div className="flex-shrink-0">
           <img
@@ -18,6 +18,6 @@ export default function Participant({user}) {
           </p>
         </div>
       </div>
-    </li>
+    </div>
   );
 }

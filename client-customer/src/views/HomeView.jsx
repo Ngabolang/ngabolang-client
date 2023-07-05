@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Carousel from "../components/carousel";
 import TripCard from "../components/TripCard";
-import { fetchReview } from "../store/actions/actionCreator";
+import {
+  fetchCategories,
+  fetchReview,
+  fetchTrips,
+} from "../store/actions/actionCreator";
+import CategoriesCard from "../components/CategoriesCard";
+import { useNavigate } from "react-router-dom";
 
 function HomeView() {
   // local state
@@ -41,13 +47,22 @@ function HomeView() {
   const dispatch = useDispatch();
   // lifecycle
 
-  const { reviews } = useSelector((state) => {
+  const { reviews, categories, trips } = useSelector((state) => {
     return state.trip;
   });
-
+  const navigate = useNavigate();
+  function handleCategory() {
+    navigate("/categories");
+  }
+  function handleTrip() {
+    navigate("/trip");
+  }
+  console.log(reviews);
   useEffect(() => {
     window.scrollTo(0, 0);
     if (isLoading) {
+      dispatch(fetchCategories());
+      dispatch(fetchTrips());
       dispatch(fetchReview())
         .then((res) => {
           setIsLoading(false);
@@ -82,123 +97,55 @@ function HomeView() {
         <Carousel images={images} width="100%" />
       </div>
       <div className="m-10">
-        <div className="h-[70vh] flex items-center justify-center">
-          <div className="grid grid-cols-12 px-18 gap-5">
-            <div className="col-span-12">
-              <div className="flex justify-between">
-                <p>Top kategori</p>
-                <button>Lihat Semua Kategori</button>
-              </div>
-              <hr className="w-full bg-gray-400"></hr>
+        <div className="flex flex-col mx-[35vh]">
+          <div className="flex justify-between">
+            <p>Top kategori</p>
+            <button onClick={handleCategory}>Lihat Semua Kategori</button>
+          </div>
+
+          <hr className="w-full bg-gray-400"></hr>
+          <div className="">
+            <div className="my-4 items-center justify-center gap-6 flex ">
+              {categories.slice(0, 4).map((el, index) => (
+                <div key={index} className="w-40">
+                  <CategoriesCard  card={el}></CategoriesCard>
+                </div>
+              ))}
             </div>
-            <a
-              className="col-span-3 bg-cyan-600 rounded-xl h-52 md:h-80"
-              href=""
-            >
-              <img
-                src="https://a0.muscache.com/im/pictures/a433b4d0-8183-4523-b4c5-99b81c5729c1.jpg?im_w=320"
-                className="rounded-t-xl max-h-44"
-              />
-
-              <p className="text-xl md:text-3xl text-gray-50 pt-5 pl-3">
-                {" "}
-                Bandung{" "}
-              </p>
-
-              <p className="text-xs md:text-lg font-light text-gray-50 pt-3 pl-3 pb-10">
-                {" "}
-                117 kilometers away{" "}
-              </p>
-            </a>
-
-            <a
-              className="col-span-3 bg-cyan-600 rounded-xl h-52 md:h-80"
-              href=""
-            >
-              <img
-                src="https://a0.muscache.com/im/pictures/db8167f7-5c57-4684-80ae-4350c73e45ef.jpg?im_w=320"
-                className="rounded-t-xl max-h-44"
-              />
-
-              <p className="text-xl md:text-3xl text-gray-50 pt-5 pl-3">
-                {" "}
-                Lembang{" "}
-              </p>
-
-              <p className="text-xs md:text-lg font-light text-gray-50 pt-3 pl-3 pb-10">
-                {" "}
-                109 kilometers away{" "}
-              </p>
-            </a>
-            <a
-              className="col-span-3 bg-cyan-600 rounded-xl h-52 md:h-80"
-              href=""
-            >
-              <img
-                src="https://a0.muscache.com/im/pictures/ffde0c4b-1889-4d11-bb00-41411d34fdfc.jpg?im_w=320"
-                className="rounded-t-xl max-h-44"
-              />
-              <p className="text-xl md:text-3xl text-gray-50 pt-5 pl-3">
-                {" "}
-                Semarang{" "}
-              </p>
-              <p className="text-xs md:text-lg font-light text-gray-50 pt-3 pl-3 pb-10">
-                {" "}
-                406 kilometers away{" "}
-              </p>
-            </a>
-            <a
-              className="col-span-3 bg-cyan-600 rounded-xl h-52 md:h-80"
-              href=""
-            >
-              <img
-                src="https://a0.muscache.com/im/pictures/03bb6d0a-5ccb-47e1-83fc-b7ad87e7f8c3.jpg?im_w=320"
-                className="rounded-t-xl max-h-44"
-              />
-              <p className="text-xl md:text-3xl text-gray-50 pt-5 pl-3">
-                {" "}
-                Serang{" "}
-              </p>
-              <p className="text-xs md:text-lg font-light text-gray-50 pt-3 pl-3 pb-10">
-                {" "}
-                78 kilometers away{" "}
-              </p>
-            </a>
           </div>
         </div>
+
         <div className="flex flex-col mx-[35vh]">
           <div className="flex justify-between">
             <p>Trip terbaru</p>
-            <button>Lihat Semua Trip</button>
+            <button onClick={handleTrip}>Lihat semua trip</button>
           </div>
 
           <hr className="w-full bg-gray-400"></hr>
           <div className="flex overflow-x-scroll hide-scroll-bar">
             <div className="flex flex-nowrap my-4">
-              <TripCard trip={dummy}></TripCard>
-              <TripCard trip={dummy}></TripCard>
-              <TripCard trip={dummy}></TripCard>
-              <TripCard trip={dummy}></TripCard>
-              <TripCard trip={dummy}></TripCard>
-              <TripCard trip={dummy}></TripCard>
-              <TripCard trip={dummy}></TripCard>
+              {trips.slice(0, 5).map((el, index) => (
+                <TripCard key={index} trip={el}></TripCard>
+              ))}
             </div>
           </div>
         </div>
         <div className=" text-3xl my-10 items-center flex flex-col mx-[35vh]">
-        <p className="my-20">Ini Section Review</p>
-        {reviews.length? <div>
-          {reviews.map((el, index) => (
-            <div key={index}>
-              <p>Nama: {el.User.username}</p>
-              <p>Trip: {el.Trip.name}</p>
-              <p>Reviw :{el.review}</p>
-              <p>Rating :{el.rating}</p>
+          <p className="my-20">Ini Section Review</p>
+          {reviews.length ? (
+            <div>
+              {reviews.map((el, index) => (
+                <div key={index}>
+                  <p>Nama: {el.User.username}</p>
+                  <p>Trip: {el.Trip.name}</p>
+                  <p>Review :{el.review}</p>
+                  <p>Rating :{el.rating}</p>
+                </div>
+              ))}
             </div>
-          ))}
-          </div>:<p className="text-lg">Review masih kosong</p>}
-         
-          
+          ) : (
+            <p className="text-lg">Review masih kosong</p>
+          )}
         </div>
       </div>
     </>

@@ -15,11 +15,10 @@ export default function DestinationCard({ destination }) {
     lat: +destination.latitude,
     lng: +destination.longitude,
   };
-  
 
   return (
     <div
-    className="rounded-lg shadow-lg bg-gray-200 w-full flex flex-row flex-wrap p-3 antialiased"
+      className="rounded-lg shadow-lg bg-gray-400 w-full flex flex-row flex-wrap p-3 antialiased"
       style={{
         backgroundImage: `url(${destination.imgUrl})`,
         backgroundRepeat: "no-repeat",
@@ -39,20 +38,18 @@ export default function DestinationCard({ destination }) {
           </GoogleMap>
         </LoadScript>
       </div>
-      <div className="md:w-2/3 w-full px-3 flex flex-row flex-wrap">
+      <div className="md:w-2/3 w-full px-3 flex flex-row flex-wrap p-3">
         <div className="w-full text-right text-gray-700 font-semibold relative pt-3 md:pt-0">
-          <div className="text-2xl text-white font-bold leading-tight">{destination.name}</div>
-          <div className="text-normal text-gray-100">
-            <span className="  pb-1">
-              Hari ke {destination.labelDay}
-            </span>
+          <div className="text-2xl text-white font-bold leading-tight">
+            {destination.name}
           </div>
-          <div className="text-normal text-gray-100">
-            <span className="  pb-1">
-              Kegiatan yang dilakukan: {destination.activity}
-            </span>
+          <div className="text-normal mt-3 text-gray-100">
+            <span className="  pb-1">Hari ke {destination.labelDay}</span>
           </div>
-          <div className="text-md text-gray-100 text-white md:absolute pt-3 md:pt-0 bottom-0 right-0 m-2">
+          <div className="text-lg font-semibold text-gray-100">
+            <span className="  pb-1">{destination.activity}</span>
+          </div>
+          <div className="text-md text-white md:absolute pt-3 md:pt-0 bottom-0 right-0 m-2">
             Start Hour: <b>{destination.startHour}</b>
           </div>
         </div>
