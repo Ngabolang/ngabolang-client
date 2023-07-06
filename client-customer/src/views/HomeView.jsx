@@ -9,6 +9,7 @@ import {
 } from "../store/actions/actionCreator";
 import CategoriesCard from "../components/CategoriesCard";
 import { useNavigate } from "react-router-dom";
+import ReviewCard from "../components/RatingCard";
 
 function HomeView() {
   // local state
@@ -59,7 +60,7 @@ function HomeView() {
   }
   console.log(reviews);
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     if (isLoading) {
       dispatch(fetchCategories());
       dispatch(fetchTrips());
@@ -99,7 +100,7 @@ function HomeView() {
       <div className="m-10">
         <div className="flex flex-col mx-[35vh]">
           <div className="flex justify-between">
-            <p>Top kategori</p>
+            <p className="font-semibold text-2xl">Top kategori</p>
             <button onClick={handleCategory}>Lihat Semua Kategori</button>
           </div>
 
@@ -117,7 +118,7 @@ function HomeView() {
 
         <div className="flex flex-col mx-[35vh]">
           <div className="flex justify-between">
-            <p>Trip terbaru</p>
+            <p className="font-semibold text-2xl">Trip terbaru</p>
             <button onClick={handleTrip}>Lihat semua trip</button>
           </div>
 
@@ -130,23 +131,24 @@ function HomeView() {
             </div>
           </div>
         </div>
-        <div className=" text-3xl my-10 items-center flex flex-col mx-[35vh]">
-          <p className="my-20">Ini Section Review</p>
-          {reviews.length ? (
-            <div>
+
+        <div className="flex flex-col mx-[35vh] my-20">
+          <div className="flex justify-between">
+            <p className="font-semibold text-2xl">Review</p>
+           
+          </div>
+
+          <hr className="w-full bg-gray-400"></hr>
+          <div className="flex overflow-x-scroll hide-scroll-bar">
+            <div className="flex flex-nowrap my-4 gap-10">
               {reviews.map((el, index) => (
-                <div key={index}>
-                  <p>Nama: {el.User.username}</p>
-                  <p>Trip: {el.Trip.name}</p>
-                  <p>Review :{el.review}</p>
-                  <p>Rating :{el.rating}</p>
-                </div>
+                
+                <ReviewCard key={index} date={el.updatedAt} trip={el.Trip.name} name={el.User.username} profilePhoto={el.User.photoProfile} reviewText={el.review} rating={el.rating} ></ReviewCard>
               ))}
             </div>
-          ) : (
-            <p className="text-lg">Review masih kosong</p>
-          )}
+          </div>
         </div>
+      
       </div>
     </>
   );

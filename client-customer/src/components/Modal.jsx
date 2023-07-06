@@ -31,7 +31,7 @@ export default function Modal({ isOpen, onClose, id }) {
       .then((result) => {
         Swal.fire({
           icon: "success",
-          title: "Akun berhasil keluar",
+          title: "Terimakasih atas reviewnya",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -84,7 +84,7 @@ export default function Modal({ isOpen, onClose, id }) {
         ></textarea>
         {/*  */}
         <div className="my-3">
-          <h2 className="text-lg font-bold mb-4">Rating Perjalanan Ini</h2>
+          <h2 className="text-lg font-bold mb-4 text-center">Rating Perjalanan Ini</h2>
           <div className="flex items-center">
             {[1, 2, 3, 4, 5].map((value) => (
               <svg
