@@ -1,5 +1,5 @@
 export default function ImageDestination({ image }) {
-    console.log(image);
+    // console.log(image);
     return (
       <img
         alt=""

@@ -20,18 +20,18 @@ function LandingPage() {
         <div className="ml-10 flex flex-grow justify-center items-center">
           <div className="flex p-4">
             <div className="flex flex-col justify-center pr-4">
-              <h2 className="text-2xl font-bold mb-2">Ngabolang</h2>
+              <h2 className="text-4xl font-bold mb-6">NGABOLANG</h2>
               <div className="mb-4 max-w-sm">
-                <p className="text-gray-600 mb-4 break-words">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <p className="text-gray-600 mb-4 break-words text-xl">
+                Ngabolang memberikan wadah bagi orang-orang yang memiliki jiwa petualang dan menghubungkan mereka dengan travel agent terpercaya. Platform ini membuat perjalanan semakin menarik dengan menghubungkan para customer di suatu group dengan harapan terciptanya komunitas-komunitas travel untuk memajukan industri travel di Indonesia.
                 </p>
               </div>
-              <div>
+              <div className="flex">
                 <button
                   onClick={handleHome}
-                  className="bg-[#20c4ba] hover:bg-[#1ba89f] text-white font-bold py-2 px-4 rounded-xl"
+                  className="bg-[#20c4ba] w-40 h-[7vh] hover:bg-[#1ba89f] text-white font-bold py-2 px-4 mt-2 rounded-xl"
                 >
-                  Let's GO !
+                  LET'S GO !
                 </button>
               </div>
             </div>

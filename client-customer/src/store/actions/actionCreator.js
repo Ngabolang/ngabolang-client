@@ -1,4 +1,4 @@
-import { FETCH_CATEGORIES, FETCH_MYTRIP, FETCH_TRIPS, FETCH_TRIP_DETAIL, USER_LOGIN } from "./actionType"
+import { FETCH_CATEGORIES, FETCH_MYTRIP, FETCH_REVIEW, FETCH_TRIPS, FETCH_TRIP_DETAIL, USER_LOGIN } from "./actionType"
 import axios from 'axios'
 import Swal from 'sweetalert2'
 const baseUrl = "http://localhost:3000/";
@@ -15,6 +15,13 @@ export const fetchTripAllSuccess = (payload) => {
 export const fetchTripDetailSuccess = (payload) => {
     return {
         type: FETCH_TRIP_DETAIL,
+        payload: payload
+    }
+}
+
+export const fetchReviewSuccess = (payload) => {
+    return {
+        type: FETCH_REVIEW,
         payload: payload
     }
 }
@@ -55,10 +62,10 @@ export const paymentGateway = (tripId) => {
             );
             let result = await response.json();
             console.log(result);
-            
+
             window.snap.pay(result.token, {
                 onSuccess: async function (result) {
-                    
+
                     await Swal.fire({
                         text: 'Success To Pay, Enjoy!!!',
                         icon: 'success',
@@ -122,7 +129,7 @@ export const registerUser = (payload) => {
             // console.log(result);
             Swal.fire({
                 icon: 'success',
-                title: 'Success register user',
+                title: 'Berhasil register',
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -159,7 +166,7 @@ export const loginUser = (payload) => {
             dispatch(userLoginSuccess(result))
             Swal.fire({
                 icon: 'success',
-                title: 'Success logged in',
+                title: 'Akun berhasil masuk',
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -185,12 +192,12 @@ export const loginGoogleUser = (payload) => {
                     "google_access_token": payload
                 },
             });
-            console.log(response);
+            // console.log(response);
             let result = await response.json();
-            console.log(result);
+            // console.log(result);
             if (!response.ok) throw { res: response.status, result }
             localStorage.access_token = result.access_token;
-            localStorage.userId = result.user.id;
+            localStorage.id = result.user.id;
             localStorage.email = result.user.email;
             localStorage.photoProfile = result.user.photoProfile;
             localStorage.username = result.user.username;
@@ -236,7 +243,48 @@ export const fetchTrips = (category) => {
     }
 }
 
-export const reviewUser = (id,payload) => {
+export const fetchSearchTrips = (val) => {
+    console.log(val);
+    return async (dispatch) => {
+        try {
+            let response = await fetch(
+                baseUrl + "customer/trip?search=" + val, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }
+            );
+            let result = await response.json();
+            console.log(result);
+            await dispatch(fetchTripAllSuccess(result));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const fetchReview = () => {
+    return async (dispatch) => {
+        try {
+            let response = await fetch(
+                baseUrl + 'customer/review', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }
+            );
+            let result = await response.json();
+            console.log(result);
+            await dispatch(fetchReviewSuccess(result));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const reviewUser = (id, payload) => {
     return async (dispatch) => {
         try {
             let response = await fetch(
@@ -306,6 +354,21 @@ export const createMytrip = (id) => {
                 }
             }
             );
+            let result = await response.json();
+            if (result.message === "you are already buy this trip") {
+                Swal.fire({
+                    icon: 'error',
+                    title: `Tidak bisa menambahkan trip yang sama`,
+                })
+            } else {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil menambahkan trip',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+
         } catch (error) {
             console.log(error);
         }
@@ -325,7 +388,6 @@ export const fetchMyTrip = () => {
             }
             );
             let result = await response.json();
-            console.log(result);
             dispatch(fetchMyTripSuccess(result))
         } catch (error) {
             console.log(error);

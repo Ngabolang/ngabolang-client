@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
 import { fetchCategories } from "../store/actions/actionCreator";
 import CategoriesCard from "../components/CategoriesCard";
 
@@ -41,7 +40,7 @@ export default function Categories() {
       </h1>
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 mx-20">
         {categories.map((card) => (
-          <CategoriesCard card={card} />
+          <CategoriesCard key={card.id} card={card} />
         ))}
       </div>
     </section>

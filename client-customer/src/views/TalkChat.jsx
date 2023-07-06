@@ -49,8 +49,8 @@ export default function TalkChat() {
   }, [talkLoaded]);
   return (
     <>
-      <div className="container-fluid mt-40">
-        <div style={{ height: "500px" }} ref={chatboxEl} />
+      <div className="container-fluid mt-[13vh] w-full">
+        <div style={{ height: "650px" }} ref={chatboxEl} />
       </div>
     </>
   );
