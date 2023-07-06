@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import logo from "../assets/ngabolang.png";
-import { login } from "../stores/actions/actionType";
+import { login } from "../stores/actions/actionCreator";
 export default function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();

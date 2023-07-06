@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import AutocompleteInput from "../components/AutocompleteInput";
-import { addTrip, fetchCat } from "../stores/actions/actionType";
+import { addTrip, fetchCat } from "../stores/actions/actionCreator";
 
 export default function AddTrip() {
   const navigate = useNavigate();
@@ -109,12 +109,13 @@ export default function AddTrip() {
   return (
     <section className="col-md-10">
       <div className="container-fluid">
-        <div className="d-sm-flex align-items-center justify-content-between mb-4 mt-3 pt-5">
-          <h1 className="h3 mb-0 text-gray-800">Add new Trip</h1>
-        </div>
-        {error && <div className="alert alert-danger"> {error}</div>}
         <div className="row">
-          <div className="col-md-6 pl-3">
+          <div className="d-sm-flex align-items-center justify-content-between mb-4 mt-3 pt-5">
+            <h1 className="h3 mb-0 col-md-6">Add new Trip</h1>
+          </div>
+          {error && <div className="alert alert-danger"> {error}</div>}
+          <div className="col-md-6 pl-3mt-1">
+            <h5>Trip</h5>
             <form onSubmit={handleSubmit}>
               <div className="form-group mb-3">
                 <label>Name</label>
@@ -256,8 +257,6 @@ export default function AddTrip() {
           </div>
 
           <div className="col-md-6 pl-5">
-            <h3>Destinations</h3>
-
             {destForm.map((el, index) => (
               <form key={index}>
                 <h5>Destination #{index + 1}</h5>

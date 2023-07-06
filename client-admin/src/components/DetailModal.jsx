@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchDetailTrip } from "../stores/actions/actionType";
+import { fetchDetailTrip } from "../stores/actions/actionCreator";
 import { useDispatch, useSelector } from "react-redux";
 import CardParticipants from "./CardParticipants";
 export default function DetailModal({ id }) {
@@ -20,6 +20,17 @@ export default function DetailModal({ id }) {
     style: "currency",
     currency: "IDR",
   });
+  function formatDate(dateString) {
+    const options = {
+      day: "numeric",
+      month: "long",
+      weekday: "long",
+      year: "numeric",
+    };
+    const date = new Date(dateString);
+    const formattedDate = date.toLocaleDateString("id-ID", options);
+    return formattedDate;
+  }
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
@@ -77,7 +88,7 @@ export default function DetailModal({ id }) {
                   <p>{trip.description}</p>
 
                   <h5>Start Date:</h5>
-                  <p>{trip.date.split("T")[0]}</p>
+                  <p>{formatDate(trip.date)}</p>
 
                   <h5>Duration:</h5>
                   <p>{trip.duration} Day</p>

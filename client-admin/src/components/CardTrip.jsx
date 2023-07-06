@@ -2,7 +2,7 @@ import DestModal from "./DestModal";
 import DetailModal from "./DetailModal";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { updateTrip } from "../stores/actions/actionType";
+import { updateTrip } from "../stores/actions/actionCreator";
 export default function CardTrip({ item }) {
   const navigate = useNavigate();
 
@@ -18,7 +18,17 @@ export default function CardTrip({ item }) {
     dispatch(updateTrip(item.id));
     navigate("/tripClose");
   }
-
+  function formatDate(dateString) {
+    const options = {
+      day: "numeric",
+      month: "long",
+      weekday: "long",
+      year: "numeric",
+    };
+    const date = new Date(dateString);
+    const formattedDate = date.toLocaleDateString("id-ID", options);
+    return formattedDate;
+  }
   return (
     <div className="card text-white m-3 p-0 shadow ">
       <div className="row">
@@ -31,7 +41,7 @@ export default function CardTrip({ item }) {
           <h5 className="text-black mt-1">
             Participants: {item.TripGroups.length}/{item.limit}
           </h5>
-          <p className="text-black mt-1">{item.date.split("T")[0]}</p>
+          <p className="text-black mt-1">{formatDate(item.date)}</p>
           <p className="text-black mt-1">Category: {item.Category.name}</p>
         </div>
         <div className="col-3 d-flex flex-column align-items-center justify-content-center">

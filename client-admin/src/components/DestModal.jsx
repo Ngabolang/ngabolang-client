@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { fetchDestTrip } from "../stores/actions/actionType";
+import { fetchDestTrip } from "../stores/actions/actionCreator";
 import { useDispatch, useSelector } from "react-redux";
 import CardDest from "./CardDest";
 export default function DestModal({ id }) {
@@ -36,8 +36,7 @@ export default function DestModal({ id }) {
           <div className="modal-dialog modal-lg">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Destinations - </h5>
-                <h5 className="modal-title">- Bali</h5>
+                <h5 className="modal-title">Destinations</h5>
                 <button
                   type="button"
                   className="btn-close"

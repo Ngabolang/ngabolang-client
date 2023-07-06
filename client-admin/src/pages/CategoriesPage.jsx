@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CardCategory from "../components/CardCategory";
-import { fetchCat } from "../stores/actions/actionType";
+import { fetchCat } from "../stores/actions/actionCreator";
 export default function CategoriesPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();

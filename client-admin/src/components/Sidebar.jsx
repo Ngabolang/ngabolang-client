@@ -2,7 +2,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/ngabolang-long.png";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUser } from "../stores/actions/actionType";
+import { fetchUser } from "../stores/actions/actionCreator";
 export default function Sidebar() {
   const navigate = useNavigate();
   const disptach = useDispatch();

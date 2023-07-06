@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CardTrip from "../components/CardTrip";
-import { fetchTrip } from "../stores/actions/actionType";
+import { fetchSearchTrip, fetchTrip } from "../stores/actions/actionCreator";
 export default function DashboardPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,13 +20,16 @@ export default function DashboardPage() {
   function handleAddTrip(params) {
     navigate("/newTrip");
   }
-  async function handleDelete(id) {
-    await Swal.fire({
-      title: "sucess",
-      text: `trip with id ${id} deleted`,
-      icon: "success",
-      confirmButtonText: "Okay",
-    });
+
+  const [valSearch, setValSearch] = useState("");
+
+  function handleSeacrh(e) {
+    setValSearch(e.target.value);
+  }
+
+  function submitSearch(e) {
+    e.preventDefault();
+    dispatch(fetchSearchTrip(valSearch));
   }
 
   if (loading) {
@@ -42,6 +45,21 @@ export default function DashboardPage() {
       <div className="container-fluid">
         <div className="d-sm-flex align-items-center justify-content-between mb-4 mt-3 pt-5">
           <h1 className="h3 mb-0">Trips</h1>
+          <div className="row">
+            <div className="col-12">
+              <form className="d-flex">
+                <input
+                  type="tezt"
+                  placeholder="Search"
+                  className="form-control"
+                  onChange={handleSeacrh}
+                />
+                <button className="btn btn-primary" onClick={submitSearch}>
+                  <i className="bi bi-search"></i>
+                </button>
+              </form>
+            </div>
+          </div>
           <button className="btn btn-primary p-2" onClick={handleAddTrip}>
             Add New Trip
           </button>

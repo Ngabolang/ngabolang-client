@@ -4,7 +4,7 @@ import {
   TRIP_FETCH_DEST,
   TRIP_FETCH_DETAIL,
   TRIP_FETCH_INFOCHAT,
-} from "../actions/actionCreator";
+} from "../actions/actionType";
 
 const initState = {
   trips: [],

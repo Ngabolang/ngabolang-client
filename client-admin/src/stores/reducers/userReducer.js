@@ -1,4 +1,4 @@
-import { GET_USER } from "../actions/actionCreator";
+import { GET_USER } from "../actions/actionType";
 
 const initState = {
   user: {},

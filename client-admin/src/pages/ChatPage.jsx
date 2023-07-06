@@ -1,6 +1,6 @@
 import Talk from "talkjs";
 import { useEffect, useState } from "react";
-import { fetchUser } from "../stores/actions/actionType";
+import { fetchUser } from "../stores/actions/actionCreator";
 import { useDispatch, useSelector } from "react-redux";
 export default function ChatPage() {
   // wait for TalkJS to load
