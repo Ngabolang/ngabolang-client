@@ -10,9 +10,8 @@ function LandingPage() {
   }
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }, []);
-
 
   return (
     <>
@@ -23,7 +22,12 @@ function LandingPage() {
               <h2 className="text-4xl font-bold mb-6">NGABOLANG</h2>
               <div className="mb-4 max-w-sm">
                 <p className="text-gray-600 mb-4 break-words text-xl">
-                Ngabolang memberikan wadah bagi orang-orang yang memiliki jiwa petualang dan menghubungkan mereka dengan travel agent terpercaya. Platform ini membuat perjalanan semakin menarik dengan menghubungkan para customer di suatu group dengan harapan terciptanya komunitas-komunitas travel untuk memajukan industri travel di Indonesia.
+                  Ngabolang memberikan wadah bagi orang-orang yang memiliki jiwa
+                  petualang dan menghubungkan mereka dengan travel agent
+                  terpercaya. Platform ini membuat perjalanan semakin menarik
+                  dengan menghubungkan para customer di suatu group dengan
+                  harapan terciptanya komunitas-komunitas travel untuk memajukan
+                  industri travel di Indonesia.
                 </p>
               </div>
               <div className="flex">

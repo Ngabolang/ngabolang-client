@@ -60,7 +60,7 @@ function HomeView() {
   }
   console.log(reviews);
   useEffect(() => {
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     if (isLoading) {
       dispatch(fetchCategories());
       dispatch(fetchTrips());
@@ -87,7 +87,7 @@ function HomeView() {
   }
 
   const images = [
-    "https://media.discordapp.net/attachments/1121744763859783772/1126321148087517185/syamsul.png",
+    "https://media.discordapp.net/attachments/1121744763859783772/1126371396826714143/syamsul.png?width=2160&height=644",
     "http://www.goldenrama.com/_next/image?url=https%3A%2F%2Fprod1-api.goldenrama.com%2F%2Fuploads%2FBMG_WEB_BANNER_E_COMMERCE_04_6b8d79745c.png&w=1920&q=100",
     "http://www.goldenrama.com/_next/image?url=https%3A%2F%2Fprod1-api.goldenrama.com%2F%2Fuploads%2FGRANVIA_de89a6cc9b.png&w=1920&q=100",
     "http://www.goldenrama.com/_next/image?url=https%3A%2F%2Fprod1-api.goldenrama.com%2F%2Fuploads%2FWEB_BANNER_QANTAS_01_0e19e6abe6.png&w=1920&q=100",

@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { registerUser } from "../store/actions/actionCreator";
 import axios from "axios";
+import logo from "../assets/ngabolang.png";
 
 function RegisterCustomerView() {
   // local state
@@ -64,11 +65,10 @@ function RegisterCustomerView() {
   async function handleRegister(e) {
     e.preventDefault();
     dispatch(registerUser(form))
-    .then((result) => {
-      navigate("/login");
-    }).catch((err) => {
-      
-    });
+      .then((result) => {
+        navigate("/login");
+      })
+      .catch((err) => {});
   }
   // lifecycle
   useEffect(() => {
@@ -86,15 +86,17 @@ function RegisterCustomerView() {
             }}
           ></div>
 
-          <div className="flex items-center w-full max-w-3xl p-8 mx-auto lg:px-12 lg:w-3/5">
+          <div className="flex items-center w-full max-w-3xl p-8 mb-10 mx-auto lg:px-12 lg:w-3/5">
             <div className="w-full">
-              <h1 className="text-2xl font-semibold tracking-wider text-gray-800 capitalize dark:text-white">
-                Get your free account now.
+              <div className=" flex items-center justify-center">
+                <img src={logo} alt="" className="w-[23vh] mb-10" />
+              </div>
+              <h1 className="text-3xl font-semibold tracking-wider text-gray-800 dark:text-white">
+                Get's started your journey.
               </h1>
 
               <p className="mt-4 text-gray-500 dark:text-gray-400">
-                Let’s get you all set up so you can verify your personal account
-                and begin setting up your profile.
+                Daftarkan diri dan lengkapi profil anda untuk memulai perjalanan travelling yang tak terlupakan bersama kami!
               </p>
 
               <form>

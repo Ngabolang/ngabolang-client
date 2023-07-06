@@ -194,7 +194,7 @@ export const loginGoogleUser = (payload) => {
             });
             // console.log(response);
             let result = await response.json();
-            // console.log(result);
+            console.log(result);
             if (!response.ok) throw { res: response.status, result }
             localStorage.access_token = result.access_token;
             localStorage.id = result.user.id;

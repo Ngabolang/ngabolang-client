@@ -22,7 +22,7 @@ function MyTrip() {
   }, []);
 
   return (
-    <div className="mt-20">
+    <div className="mt-20 h-[70vh]">
       {mytrips.length ? (
         <div className="py-12 flex flex-col justify-center items-center">
           {mytrips.map((el, index) => (
