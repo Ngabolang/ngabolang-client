@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 
-function Carousel({ images, width }) {
+function Carousel({ images }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const goToPreviousSlide = () => {
@@ -18,7 +18,7 @@ function Carousel({ images, width }) {
   useEffect(() => {
     document.body.style.margin = "0";
     document.body.style.padding = "0";
-    const timer = setInterval(goToNextSlide, 3000); // Auto swipe every 5 seconds
+    const timer = setInterval(goToNextSlide, 6000); // Auto swipe every 5 seconds
 
     return () => {
       clearInterval(timer); // Clear the timer when the component is unmounted
@@ -32,14 +32,14 @@ function Carousel({ images, width }) {
 
   const carouselStyle = {
     width: "100%",
-    paddingBottom: "23.25%",
+    paddingBottom: "26.25%",
     overflow: "hidden",
     position: "relative",
   };
 
   return (
     <div className="relative" style={carouselStyle}>
-      <div className="w-full h-full absolute top-0 left-0">
+      <div className="w-screen h-full absolute top-0 left-0">
         {images.map((image, index) => (
           <img
             key={index}

@@ -87,15 +87,16 @@ function HomeView() {
   }
 
   const images = [
-    "https://images.unsplash.com/photo-1528265417219-1a288ae08573?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-    "https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=738&q=80",
-    "https://images.unsplash.com/photo-1528265417219-1a288ae08573?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    "https://media.discordapp.net/attachments/1121744763859783772/1126321148087517185/syamsul.png",
+    "http://www.goldenrama.com/_next/image?url=https%3A%2F%2Fprod1-api.goldenrama.com%2F%2Fuploads%2FBMG_WEB_BANNER_E_COMMERCE_04_6b8d79745c.png&w=1920&q=100",
+    "http://www.goldenrama.com/_next/image?url=https%3A%2F%2Fprod1-api.goldenrama.com%2F%2Fuploads%2FGRANVIA_de89a6cc9b.png&w=1920&q=100",
+    "http://www.goldenrama.com/_next/image?url=https%3A%2F%2Fprod1-api.goldenrama.com%2F%2Fuploads%2FWEB_BANNER_QANTAS_01_0e19e6abe6.png&w=1920&q=100",
   ];
 
   return (
     <>
-      <div className="container mx-auto mt-[13vh]">
-        <Carousel images={images} width="100%" />
+      <div className=" flex items-center mt-[13vh]">
+        <Carousel images={images}/>
       </div>
       <div className="m-10">
         <div className="flex flex-col mx-[35vh]">

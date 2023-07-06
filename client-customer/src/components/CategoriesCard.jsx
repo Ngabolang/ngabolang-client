@@ -12,7 +12,7 @@ export default function CategoriesCard({ card }) {
       className="relative bg-gray-800 rounded-lg overflow-hidden shadow-lg"
     >
       <img
-        className="object-cover w-full h-64"
+        className="object-cover w-full h-64 "
         src={card.imgUrl}
         alt={card.name}
       />
