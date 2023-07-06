@@ -150,12 +150,21 @@ export default function TripDetail() {
                       {formatter.format(trip[0].price)}
                     </h1>
                   </div>
+                  {trip[0].status?
                   <button
-                    onClick={handlePay}
-                    className="bg-[#1db5ab] hover:bg-[#199a91] w-full my-3 rounded-lg py-2 shadow-md text-white"
-                  >
-                    <p className="font-bold"> Pesan Trip Sekarang</p>
-                  </button>
+                  onClick={handlePay}
+                  className="bg-[#1db5ab] hover:bg-[#199a91] w-full my-3 rounded-lg py-2 shadow-md text-white"
+                >
+                  <p className="font-bold"> Pesan Trip Sekarang</p>
+                </button>
+                :
+                <button
+                className=" w-full my-3 rounded-lg py-2 "
+              >
+                <p className="font-bold"> Trip tidak tersedia</p>
+              </button>
+                }
+                  
                 </div>
               </div>
             </div>
