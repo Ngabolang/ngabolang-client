@@ -20,9 +20,14 @@ export default function TripDetail() {
   const token = localStorage.access_token;
 
   function formatDate(dateString) {
-    const options = { day: 'numeric', month: 'long', weekday: 'long', year: 'numeric' };
+    const options = {
+      day: "numeric",
+      month: "long",
+      weekday: "long",
+      year: "numeric",
+    };
     const date = new Date(dateString);
-    const formattedDate = date.toLocaleDateString('id-ID', options);
+    const formattedDate = date.toLocaleDateString("id-ID", options);
     return formattedDate;
   }
 
@@ -120,18 +125,35 @@ export default function TripDetail() {
         <div className="flex justify-between mb-10">
           <div>
             <div className="mt-10 w-[60vh]">
-              <p className="text-3xl py-3 text-gray-800 font-semibold">Deskripsi</p>
+              <p className="text-3xl py-3 text-gray-800 font-semibold">
+                Deskripsi
+              </p>
               <p className="py-3">{trip[0].description}</p>
             </div>
             <div className="mt-10 w-[60vh]">
-              <p className="text-3xl py-3 text-gray-800 font-semibold">Info Detail</p>
-              <p className="py-2"><i class="fa-sharp fa-solid fa-arrows-to-circle"></i> Titik kumpul: {trip[0].meetingPoint}</p>
-              <p className="py-2"><i class="fa-sharp fa-solid fa-location-dot"></i> Lokasi perjalanan: {trip[0].location}</p>
-              <p className="py-2">
-              <i class="fa-solid fa-person"></i> Jumlah Peserta: {trip[0].TripGroups.length} dari {trip[0].limit} terisi
+              <p className="text-3xl py-3 text-gray-800 font-semibold">
+                Info Detail
               </p>
-              <p className="py-2"><i class="fa-solid fa-calendar-days"></i> Tanggal berangkat: {formatDate(trip[0].date)}</p>
-              <p className="py-2"><i class="fa-solid fa-clock"></i> Waktu perjalanan: {trip[0].duration} hari</p>
+              <p className="py-2">
+                <i className="fa-sharp fa-solid fa-arrows-to-circle"></i> Titik
+                kumpul: {trip[0].meetingPoint}
+              </p>
+              <p className="py-2">
+                <i className="fa-sharp fa-solid fa-location-dot"></i> Lokasi
+                perjalanan: {trip[0].location}
+              </p>
+              <p className="py-2">
+                <i className="fa-solid fa-person"></i> Jumlah Peserta:{" "}
+                {trip[0].TripGroups.length} dari {trip[0].limit} terisi
+              </p>
+              <p className="py-2">
+                <i className="fa-solid fa-calendar-days"></i> Tanggal berangkat:{" "}
+                {formatDate(trip[0].date)}
+              </p>
+              <p className="py-2">
+                <i className="fa-solid fa-clock"></i> Waktu perjalanan:{" "}
+                {trip[0].duration} hari
+              </p>
             </div>
           </div>
 
@@ -150,21 +172,18 @@ export default function TripDetail() {
                       {formatter.format(trip[0].price)}
                     </h1>
                   </div>
-                  {trip[0].status?
-                  <button
-                  onClick={handlePay}
-                  className="bg-[#1db5ab] hover:bg-[#199a91] w-full my-3 rounded-lg py-2 shadow-md text-white"
-                >
-                  <p className="font-bold"> Pesan Trip Sekarang</p>
-                </button>
-                :
-                <button
-                className=" w-full my-3 rounded-lg py-2 "
-              >
-                <p className="font-bold"> Trip tidak tersedia</p>
-              </button>
-                }
-                  
+                  {trip[0].status ? (
+                    <button
+                      onClick={handlePay}
+                      className="bg-[#1db5ab] hover:bg-[#199a91] w-full my-3 rounded-lg py-2 shadow-md text-white"
+                    >
+                      <p className="font-bold"> Pesan Trip Sekarang</p>
+                    </button>
+                  ) : (
+                    <button className=" w-full my-3 rounded-lg py-2 ">
+                      <p className="font-bold"> Trip tidak tersedia</p>
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -181,7 +200,7 @@ export default function TripDetail() {
                     className="divide-y divide-gray-200 dark:divide-gray-700"
                   >
                     {trip[0].TripGroups.map((el, index) => (
-                      <Participant key={index} user={el.User}></Participant>
+                      <Participant key={index} array={trip[0].TripGroups} user={el.User}></Participant>
                     ))}
                   </ul>
                 </div>
@@ -192,7 +211,9 @@ export default function TripDetail() {
         <hr />
 
         <div className="my-5">
-          <p className="text-3xl py-3 font-semibold text-gray-800">Lokasi Perjalanan</p>
+          <p className="text-3xl py-3 font-semibold text-gray-800">
+            Lokasi Perjalanan
+          </p>
           <div className="w-[120vh]">
             <DestinationCarousel
               cards={trip[0].Destinations}
