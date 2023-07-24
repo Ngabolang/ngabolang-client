@@ -9,7 +9,7 @@ const ReviewCard = ({ name, profilePhoto, reviewText, rating, trip, date }) => {
   }
   
     return (
-    <div className="flex p-4 bg-white rounded-lg shadow w-[40vh] pt-4">
+    <div className="flex p-4 text-xs bg-white rounded-lg shadow w-[40vh] pt-4">
       <div className="flex-shrink-0 mt-2">
         <img
           src={profilePhoto}

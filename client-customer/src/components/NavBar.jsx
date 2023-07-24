@@ -54,7 +54,7 @@ function NavBar() {
   }
 
   return (
-    <nav className="fixed top-0 z-50 flex items-center justify-between px-40 bg-white text-black w-screen shadow-md py-1">
+    <nav className="fixed top-0 z-50 flex items-center justify-between bg-white text-black w-screen shadow-md">
       <div className="flex items-center my-3">
         <div className="mr-10 cursor-pointer" onClick={handleAbout}>
           <img src={logo} alt="Logo" className="w-[14vh]" />

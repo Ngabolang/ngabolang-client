@@ -10,7 +10,7 @@ function App() {
     <>
       <NavBar></NavBar>
       <Outlet></Outlet>
-      <FooterNgabolang></FooterNgabolang>
+      {/* <FooterNgabolang></FooterNgabolang> */}
       
     </>
   );

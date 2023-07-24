@@ -1,7 +1,6 @@
-import { FETCH_CATEGORIES, FETCH_MYTRIP, FETCH_REVIEW, FETCH_TRIPS, FETCH_TRIP_DETAIL, USER_LOGIN } from "./actionType"
+import { FETCH_CATEGORIES, FETCH_MYTRIP, FETCH_REVIEW, FETCH_TRIPS, FETCH_TRIP_DETAIL, USER_LOGIN, BASE_URL } from "./actionType"
 import axios from 'axios'
 import Swal from 'sweetalert2'
-const baseUrl = "http://localhost:3000/";
 // http://localhost:3000/
 // https://mcd-server.jatisuryo.com/
 
@@ -52,7 +51,7 @@ export const paymentGateway = (tripId) => {
     return async (dispatch) => {
         try {
             let response = await fetch(
-                baseUrl + "customer/midtrans/" + tripId, {
+                BASE_URL + "customer/midtrans/" + tripId, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,7 +88,7 @@ export const updateStatus = (tripId) => {
     return async (dispatch) => {
         try {
             let { data } = await axios({
-                url: baseUrl + `customer/payment/${tripId}`,
+                url: BASE_URL + `customer/payment/${tripId}`,
                 method: 'patch',
                 headers: {
                     access_token: localStorage.access_token
@@ -115,7 +114,7 @@ export const registerUser = (payload) => {
     return async (dispatch) => {
         try {
             let response = await fetch(
-                baseUrl + "customer/register", {
+                BASE_URL + "customer/register", {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
@@ -147,7 +146,7 @@ export const registerUser = (payload) => {
 export const loginUser = (payload) => {
     return async (dispatch) => {
         try {
-            let response = await fetch(baseUrl + `customer/login`, {
+            let response = await fetch(BASE_URL + `customer/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -185,7 +184,7 @@ export const loginGoogleUser = (payload) => {
     console.log(payload);
     return async (dispatch) => {
         try {
-            let response = await fetch(baseUrl + `customer/google-sign-in`, {
+            let response = await fetch(BASE_URL + `customer/google-sign-in`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -228,7 +227,7 @@ export const fetchTrips = (category) => {
                 endpoint = `customer/trip-by-category/${category}`
             }
             let response = await fetch(
-                baseUrl + endpoint, {
+                BASE_URL + endpoint, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -248,7 +247,7 @@ export const fetchSearchTrips = (val) => {
     return async (dispatch) => {
         try {
             let response = await fetch(
-                baseUrl + "customer/trip?search=" + val, {
+                BASE_URL + "customer/trip?search=" + val, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -268,7 +267,7 @@ export const fetchReview = () => {
     return async (dispatch) => {
         try {
             let response = await fetch(
-                baseUrl + 'customer/review', {
+                BASE_URL + 'customer/review', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -288,7 +287,7 @@ export const reviewUser = (id, payload) => {
     return async (dispatch) => {
         try {
             let response = await fetch(
-                baseUrl + `customer/review/${id}`, {
+                BASE_URL + `customer/review/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -308,7 +307,7 @@ export const fetchTripDetail = (id) => {
     return async (dispatch) => {
         try {
             let response = await fetch(
-                baseUrl + "customer/trip-by-id/" + id, {
+                BASE_URL + "customer/trip-by-id/" + id, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -327,7 +326,7 @@ export const fetchCategories = () => {
     return async (dispatch) => {
         try {
             let response = await fetch(
-                baseUrl + "customer/category", {
+                BASE_URL + "customer/category", {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -346,7 +345,7 @@ export const createMytrip = (id) => {
     return async (dispatch) => {
         try {
             let response = await fetch(
-                baseUrl + `customer/buy-trip/${id}`, {
+                BASE_URL + `customer/buy-trip/${id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -379,7 +378,7 @@ export const fetchMyTrip = () => {
     return async (dispatch) => {
         try {
             let response = await fetch(
-                baseUrl + `customer/my-trip`, {
+                BASE_URL + `customer/my-trip`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

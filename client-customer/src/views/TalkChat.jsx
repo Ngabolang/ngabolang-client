@@ -27,7 +27,7 @@ export default function TalkChat() {
       }); // ini buat customer yg login
 
       const session = new Talk.Session({
-        appId: "tKz5u74h",
+        appId: "tWD97xPP",
         me: customer,
       });
 

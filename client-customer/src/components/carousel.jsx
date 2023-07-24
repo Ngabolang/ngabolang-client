@@ -32,7 +32,7 @@ function Carousel({ images }) {
 
   const carouselStyle = {
     width: "100%",
-    paddingBottom: "26.25%",
+    paddingBottom: "35.25%",
     overflow: "hidden",
     position: "relative",
   };

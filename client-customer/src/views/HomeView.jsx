@@ -94,22 +94,23 @@ function HomeView() {
   ];
 
   return (
-    <>
-      <div className=" flex items-center mt-[13vh]">
+    <div className="w-screen">
+      <div className=" flex items-center mt-[9vh]">
         <Carousel images={images}/>
       </div>
-      <div className="m-10">
-        <div className="flex flex-col mx-[35vh]">
+
+      <div className="m-2">
+        <div className="flex flex-col">
           <div className="flex justify-between">
-            <p className="font-semibold text-2xl">Top kategori</p>
+            <p className="font-semibold text-xl">Top kategori</p>
             <button onClick={handleCategory}>Lihat Semua Kategori</button>
           </div>
 
           <hr className="w-full bg-gray-400"></hr>
-          <div className="">
-            <div className="my-4 items-center justify-center gap-6 flex ">
+          <div className="overflow-x-scroll hide-scroll-bar ">
+            <div className="flex flex-nowrap my-4">
               {categories.slice(0, 4).map((el, index) => (
-                <div key={index} className="w-40">
+                <div key={index} >
                   <CategoriesCard  card={el}></CategoriesCard>
                 </div>
               ))}
@@ -117,9 +118,9 @@ function HomeView() {
           </div>
         </div>
 
-        <div className="flex flex-col mx-[35vh]">
+        <div className="flex flex-col">
           <div className="flex justify-between">
-            <p className="font-semibold text-2xl">Trip terbaru</p>
+            <p className="font-semibold text-xl">Trip terbaru</p>
             <button onClick={handleTrip}>Lihat semua trip</button>
           </div>
 
@@ -133,9 +134,9 @@ function HomeView() {
           </div>
         </div>
 
-        <div className="flex flex-col mx-[35vh] my-20">
+        <div className="flex flex-col ">
           <div className="flex justify-between">
-            <p className="font-semibold text-2xl">Review</p>
+            <p className="font-semibold text-xl">Review</p>
            
           </div>
 
@@ -151,7 +152,7 @@ function HomeView() {
         </div>
       
       </div>
-    </>
+    </div>
   );
 }
 
